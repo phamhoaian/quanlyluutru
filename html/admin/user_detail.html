@@ -174,7 +174,7 @@
 						<!-- END SIDEBAR TOGGLER BUTTON -->
 						<!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
 						<li class="nav-item start ">
-							<a href="#" class="nav-link nav-toggle">
+							<a href="index.html" class="nav-link nav-toggle">
 								<i class="icon-home"></i>
 								<span class="title">Tổng quan</span>
 								<span class="selected"></span>
@@ -188,13 +188,13 @@
 							</a>
 							<ul class="sub-menu">
 								<li class="nav-item  ">
-									<a href="#" class="nav-link ">
+									<a href="hotel_list.html" class="nav-link ">
 										<i class="icon-list"></i>&nbsp;
 										<span class="title">Danh sách</span>
 									</a>
 								</li>
 								<li class="nav-item  ">
-									<a href="#" class="nav-link ">
+									<a href="hotel_add.html" class="nav-link ">
 										<i class="icon-plus"></i>&nbsp;
 										<span class="title">Thêm mới</span>
 									</a>
@@ -202,7 +202,7 @@
 							</ul>
 						</li>
 						<li class="nav-item  ">
-							<a href="#" class="nav-link nav-toggle">
+							<a href="search.html" class="nav-link nav-toggle">
 								<i class="icon-layers"></i>
 								<span class="title">Tra cứu thông tin</span>
 							</a>
@@ -215,13 +215,13 @@
 							</a>
 							<ul class="sub-menu">
 								<li class="nav-item active">
-									<a href="#" class="nav-link ">
+									<a href="user_list.html" class="nav-link ">
 										<i class="icon-list"></i>&nbsp;
 										<span class="title">Danh sách</span>
 									</a>
 								</li>
 								<li class="nav-item  ">
-									<a href="#" class="nav-link ">
+									<a href="user_add.html" class="nav-link ">
 										<i class="icon-plus"></i>&nbsp;
 										<span class="title">Thêm mới</span>
 									</a>
@@ -229,7 +229,7 @@
 							</ul>
 						</li>
 						<li class="nav-item  ">
-							<a href="#" class="nav-link nav-toggle">
+							<a href="setting.html" class="nav-link nav-toggle">
 								<i class="icon-settings"></i>
 								<span class="title">Thiết lập</span>
 							</a>
@@ -263,7 +263,7 @@
 					</div>
 					<!-- END PAGE BAR -->
 					<!-- BEGIN PAGE TITLE-->
-					<h1 class="page-title"> Thông tin tài khoản </h1>
+					<h1 class="page-title"> Quản lý tài khoản </h1>
 					<!-- END PAGE TITLE-->
 					<!-- END PAGE HEADER-->
 					<div class="row">
@@ -328,7 +328,7 @@
 													<div class="tab-pane active" id="tab_1_1">
 														<form role="form" action="#">
 															<div class="form-group">
-																<label class="control-label">Họ tên</label>
+																<label class="control-label">Tên tài khoản <span class="required">*</span></label>
 																<input type="text" placeholder="Trần Văn A" class="form-control"> 
 															</div>
 															<div class="form-group">
@@ -336,14 +336,18 @@
 																<input type="text" placeholder="0909 123 456" class="form-control"> 
 															</div>
 															<div class="form-group">
-																<label class="control-label">Email</label>
+																<label class="control-label">Email <span class="required">*</span></label>
 																<input type="text" placeholder="example@gmail.com" class="form-control"> 
 															</div>
 															<div class="form-group">
 																<label class="control-label">Ghi chú</label>
 																<textarea class="form-control" rows="3" placeholder="Thông tin thêm!!!"></textarea>
 															</div>
-															<div class="margiv-top-10">
+															<div class="form-group">
+				                                                <span class="label label-danger">Lưu ý !</span>&nbsp;
+			                                                    <span>Trường chứa <span class="required">*</span> là bắt buộc nhập.</span>
+				                                            </div>
+															<div class="margin-top-20">
 																<a href="javascript:;" class="btn green"> Cập Nhật </a>
 																<a href="javascript:;" class="btn default"> Hủy Bỏ </a>
 															</div>
