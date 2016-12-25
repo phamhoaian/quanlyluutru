@@ -326,30 +326,30 @@
 												<div class="tab-content">
 													<!-- PERSONAL INFO TAB -->
 													<div class="tab-pane active" id="tab_1_1">
-														<form role="form" action="#">
+														<form role="form" action="#" id="user_form">
 															<div class="form-group">
 																<label class="control-label">Tên tài khoản <span class="required">*</span></label>
-																<input type="text" placeholder="Trần Văn A" class="form-control"> 
+																<input name="username" type="text" placeholder="Trần Văn A" class="form-control"> 
 															</div>
 															<div class="form-group">
 																<label class="control-label">Số điện thoại</label>
-																<input type="text" placeholder="0909 123 456" class="form-control"> 
+																<input name="phone" type="text" placeholder="0909 123 456" class="form-control"> 
 															</div>
 															<div class="form-group">
 																<label class="control-label">Email <span class="required">*</span></label>
-																<input type="text" placeholder="example@gmail.com" class="form-control"> 
+																<input name="email" type="text" placeholder="example@gmail.com" class="form-control"> 
 															</div>
 															<div class="form-group">
 																<label class="control-label">Ghi chú</label>
-																<textarea class="form-control" rows="3" placeholder="Thông tin thêm!!!"></textarea>
+																<textarea name="note" class="form-control" rows="3" placeholder="Thông tin thêm!!!"></textarea>
 															</div>
 															<div class="form-group">
 				                                                <span class="label label-danger">Lưu ý !</span>&nbsp;
 			                                                    <span>Trường chứa <span class="required">*</span> là bắt buộc nhập.</span>
 				                                            </div>
 															<div class="margin-top-20">
-																<a href="javascript:;" class="btn green"> Cập Nhật </a>
-																<a href="javascript:;" class="btn default"> Hủy Bỏ </a>
+																<button type="submit" class="btn green">Thêm mới</button>
+                                                    			<button type="reset" class="btn default">Hủy bỏ</button>
 															</div>
 														</form>
 													</div>
@@ -386,21 +386,21 @@
 													<!-- END CHANGE AVATAR TAB -->
 													<!-- CHANGE PASSWORD TAB -->
 													<div class="tab-pane" id="tab_1_3">
-														<form action="#">
+														<form action="#" id="user_change_password">
 															<div class="form-group">
-																<label class="control-label">Mật khẩu hiện tại</label>
-																<input type="password" class="form-control"> 
+																<label class="control-label">Mật khẩu hiện tại <span class="required">*</span></label>
+																<input name="current_password" type="password" class="form-control"> 
 															</div>
 															<div class="form-group">
-																<label class="control-label">Mật khẩu mới</label>
-																<input type="password" class="form-control"> 
+																<label class="control-label">Mật khẩu mới <span class="required">*</span></label>
+																<input name="new_password" id="new_password" type="password" class="form-control"> 
 															</div>
 															<div class="form-group">
-																<label class="control-label">Nhập lại mật khẩu mới</label>
-																<input type="password" class="form-control"> </div>
+																<label class="control-label">Nhập lại mật khẩu mới <span class="required">*</span></label>
+																<input name="retype_new_password" type="password" class="form-control"> </div>
 															<div class="margin-top-10">
-																<a href="javascript:;" class="btn green"> Đổi mật khẩu </a>
-																<a href="javascript:;" class="btn default"> Hủy bỏ </a>
+																<button type="submit" class="btn green">Đổi mật khẩu</button>
+                                                    			<button type="reset" class="btn default">Hủy bỏ</button>
 															</div>
 														</form>
 													</div>
@@ -452,6 +452,8 @@
 	<!-- END CORE PLUGINS -->
 	<!-- BEGIN PAGE PLUGINS -->
 	<script src="../assets/assets/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
+	<script src="../assets/assets/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="../assets/admin/scripts/user.js" type="text/javascript"></script>
 	<!-- END PAGE PLUGINS -->
 	<!-- BEGIN THEME GLOBAL SCRIPTS -->
 	<script src="../assets/assets/scripts/app.js" type="text/javascript"></script>

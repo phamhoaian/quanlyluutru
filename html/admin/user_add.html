@@ -276,12 +276,12 @@
                                 </div>
                                 <div class="portlet-body form">
                                     <!-- BEGIN FORM-->
-                                    <form action="#" class="form-horizontal">
+                                    <form action="#" class="form-horizontal" id="user_form">
                                         <div class="form-body">
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">Tên tài khoản <span class="required">*</span></label>
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control input-circle" placeholder="Trần Văn A">
+                                                    <input name="username" type="text" class="form-control input-circle" placeholder="Trần Văn A">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -291,7 +291,7 @@
                                                         <span class="input-group-addon input-circle-left">
                                                         <i class="fa fa-phone"></i>
                                                         </span>
-                                                        <input type="text" class="form-control input-circle-right" placeholder="0909 123 456">
+                                                        <input name="phone" type="text" class="form-control input-circle-right" placeholder="0909 123 456">
                                                     </div>
                                                 </div>
                                             </div>
@@ -302,7 +302,7 @@
                                                         <span class="input-group-addon input-circle-left">
                                                         <i class="fa fa-envelope"></i>
                                                         </span>
-                                                        <input type="email" class="form-control input-circle-right" placeholder="example@gmail.com">
+                                                        <input name="email" type="email" class="form-control input-circle-right" placeholder="example@gmail.com">
                                                     </div>
                                                 </div>
                                             </div>
@@ -319,7 +319,7 @@
                                                             <span class="btn default btn-file">
                                                                 <span class="fileinput-new"> Chọn ảnh </span>
                                                                 <span class="fileinput-exists"> Đổi ảnh khác </span>
-                                                                <input type="file" name="..."> </span>
+                                                                <input type="file" name="image"> </span>
                                                             <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> Xóa </a>
                                                         </div>
                                                     </div>
@@ -336,7 +336,7 @@
                                             <div class="row">
                                                 <div class="col-md-offset-3 col-md-9">
                                                     <button type="submit" class="btn btn-circle blue">Thêm mới</button>
-                                                    <button type="button" class="btn btn-circle default">Hủy bỏ</button>
+                                                    <button type="reset" class="btn btn-circle default">Hủy bỏ</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -376,6 +376,8 @@
     <!-- END CORE PLUGINS -->
     <!-- BEGIN PAGE PLUGINS -->
     <script src="../assets/assets/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
+    <script src="../assets/assets/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="../assets/admin/scripts/user.js" type="text/javascript"></script>
     <!-- END PAGE PLUGINS -->
     <!-- BEGIN THEME GLOBAL SCRIPTS -->
     <script src="../assets/assets/scripts/app.js" type="text/javascript"></script>
