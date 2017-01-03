@@ -36,4 +36,26 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
+
+    public function getLogin()
+    {
+        return view('pages.login');
+    }
+
+    public function postLogin(Request $request)
+    {
+        $login = array(
+            'username' => $request->username,
+            'password' => $request->password
+        );
+
+        if ($this->auth->attempt($login))
+        {
+            return redirect()->route('admin.cate.list');
+        }
+        else
+        {
+            return redirect()->back();
+        }
+    }
 }
