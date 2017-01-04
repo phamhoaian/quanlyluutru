@@ -22,6 +22,10 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('tong-quan', function() {
 		    //
 		});
+
+		Route::group(['prefix' => 'tai-khoan'], function() {
+			Route::get('danh-sach', 'Admin\UserController@showListUsers');
+		});
 	});
 });
 
