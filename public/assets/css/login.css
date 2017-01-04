@@ -1,0 +1,245 @@
+html, body {
+	height: 100%;
+	width: 100%;
+}
+.clear {
+    padding: 0;
+    margin: 0;
+    clear: both;
+    height: 0;
+    line-height: 0;
+}
+#login {
+	display: table;
+	height: 100%;
+	width: 100%;
+	background: url(../img/login-bg.jpg) no-repeat;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="", sizingMethod="scale");
+}
+#header {
+	background-color: #5c97bd;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+#header .logo {
+	border-collapse: collapse;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+#header .logo li {
+	display: inline-block;
+	color: #edf4f8;
+	font-family: 'Roboto Condensed', sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 16px;
+}
+#content {
+	display: table-cell;
+    vertical-align: middle;
+}
+#content .bg {
+	position: relative;
+    background: #FFF;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+    -moz-opacity: 0.2;
+    -webkit-opacity: 0.2;
+    opacity: 0.2;
+    height: 120px;
+    -webkit-box-shadow: 0px 0px 5px 5px rgba(0,0,0,1);
+    -moz-box-shadow: 0px 0px 5px 5px rgba(0,0,0,1);
+    box-shadow: 0px 0px 5x 5px rgba(0,0,0,1);
+}
+#content .text {
+    position: absolute;
+    top: 50%;
+    left: 18%;
+    margin-top: -30px;
+}
+#content .title {
+	width: 100%;
+	height: 120px;
+	position: absolute;
+	color: #FFf;
+	text-shadow: 1px 1px 5px #000;
+    text-transform: uppercase;
+    font-family: 'Roboto Condensed', sans-serif;
+	font-weight: bold;
+    top: 50%;
+    margin-top: -60px;
+}
+#content .title h2 {
+	font-size: 20px;
+	font-weight: bold;
+	margin: 0 0 10px;
+}
+#content .title h1 {
+	font-size: 28px;
+	font-weight: bold;
+	font-family: Arial;
+	margin: 0;
+}
+#content .wrapper {
+	width: 1280px;
+	margin: auto;
+}
+#content .login-form {
+	position: relative;
+    background-color: #5c97bd;
+    padding: 20px;
+    width: 450px;
+    margin-right: 30px;
+    float: right;
+    border-top: 3px solid #e0ebf9;
+}
+.login-form .form-title {
+    margin-bottom: 20px;
+    color: #edf4f8;
+    font-size: 20px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bold;
+}
+.form-control {
+    background-color: #6ba3c8;
+    border: 1px solid #6ba3c8;
+    color: #d9ecf9;
+    border-radius: 0;
+    box-shadow: none;
+}
+.form-control:focus, .form-control:active {
+	border: 1px solid #83b8db;
+}
+.form-control::-moz-placeholder {
+    color: #d9ecf9;
+    opacity: 1; 
+}
+.form-control:-ms-input-placeholder {
+    color: #d9ecf9;
+}
+.form-control::-webkit-input-placeholder {
+    color: #d9ecf9;
+}
+.login-form .btn {
+	padding: 10px 25px;
+    color: #fff;
+    background-color: #e7505a;
+    border-color: #e7505a;
+    text-transform: uppercase;
+    border-radius: 0;
+}
+.has-error .help-block {
+    color: #a2121d;
+}
+#footer {
+	background-color: #5c97bd;
+	display: table;
+	width: 100%;
+	height: auto;
+	position: fixed;
+	bottom: 0;
+	padding: 15px 0;
+}
+#footer .wrapper {
+	display: table-row;
+	height: auto;
+	text-align: center;
+}
+#footer .left, #footer .right {
+	margin: auto;
+	width: auto;
+	padding: 0;
+	display: table-cell;
+	vertical-align: middle;
+}
+#footer .left {
+	text-align: left;
+    padding-left: 2%;
+}
+#footer .right {
+	text-align: right;
+	padding-right: 2%;
+	
+}
+#footer .support-phone {
+	margin: 0;
+	font-size: 16px;
+	color: #edf4f8;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+#footer .copyright {
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size: 14px;
+	color: #edf4f8;
+	margin: 0;
+}
+@media screen and (max-width: 1280px) {
+	#content .wrapper {
+		width: auto;
+	}
+	#content .text {
+		left: 30px;
+	}
+}
+@media screen and (max-width: 1024px) {
+	#header, #footer {
+		position: relative;
+	}
+	#login, #content {
+		display: block;
+		height: auto;
+	}
+	#login {
+		padding-bottom: 20px;
+	}
+	#content .login-form {
+		margin: 0 auto;
+		float: none;
+	}
+	#content .title {
+		height: auto;
+		position: relative;
+		margin: 0 0 20px;
+		text-align: center;
+	}
+	#content .text {
+		width: 100%;
+		left: 0;
+	}
+}
+@media screen and (max-width: 450px) {
+	#header .logo li {
+		font-size: 14px;
+	}
+	#header .logo .image {
+		width: 40px;
+	}
+	#header .logo img {
+		max-width: 100%;
+	}
+	#content .login-form {
+		width: 100%;
+	}
+	#content .title h2 {
+		font-size: 16px;
+	}
+	#content .title h1 {
+		font-size: 24px;
+	}
+}
+@media screen and (max-width: 320px) {
+	#footer .left, #footer .right {
+		display: block;
+		text-align: left;
+		padding: 2%;
+	}
+}
