@@ -26,7 +26,14 @@ class LoginController extends Controller
 
     	if (Auth::attempt(['email' => $email, 'password' => $password])) // correct
     	{
-            return redirect('/home');
+            if (Auth::user()->isAdmin())
+            {
+                return redirect('/quan-ly/tong-quan');
+            }
+            else
+            {
+                return redirect('/');
+            }
         }
         else // failed
         {

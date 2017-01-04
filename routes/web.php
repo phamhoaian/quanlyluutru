@@ -18,8 +18,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/home', 'HomeController@index');
 
-	Route::group(['prefix' => 'quan-tri', 'middleware' => 'role'], function() {
-
+	Route::group(['prefix' => 'quan-ly', 'middleware' => 'role'], function() {
+		Route::get('tong-quan', function() {
+		    //
+		});
 	});
 });
 
