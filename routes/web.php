@@ -11,12 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => 'auth'], function () {
+	Route::get('/', function () {
+	    return view('welcome');
+	});
+
+	Route::get('/home', 'HomeController@index');
+
+	Route::group(['prefix' => 'quan-tri', 'middleware' => 'role'], function() {
+
+	});
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index');
-
-Route::get('/dang-nhap', 'Auth\LoginController@getLogin');
+Route::get('/dang-nhap', 'LoginController@showLoginForm');
+Route::post('/dang-nhap', 'LoginController@login');
+Route::post('/dang-xuat', 'LoginController@logout');

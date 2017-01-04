@@ -33,11 +33,21 @@
                     <form class="login-form" action="{{ url('/dang-nhap') }}" method="POST">
                         {{ csrf_field() }}
                         <div class="form-title">Đăng nhập</div>
-                        <div class="form-group">
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <input type="text" class="form-control" autocomplete="off" placeholder="Email" name="email" value="{{ old('email') }}">
+                            @if ($errors->has('email'))
+                                <span class="help-block help-block-error">
+                                    {{ $errors->first('email') }}
+                                </span>
+                            @endif
                         </div>
-                        <div class="form-group">
+                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <input type="password" class="form-control" autocomplete="off" placeholder="Mật khẩu" name="password">
+                            @if ($errors->has('password'))
+                                <span class="help-block help-block-error">
+                                    {{ $errors->first('password') }}
+                                </span>
+                            @endif
                         </div>
                         <div class="form-actions">
                             <button type="submit" class="btn btn-block">Đăng nhập</button>
