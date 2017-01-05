@@ -52,13 +52,13 @@
 				</a>
 				<ul class="sub-menu">
 					<li class="nav-item {{ (Request::segment('2') == 'tai-khoan' && Request::segment('3') == 'danh-sach') ? 'active' : false }}">
-						<a href="{{ url('/quan-ly/tai-khoan/danh-sach') }}" class="nav-link ">
+						<a href="{{ route('admin.user.list') }}" class="nav-link ">
 							<i class="icon-list"></i>&nbsp;
 							<span class="title">Danh sách</span>
 						</a>
 					</li>
 					<li class="nav-item {{ (Request::segment('2') == 'tai-khoan' && Request::segment('3') == 'them-moi') ? 'active' : false }}">
-						<a href="{{ url('/quan-ly/tai-khoan/them-moi') }}" class="nav-link ">
+						<a href="{{ route('admin.user.add') }}" class="nav-link ">
 							<i class="icon-plus"></i>&nbsp;
 							<span class="title">Thêm mới</span>
 						</a>

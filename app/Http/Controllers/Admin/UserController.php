@@ -20,4 +20,9 @@ class UserController extends Controller
     	$users = $this->userRepository->getListUsers();
     	return view('admin.user.list', compact('users'));
     }
+
+    public function showUserFormAdd()
+    {
+    	return view('admin.user.add');
+    }
 }

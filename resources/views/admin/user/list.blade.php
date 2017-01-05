@@ -2,7 +2,6 @@
 
 @section('breadcrumb', 'Danh sách tài khoản')
 @section('page-title', 'Quản lý tài khoản')
-@section('menu-active', 'user')
 
 @section('css')
 <link href="{{ asset('public/assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
