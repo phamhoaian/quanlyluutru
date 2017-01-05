@@ -24,7 +24,13 @@ Route::group(['middleware' => 'auth'], function () {
 		});
 
 		Route::group(['prefix' => 'tai-khoan'], function() {
-			Route::get('danh-sach', 'Admin\UserController@showListUsers');
+			Route::get('danh-sach', ['as' => 'admin.user.list', 'uses' => 'Admin\UserController@showListUsers']);
+			Route::get('them-moi', ['as' => 'admin.user.add', 'uses' => 'Admin\UserController@showUserFormAdd']);
+			Route::post('them-moi', ['as' => 'admin.user.postAdd', 'uses' => 'Admin\UserController@userFormAdd']);
+			Route::get('thong-tin/{id}', ['as' => 'admin.user.edit', 'uses' => 'Admin\UserController@showUserFormEdit']);
+			Route::post('thong-tin/{id}', ['as' => 'admin.user.postEdit', 'uses' => 'Admin\UserController@userFormEdit']);
+			Route::get('khoa/{id}', ['as' => 'admin.user.suspend', 'uses' => 'Admin\UserController@suspendUser']);
+			Route::get('xoa/{id}', ['as' => 'admin.user.delete', 'uses' => 'Admin\UserController@deleteUser']);
 		});
 	});
 });

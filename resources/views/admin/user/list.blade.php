@@ -25,19 +25,21 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="btn-group">
-								<button id="sample_editable_1_new" class="btn sbold green"> Thêm mới
-									<i class="fa fa-plus"></i>
-								</button>
+								<a href="{{ route('admin.user.add') }}">
+									<button class="btn sbold green"> Thêm mới
+										<i class="fa fa-plus"></i>
+									</button>
+								</a>
 							</div>
 						</div>
 					</div>
 				</div>
-				<table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
+				<table class="table table-striped table-bordered table-hover table-checkable order-column" id="list_users">
 					<thead>
 						<tr>
 							<th>
 								<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-									<input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" />
+									<input type="checkbox" class="group-checkable" data-set="#list_users .checkboxes" />
 									<span></span>
 								</label>
 							</th>
@@ -49,55 +51,31 @@
 						</tr>
 					</thead>
 					<tbody>
+					@if ($users)
+						@foreach ($users as $user)
 						<tr class="odd gradeX">
 							<td>
 								<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-									<input type="checkbox" class="checkboxes" value="1" />
+									<input type="checkbox" class="checkboxes" value="{{ $user->id }}" />
 									<span></span>
 								</label>
 							</td>
-							<td> shuxer </td>
+							<td>{{ $user->name }}</td>
 							<td>
-								<a href="mailto:shuxer@gmail.com"> shuxer@gmail.com </a>
+								<a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
 							</td>
 							<td>
+							@if ($user->active_flg)
 								<span class="label label-sm label-info"> Hoạt động </span>
-							</td>
-							<td class="center"> 12 Jan 2012 </td>
-							<td class="text-center">
-								<a href="#" class="btn btn-xs blue">
-									<i class="fa fa-edit"></i>
-									Chỉnh sửa
-								</a>
-								<a href="javascript:void(0);" class="btn btn-xs yellow">
-									<i class="fa fa-lock"></i>
-									Khóa
-								</a>
-								<a href="javascript:void(0)" class="btn btn-xs red">
-									<i class="fa fa-trash"></i>
-									Xóa
-								</a>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-									<input type="checkbox" class="checkboxes" value="1" />
-									<span></span>
-								</label>
-							</td>
-							<td> looper </td>
-							<td>
-								<a href="mailto:looper90@gmail.com"> looper90@gmail.com </a>
-							</td>
-							<td>
+							@else
 								<span class="label label-sm label-danger"> Khóa </span>
+							@endif
 							</td>
-							<td class="center"> 12.12.2011 </td>
+							<td class="center">{{ \Carbon\Carbon::parse($user->last_login)->format('H:i:s d/m/Y') }}</td>
 							<td class="text-center">
-								<a href="#" class="btn btn-xs blue">
+								<a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-xs blue">
 									<i class="fa fa-edit"></i>
-									Chỉnh sửa
+									Xem thông tin
 								</a>
 								<a href="javascript:void(0);" class="btn btn-xs yellow">
 									<i class="fa fa-lock"></i>
@@ -109,218 +87,8 @@
 								</a>
 							</td>
 						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-									<input type="checkbox" class="checkboxes" value="1" />
-									<span></span>
-								</label>
-							</td>
-							<td> userwow </td>
-							<td>
-								<a href="mailto:userwow@yahoo.com"> userwow@yahoo.com </a>
-							</td>
-							<td>
-								<span class="label label-sm label-info"> Hoạt động </span>
-							</td>
-							<td class="center"> 12.12.2011 </td>
-							<td class="text-center">
-								<a href="#" class="btn btn-xs blue">
-									<i class="fa fa-edit"></i>
-									Chỉnh sửa
-								</a>
-								<a href="javascript:void(0);" class="btn btn-xs yellow">
-									<i class="fa fa-lock"></i>
-									Khóa
-								</a>
-								<a href="javascript:void(0)" class="btn btn-xs red">
-									<i class="fa fa-trash"></i>
-									Xóa
-								</a>
-									</ul>
-								</div>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-									<input type="checkbox" class="checkboxes" value="1" />
-									<span></span>
-								</label>
-							</td>
-							<td> user1wow </td>
-							<td>
-								<a href="mailto:userwow@gmail.com"> userwow@gmail.com </a>
-							</td>
-							<td>
-								<span class="label label-sm label-danger"> Khóa </span>
-							</td>
-							<td class="center"> 12.12.2011 </td>
-							<td class="text-center">
-								<a href="#" class="btn btn-xs blue">
-									<i class="fa fa-edit"></i>
-									Chỉnh sửa
-								</a>
-								<a href="javascript:void(0);" class="btn btn-xs yellow">
-									<i class="fa fa-lock"></i>
-									Khóa
-								</a>
-								<a href="javascript:void(0)" class="btn btn-xs red">
-									<i class="fa fa-trash"></i>
-									Xóa
-								</a>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-									<input type="checkbox" class="checkboxes" value="1" />
-									<span></span>
-								</label>
-							</td>
-							<td> restest </td>
-							<td>
-								<a href="mailto:userwow@gmail.com"> test@gmail.com </a>
-							</td>
-							<td>
-								<span class="label label-sm label-info"> Hoạt động </span>
-							</td>
-							<td class="center"> 12.12.2011 </td>
-							<td class="text-center">
-								<a href="#" class="btn btn-xs blue">
-									<i class="fa fa-edit"></i>
-									Chỉnh sửa
-								</a>
-								<a href="javascript:void(0);" class="btn btn-xs yellow">
-									<i class="fa fa-lock"></i>
-									Khóa
-								</a>
-								<a href="javascript:void(0)" class="btn btn-xs red">
-									<i class="fa fa-trash"></i>
-									Xóa
-								</a>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-									<input type="checkbox" class="checkboxes" value="1" />
-									<span></span>
-								</label>
-							</td>
-							<td> foopl </td>
-							<td>
-								<a href="mailto:userwow@gmail.com"> good@gmail.com </a>
-							</td>
-							<td>
-								<span class="label label-sm label-info"> Hoạt động </span>
-							</td>
-							<td class="center"> 12.12.2011 </td>
-							<td class="text-center">
-								<a href="#" class="btn btn-xs blue">
-									<i class="fa fa-edit"></i>
-									Chỉnh sửa
-								</a>
-								<a href="javascript:void(0);" class="btn btn-xs yellow">
-									<i class="fa fa-lock"></i>
-									Khóa
-								</a>
-								<a href="javascript:void(0)" class="btn btn-xs red">
-									<i class="fa fa-trash"></i>
-									Xóa
-								</a>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-									<input type="checkbox" class="checkboxes" value="1" />
-									<span></span>
-								</label>
-							</td>
-							<td> weep </td>
-							<td>
-								<a href="mailto:userwow@gmail.com"> good@gmail.com </a>
-							</td>
-							<td>
-								<span class="label label-sm label-danger"> Khóa </span>
-							</td>
-							<td class="center"> 12.12.2011 </td>
-							<td class="text-center">
-								<a href="#" class="btn btn-xs blue">
-									<i class="fa fa-edit"></i>
-									Chỉnh sửa
-								</a>
-								<a href="javascript:void(0);" class="btn btn-xs yellow">
-									<i class="fa fa-lock"></i>
-									Khóa
-								</a>
-								<a href="javascript:void(0)" class="btn btn-xs red">
-									<i class="fa fa-trash"></i>
-									Xóa
-								</a>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-									<input type="checkbox" class="checkboxes" value="1" />
-									<span></span>
-								</label>
-							</td>
-							<td> coop </td>
-							<td>
-								<a href="mailto:userwow@gmail.com"> good@gmail.com </a>
-							</td>
-							<td>
-								<span class="label label-sm label-info"> Hoạt động </span>
-							</td>
-							<td class="center"> 12.12.2011 </td>
-							<td class="text-center">
-								<a href="#" class="btn btn-xs blue">
-									<i class="fa fa-edit"></i>
-									Chỉnh sửa
-								</a>
-								<a href="javascript:void(0);" class="btn btn-xs yellow">
-									<i class="fa fa-lock"></i>
-									Khóa
-								</a>
-								<a href="javascript:void(0)" class="btn btn-xs red">
-									<i class="fa fa-trash"></i>
-									Xóa
-								</a>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-									<input type="checkbox" class="checkboxes" value="1" />
-									<span></span>
-								</label>
-							</td>
-							<td> pppol </td>
-							<td>
-								<a href="mailto:userwow@gmail.com"> good@gmail.com </a>
-							</td>
-							<td>
-								<span class="label label-sm label-danger"> Khóa </span>
-							</td>
-							<td class="center"> 12.12.2011 </td>
-							<td class="text-center">
-								<a href="#" class="btn btn-xs blue">
-									<i class="fa fa-edit"></i>
-									Chỉnh sửa
-								</a>
-								<a href="javascript:void(0);" class="btn btn-xs yellow">
-									<i class="fa fa-lock"></i>
-									Khóa
-								</a>
-								<a href="javascript:void(0)" class="btn btn-xs red">
-									<i class="fa fa-trash"></i>
-									Xóa
-								</a>
-							</td>
-						</tr>
+						@endforeach
+					@endif
 					</tbody>
 				</table>
 			</div>
