@@ -3,7 +3,13 @@
 @section('breadcrumb', 'Thêm tài khoản mới')
 @section('page-title', 'Quản lý tài khoản')
 
+@section('css')
+<link href="{{ asset('public/assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('public/assets/plugins/select2/css/select2-bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+@endsection
+
 @section('js')
+<script src="{{ asset('public/assets/plugins/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('public/assets/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('public/admin/scripts/user.js') }}" type="text/javascript"></script>
 @endsection
@@ -19,34 +25,33 @@
 			</div>
 			<div class="portlet-body form">
 				<!-- BEGIN FORM-->
-				<form action="#" class="form-horizontal" id="user_form">
+				{!! Form::open(['route' => 'admin.user.add', 'id' => 'user_form', 'class' => 'form-horizontal']) !!}
 					<div class="form-body">
-						<div class="form-group">
-							<label class="col-md-3 control-label">Tên tài khoản <span class="required">*</span></label>
+						<div class="form-group{{ $errors->has('hotel') ? ' has-error' : '' }}">
+							<label class="col-md-3 control-label">Nhà nghỉ/khách sạn <span class="required">*</span></label>
 							<div class="col-md-4">
-								<input name="username" type="text" class="form-control input-circle" placeholder="Trần Văn A">
+								{!! Form::select('hotel', ['1' => 'Nhà nghỉ Ánh Ngọc', '2' => 'Khách sạn Anh Kiệt'], null, ['placeholder' => 'Vui lòng chọn', 'class' => 'select2me']) !!}
+								@if ($errors->has('hotel'))
+                                    <span class="help-block help-block-error">
+                                        {{ $errors->first('hotel') }}
+                                    </span>
+                                @endif
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="col-md-3 control-label">Số điện thoại</label>
-							<div class="col-md-4">
-								<div class="input-group">
-									<span class="input-group-addon input-circle-left">
-									<i class="fa fa-phone"></i>
-									</span>
-									<input name="phone" type="text" class="form-control input-circle-right" placeholder="0909 123 456">
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
+						<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 							<label class="col-md-3 control-label">Email <span class="required">*</span></label>
 							<div class="col-md-4">
 								<div class="input-group">
-									<span class="input-group-addon input-circle-left">
+									<span class="input-group-addon">
 									<i class="fa fa-envelope"></i>
 									</span>
-									<input name="email" type="email" class="form-control input-circle-right" placeholder="example@gmail.com">
+									{!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'example@gmail.com']) !!}
 								</div>
+								@if ($errors->has('email'))
+                                    <span class="help-block help-block-error">
+                                        {{ $errors->first('email') }}
+                                    </span>
+                                @endif
 							</div>
 						</div>
 						<div class="form-group">
@@ -59,12 +64,12 @@
 					<div class="form-actions">
 						<div class="row">
 							<div class="col-md-offset-3 col-md-9">
-								<button type="submit" class="btn btn-circle blue">Thêm mới</button>
+								{!! Form::submit('Thêm mới', ['class' => 'btn btn-circle blue']) !!}
 								<button type="reset" class="btn btn-circle default">Hủy bỏ</button>
 							</div>
 						</div>
 					</div>
-				</form>
+				{!! Form::close() !!}
 				<!-- END FORM-->
 			</div>
 		</div>

@@ -43,6 +43,7 @@ class UserSeeder extends Seeder
         {
         	DB::table('users')->insert(
 	        	[
+                    'hotel_id' => rand(1,100),
 	        		'name' => $faker->name,
 	            	'email' => $faker->unique()->email,
 	            	'password' => bcrypt('anph@123'),

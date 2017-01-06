@@ -33,6 +33,18 @@
 						</div>
 					</div>
 				</div>
+				@if (Session::has('flash_message'))
+				<div class="flash-message">
+					<div class="row">
+						<div class="col-lg-12">
+		                    <div class="alert alert-{!! Session::get('flash_level') !!} alert-dismissable">
+		                    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+		                        {!! Session::get('flash_message') !!}
+		                    </div>
+			            </div>
+					</div>
+				</div>
+	            @endif
 				<table class="table table-striped table-bordered table-hover table-checkable order-column" id="list_users">
 					<thead>
 						<tr>
@@ -70,7 +82,11 @@
 								<span class="label label-sm label-danger"> Khóa </span>
 							@endif
 							</td>
-							<td class="center">{{ \Carbon\Carbon::parse($user->last_login)->format('H:i:s d/m/Y') }}</td>
+							<td class="center">
+							@if ($user->last_login)
+								{{ \Carbon\Carbon::parse($user->last_login)->format('H:i:s d/m/Y') }}
+							@endif
+							</td>
 							<td class="text-center">
 								<a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-xs blue">
 									<i class="fa fa-edit"></i>
