@@ -78,13 +78,17 @@
 				<!-- BEGIN USER LOGIN DROPDOWN -->
 				<li class="dropdown dropdown-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-						<img alt="" class="img-circle" src="{{ asset('public/assets/img/avatar3_small.jpg') }}" />
-						<span class="username username-hide-on-mobile"> Nick </span>
+					@if (Auth::user()->photo)
+						<img src="{{ asset('resources/upload/user/'.$user->id.'_150.'.$user->photo) }}" class="img-circle" alt="" width="30"> 
+					@else
+						<img src="{{ asset('public/assets/img/no_image_profile.jpg') }}" class="img-circle" alt="" width="30">
+					@endif
+						<span class="username username-hide-on-mobile">{{ Auth::user()->name }}</span>
 						<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
 						<li>
-							<a href="{{ url('/quan-ly/tai-khoan/thong-tin') }}">
+							<a href="{{ route('admin.user.edit', Auth::id()) }}">
 								<i class="icon-user"></i> Thông tin tài khoản
 							</a>
 						</li>
@@ -94,7 +98,7 @@
                                          document.getElementById('logout-form').submit();">
                                 <i class="icon-key"></i> Đăng xuất 
                             </a>
-                            <form id="logout-form" action="{{ url('/dang-xuat') }}" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
 						</li>

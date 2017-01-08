@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UserRequest extends FormRequest
 {
@@ -23,10 +24,41 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'hotel'     => 'required',
-            'email'     => 'required|email|unique:users'
-        ];
+        switch($this->method())
+        {
+            case 'GET':
+            case 'DELETE':
+            {
+                return [];
+            }
+            case 'POST':
+            {
+                return [
+                    'hotel' => 'required',
+                    'email' => 'required|email|unique:users,email',
+                ];
+            }
+            case 'PUT':
+            case 'PATCH':
+            {
+                if (Auth::user()->role_id == 1)
+                {
+                    return [
+                        'hotel' => 'required',
+                        'email' => 'required|email|unique:users,email,'.$this->id,
+                    ];
+                }
+                else
+                {
+                    return [
+                        'email' => 'required|email|unique:users,email,'.$this->id,
+                    ];
+                }
+                
+            }
+            default:break;
+        }
+        
     }
 
     /**
@@ -40,7 +72,7 @@ class UserRequest extends FormRequest
             'hotel.required'    => 'Vui lòng chọn một nhà nghỉ/khách sạn',
             'email.required'    => 'Email không được bỏ trống',
             'email.email'       => 'Vui lòng nhập đúng địa chỉ email',
-            'email.unique'      => 'Email này đã được đăng ký bởi tài khoản khác'
+            'email.unique'      => 'Email này đã được đăng ký bởi tài khoản khác',
         ];
     }
 }

@@ -20,9 +20,11 @@ class CreateUsersTable extends Migration
             $table->string('name')->nullable();
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('note')->nullable();
             $table->rememberToken();
             $table->boolean('active_flg')->default('1');
             $table->boolean('delete_flg')->default('0');
+            $table->char('photo', 4)->nullable();
             $table->dateTime('last_login')->nullable();
             $table->timestamps();
         });
