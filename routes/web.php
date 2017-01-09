@@ -22,6 +22,14 @@ Route::group(['middleware' => 'auth'], function () {
 		    //
 		});
 
+		Route::group(['prefix' => 'nha-nghi-khach-san'], function() {
+			Route::get('danh-sach', ['as' => 'admin.hotel.list', 'uses' => 'Admin\HotelController@showListHotels']);
+			Route::get('them-moi', ['as' => 'admin.hotel.add', 'uses' => 'Admin\HotelController@showHotelFormAdd']);
+			Route::post('them-moi', ['as' => 'admin.hotel.postAdd', 'uses' => 'Admin\HotelController@hotelFormAdd']);
+			Route::get('thong-tin/{id}', ['as' => 'admin.hotel.edit', 'uses' => 'Admin\HotelController@showHotelFormEdit']);
+			Route::match(array('PUT', 'PATCH'), 'thong-tin/{id}', ['as' => 'admin.hotel.postEdit', 'uses' => 'Admin\HotelController@hotelFormEdit']);
+		});
+
 		Route::group(['prefix' => 'tai-khoan'], function() {
 			Route::get('danh-sach', ['as' => 'admin.user.list', 'uses' => 'Admin\UserController@showListUsers']);
 			Route::get('them-moi', ['as' => 'admin.user.add', 'uses' => 'Admin\UserController@showUserFormAdd']);
