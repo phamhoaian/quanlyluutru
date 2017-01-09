@@ -12,11 +12,8 @@ var User = function() {
 			errorClass: 'help-block help-block-error', // default input error message class
 			focusInvalid: false, // do not focus the last invalid input
 			rules: {
-				username: {
+				hotel: {
 					required: true
-				},
-				phone: {
-					number: true
 				},
 				email: {
 					required: true,
@@ -25,11 +22,8 @@ var User = function() {
 			},
 
 			messages: {
-				username: {
-					required: 'Tên tài khoản không được bỏ trống'
-				},
-				phone: {
-					number: 'Vui lòng nhập số điện thoại chính xác'
+				hotel: {
+					required: 'Vui lòng chọn một nhà nghỉ/khách sạn'
 				},
 				email: {
 					required: 'Email không được bỏ trống',
@@ -40,6 +34,8 @@ var User = function() {
 			errorPlacement: function (error, element) { // render error placement for each input type
 				if (element.parent(".input-group").size() > 0) {
                     error.insertAfter(element.parent(".input-group"));
+                } else if (element.hasClass('select2-hidden-accessible')) {
+                	error.insertAfter(element.next());
                 } else {
                     error.insertAfter(element); // for other inputs, just perform default behavior
                 }
@@ -64,6 +60,11 @@ var User = function() {
 				form.submit(); // form validation success, call ajax form submit
 			}
 		});
+
+		//apply validation on select2 dropdown value change, this only needed for chosen dropdown integration.
+        $('.select2me', $('#user_form')).change(function () {
+            $('#user_form').validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
+        });
 
 		$('#user_form input').keypress(function(e) {
 			if (e.which == 13) {
@@ -145,12 +146,17 @@ var User = function() {
 		});
 	}
 
+	var handleDisplayHotels = function() {
+		$('#hotel').select2();
+	};
+
 	return {
 		//main function to initiate the module
 		init: function() {
 
 			handleCreate();
 			handleChangePassword();
+			handleDisplayHotels();
 		}
 
 	};

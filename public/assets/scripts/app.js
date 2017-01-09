@@ -530,9 +530,12 @@ var App = function() {
         if ($().select2) {
             $.fn.select2.defaults.set("theme", "bootstrap");
             $('.select2me').select2({
-                placeholder: "Select",
+                placeholder: "Vui lòng chọn",
                 width: 'auto', 
-                allowClear: true
+                allowClear: true,
+                noResults: function () {
+                    return 'Không tìm thấy kết quả nào';
+                },
             });
         }
     };
