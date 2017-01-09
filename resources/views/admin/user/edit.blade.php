@@ -27,7 +27,7 @@
 				<!-- SIDEBAR USERPIC -->
 				<div class="profile-userpic">
 				@if ($user->photo)
-					<img src="{{ asset('resources/upload/user/'.$user->id.'_150.'.$user->photo) }}" class="img-responsive" alt=""> 
+					<img src="{{ asset('public/uploads/user/'.$user->photo) }}" class="img-responsive" alt=""> 
 				@else
 					<img src="{{ asset('public/assets/img/no_image_profile.jpg') }}" class="img-responsive" alt="">
 				@endif
@@ -143,11 +143,24 @@
 								<!-- END PERSONAL INFO TAB -->
 								<!-- CHANGE AVATAR TAB -->
 								<div class="tab-pane" id="tab_1_2">
-									{!! Form::open(['route' => ['admin.user.uploadAvatar', $user->id]]) !!}
+									@if (Session::has('flash_message') && Session::has('upload_avatar'))
+									<div class="flash-message">
+					                    <div class="alert alert-{!! Session::get('flash_level') !!} alert-dismissable">
+					                    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+					                        {!! Session::get('flash_message') !!}
+					                    </div>
+									</div>
+						            @endif
+									{!! Form::open(['route' => ['admin.user.uploadAvatar', $user->id], 'files' => TRUE]) !!}
 										<div class="form-group">
 											<div class="fileinput fileinput-new" data-provides="fileinput">
 												<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-													<img src="{{ asset('public/assets/img/no-image.png') }}" alt=""> 
+												@if ($user->photo)
+													<img src="{{ asset('public/uploads/user/'.$user->photo) }}" alt=""> 
+												@else
+													<img src="{{ asset('public/assets/img/no-image.png') }}" alt="">
+												@endif
+													<input type="hidden" name="current_photo" value="{{ $user->photo }}">
 												</div>
 												<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> 
 												</div>
@@ -155,7 +168,8 @@
 													<span class="btn default btn-file">
 														<span class="fileinput-new"> Chọn ảnh </span>
 														<span class="fileinput-exists"> Đổi ảnh khác </span>
-														<input type="file" name="..."> </span>
+														<input type="file" name="photo"> 
+													</span>
 													<a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> Xóa </a>
 												</div>
 											</div>

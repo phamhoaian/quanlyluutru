@@ -9,6 +9,7 @@ use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserChangePasswordRequest;
 use Auth;
 use Hash;
+use File;
 
 class UserController extends Controller
 {
@@ -62,9 +63,28 @@ class UserController extends Controller
         return redirect()->route('admin.user.edit', $id)->with(['update' => TRUE, 'flash_level' => 'success', 'flash_message' => 'Đã cập nhật thông tin tài khoản !']);
     }
 
-    public function uploadAvatar(UserRequest $request, $id)
+    public function uploadAvatar(Request $request, $id)
     {
-        # code...
+        $current_photo = 'public/uploads/user/'.$request->current_photo; 
+        if ( ! empty($request->hasFile('photo')))
+        {
+            $file_name = time() . '.'. $request->file('photo')->getClientOriginalExtension();
+            $input['photo'] = $file_name;
+            $request->file('photo')->move('public/uploads/user/', $file_name);
+            if (File::exists($current_photo))
+            {
+                File::delete($current_photo);
+            }
+
+            $user = $this->userRepository->update($input, $id);
+            return redirect()->route('admin.user.edit', ['id' => $id, '#tab_1_2'])->with(['upload_avatar' => TRUE, 'flash_level' => 'success', 'flash_message' => 'Đã thay đổi ảnh đại diện !']);
+        }
+        else
+        {
+            $input['photo'] = $current_photo;
+            $user = $this->userRepository->update($input, $id);
+            return redirect()->route('admin.user.edit', ['id' => $id, '#tab_1_2']);
+        }
     }
 
     public function changePassword(UserChangePasswordRequest $request, $id)
