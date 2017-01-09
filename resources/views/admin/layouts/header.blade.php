@@ -79,7 +79,7 @@
 				<li class="dropdown dropdown-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					@if (Auth::user()->photo)
-						<img src="{{ asset('public/uploads/user/'.$user->photo) }}" class="img-circle" alt="" width="30"> 
+						<img src="{{ asset('public/uploads/user/'.Auth::user()->photo) }}" class="img-circle" alt="" width="30"> 
 					@else
 						<img src="{{ asset('public/assets/img/no_image_profile.jpg') }}" class="img-circle" alt="" width="30">
 					@endif
