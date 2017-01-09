@@ -93,7 +93,7 @@
 							<div class="tab-content">
 								<!-- PERSONAL INFO TAB -->
 								<div class="tab-pane active" id="tab_1_1">
-									@if (Session::has('flash_message'))
+									@if (Session::has('flash_message') && Session::has('update'))
 									<div class="flash-message">
 					                    <div class="alert alert-{!! Session::get('flash_level') !!} alert-dismissable">
 					                    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
@@ -173,6 +173,14 @@
 								<!-- END CHANGE AVATAR TAB -->
 								<!-- CHANGE PASSWORD TAB -->
 								<div class="tab-pane" id="tab_1_3">
+									@if (Session::has('flash_message') && Session::has('change_password'))
+									<div class="flash-message">
+					                    <div class="alert alert-{!! Session::get('flash_level') !!} alert-dismissable">
+					                    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+					                        {!! Session::get('flash_message') !!}
+					                    </div>
+									</div>
+						            @endif
 									{!! Form::open(['route' => ['admin.user.changePassword', $user->id], 'id' => 'user_change_password']) !!}
 										<div class="form-group{{ $errors->has('current_password') ? ' has-error' : '' }}">
 											<label class="control-label">Mật khẩu hiện tại <span class="required">*</span></label>

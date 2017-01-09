@@ -8,6 +8,7 @@ use App\Repositories\Eloquents\UserRepository;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserChangePasswordRequest;
 use Auth;
+use Hash;
 
 class UserController extends Controller
 {
@@ -58,7 +59,7 @@ class UserController extends Controller
 
         $user = $this->userRepository->update($input, $id);
 
-        return redirect()->route('admin.user.edit', $id)->with(['flash_level' => 'success', 'flash_message' => 'Đã cập nhật thông tin tài khoản !']);
+        return redirect()->route('admin.user.edit', $id)->with(['update' => TRUE, 'flash_level' => 'success', 'flash_message' => 'Đã cập nhật thông tin tài khoản !']);
     }
 
     public function uploadAvatar(UserRequest $request, $id)
@@ -68,6 +69,17 @@ class UserController extends Controller
 
     public function changePassword(UserChangePasswordRequest $request, $id)
     {
-        $current_password = $request->current_password;
+        $current_password = Auth::user()->password;
+        if (Hash::check($request->current_password, $current_password))
+        {
+            $input['password']  = Hash::make($request->new_password);
+            $user = $this->userRepository->update($input, Auth::user()->id);
+
+            return redirect()->route('admin.user.edit', ['id' => $id, '#tab_1_3'])->with(['change_password' => TRUE, 'flash_level' => 'success', 'flash_message' => 'Đã thay đổi mật khẩu mới !']);
+        }
+        else
+        {
+            return redirect()->route('admin.user.edit', ['id' => $id, '#tab_1_3'])->with(['change_password' => TRUE, 'flash_level' => 'danger', 'flash_message' => 'Mật khẩu hiện tại không đúng !']);
+        }
     }
 }
