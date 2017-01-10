@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('breadcrumb', 'Thêm nhà nghỉ / khách sạn mới')
+@section('breadcrumb', 'Thông tin nhà nghỉ / khách sạn')
 @section('page-title', 'Quản lý nhà nghỉ / khách sạn')
 
 @section('css')
@@ -19,7 +19,7 @@
 		<div class="portlet box green">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="fa fa-building"></i>Thêm nhà nghỉ / khách sạn mới
+					<i class="fa fa-building"></i>Thông tin nhà nghỉ / khách sạn
 				</div>
 			</div>
 			<div class="portlet-body form">
@@ -34,7 +34,7 @@
 									<span class="input-group-addon input-circle-left">
 									<i class="fa fa-building"></i>
 									</span>
-									{!! Form::text('name', '', ['class' => 'form-control input-circle-right', 'placeholder' => 'Nhà nghỉ Ánh Ngọc']) !!}
+									{!! Form::text('name', $hotel->name, ['class' => 'form-control input-circle-right', 'placeholder' => 'Nhà nghỉ Ánh Ngọc']) !!}
 								</div>
 								@if ($errors->has('name'))
                                     <span class="help-block help-block-error">
@@ -50,7 +50,7 @@
 									<span class="input-group-addon input-circle-left">
 									<i class="fa fa-home"></i>
 									</span>
-									{!! Form::text('address', '', ['class' => 'form-control input-circle-right', 'placeholder' => '123 Khu phố 1']) !!}
+									{!! Form::text('address', $hotel->address, ['class' => 'form-control input-circle-right', 'placeholder' => '123 Khu phố 1']) !!}
 								</div>
 								@if ($errors->has('address'))
                                     <span class="help-block help-block-error">
@@ -66,7 +66,7 @@
 									<span class="input-group-addon input-circle-left">
 									<i class="fa fa-phone"></i>
 									</span>
-									{!! Form::text('phone', '', ['class' => 'form-control input-circle-right', 'placeholder' => '0909123456']) !!}
+									{!! Form::text('phone', $hotel->phone, ['class' => 'form-control input-circle-right', 'placeholder' => '0909123456']) !!}
 								</div>
 								@if ($errors->has('phone'))
                                     <span class="help-block help-block-error">
@@ -82,7 +82,7 @@
 									<span class="input-group-addon input-circle-left">
 									<i class="fa fa-bed"></i>
 									</span>
-									{!! Form::text('room', '', ['class' => 'form-control input-circle-right', 'placeholder' => '123']) !!}
+									{!! Form::text('room', $hotel->room, ['class' => 'form-control input-circle-right', 'placeholder' => '123']) !!}
 								</div>
 								@if ($errors->has('room'))
                                     <span class="help-block help-block-error">
@@ -98,7 +98,7 @@
 									<span class="input-group-addon input-circle-left">
 									<i class="fa fa-envelope"></i>
 									</span>
-									{!! Form::text('email', '', ['class' => 'form-control input-circle-right', 'placeholder' => 'example@gmail.com']) !!}
+									{!! Form::text('email', isset($hotel->user) ? $hotel->user->name : '', ['class' => 'form-control input-circle-right', 'placeholder' => 'example@gmail.com']) !!}
 								</div>
 								@if ($errors->has('email'))
                                     <span class="help-block help-block-error">
@@ -112,11 +112,11 @@
 							<div class="col-md-6">
 								<div class="mt-radio-inline">
 									<label class="mt-radio">
-										<input type="radio" name="type" value="1" checked=""> Nhà nghỉ
+										<input type="radio" name="type" value="1" {{ $hotel->type == 1 ? 'checked' : '' }}> Nhà nghỉ
 										<span></span>
 									</label>
 									<label class="mt-radio">
-										<input type="radio" name="type" value="2" checked=""> Khách sạn
+										<input type="radio" name="type" value="2" {{ $hotel->type == 2 ? 'checked' : '' }}> Khách sạn
 										<span></span>
 									</label>
 								</div>
@@ -132,7 +132,12 @@
 							<div class="col-md-4">
 								<div class="fileinput fileinput-new" data-provides="fileinput">
 									<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-										<img src="{{ asset('public/assets/img/no-image.png') }}" alt=""> 
+										@if ($hotel->photo)
+											<img src="{{ asset('public/uploads/hotel/'.$hotel->photo) }}" alt=""> 
+										@else
+											<img src="{{ asset('public/assets/img/no-image.png') }}" alt="">
+										@endif
+											<input type="hidden" name="current_photo" value="{{ $hotel->photo }}"> 
 									</div>
 									<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> 
 									</div>
@@ -156,7 +161,7 @@
 					<div class="form-actions">
 						<div class="row">
 							<div class="col-md-offset-3 col-md-9">
-								{!! Form::submit('Thêm mới', ['class' => 'btn btn-circle blue', 'data-loading-text' => 'Đang xử lý...']) !!}
+								{!! Form::submit('Cập nhật', ['class' => 'btn btn-circle blue', 'data-loading-text' => 'Đang xử lý...']) !!}
 								<button type="reset" class="btn btn-circle default">Hủy bỏ</button>
 							</div>
 						</div>

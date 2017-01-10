@@ -12,7 +12,7 @@
 <script src="{{ asset('public/assets/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('public/assets/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('public/assets/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
-<script src="{{ asset('public/admin/scripts/hotel.js') }}" type="text/javascript"></script>
+<script src="{{ asset('public/assets/scripts/table-datatables-managed.js') }}" type="text/javascript"></script>
 @endsection
 
 @section('content')
@@ -34,6 +34,18 @@
 		<div class="col-md-12">
 			<div class="portlet light bordered">
 				<div class="portlet-body">
+					@if (Session::has('flash_message'))
+					<div class="flash-message">
+						<div class="row">
+							<div class="col-lg-12">
+			                    <div class="alert alert-{!! Session::get('flash_level') !!} alert-dismissable">
+			                    	<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+			                        {!! Session::get('flash_message') !!}
+			                    </div>
+				            </div>
+						</div>
+					</div>
+		            @endif
 					<table class="table table-striped table-bordered table-hover table-checkable order-column" id="list_hotels">
 						<thead>
 							<tr>
@@ -61,7 +73,11 @@
 									</label>
 								</td>
 								<td>{{ $hotel->name }}</td>
-								<td>{{ $hotel->owner->name }}</td>
+								<td>
+								@if (isset($hotel->owner))
+									{{ $hotel->owner->name }}
+								@endif
+								</td>
 								<td>
 								@if ($hotel->type == 1)
 									<span class="label label-sm label-info"> Nhà nghỉ </span>
