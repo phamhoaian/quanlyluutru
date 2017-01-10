@@ -15,7 +15,6 @@ class CreateOwnerTable extends Migration
     {
         Schema::create('owners', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('hotel_id');
             $table->string('name', 100);
             $table->date('birthday');
             $table->string('id_card', 20);

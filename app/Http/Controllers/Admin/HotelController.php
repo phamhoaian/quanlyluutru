@@ -20,7 +20,12 @@ class HotelController extends Controller
 
     public function showListHotels()
     {
-    	$hotels = $this->hotelRepository->all();
+    	$hotels = $this->hotelRepository->with('owner')->get();
     	return view('admin.hotel.list', compact('hotels'));
+    }
+
+    public function showHotelFormAdd()
+    {
+        return view('admin.hotel.add');
     }
 }
