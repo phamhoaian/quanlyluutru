@@ -109,7 +109,7 @@
 										@if ($user->role_id === 1)
 										<div class="form-group{{ $errors->has('hotel') ? ' has-error' : '' }}">
 											<label class="control-label">Nhà nghỉ / khách sạn <span class="required">*</span></label>
-											{!! Form::select('hotel', ['1' => 'Nhà nghỉ Ánh Ngọc', '2' => 'Khách sạn Anh Kiệt'], $user->hotel_id, ['placeholder' => 'Vui lòng chọn', 'class' => 'select2me']) !!}
+											{!! Form::select('hotel', $list_hotel, $user->hotel_id, ['placeholder' => 'Vui lòng chọn', 'class' => 'select2me']) !!}
 											@if ($errors->has('hotel'))
 			                                    <span class="help-block help-block-error">
 			                                        {{ $errors->first('hotel') }}

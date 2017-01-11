@@ -64,7 +64,37 @@ class HotelController extends Controller
 
     public function showHotelFormEdit($id)
     {
-    	$hotel = $this->hotelRepository->find($id);
+        $hotel = $this->hotelRepository->with('owner', 'user')->where('id', '=', $id)->first();
     	return view('admin.hotel.edit', compact('hotel'));
+    }
+
+    public function hotelFormEdit(HotelRequest $request, $id)
+    {
+        $hotel = $this->hotelRepository->with('owner', 'user')->where('id', '=', $id)->first();
+        
+        $input['name']      = $request->name;
+        $input['address']   = $request->address;
+        $input['phone']     = $request->phone;
+        $input['room']      = $request->room;
+        $input['type']      = $request->type;
+
+        $current_photo_path = 'public/uploads/hotel/'.$request->current_photo;
+        if ($request->hasFile('photo'))
+        {
+            $file_name = time() . '.'. $request->file('photo')->getClientOriginalExtension();
+            $input['photo'] = $file_name;
+            $request->file('photo')->move('public/uploads/hotel', $file_name);
+            if (File::exists($current_photo_path))
+            {
+                File::delete($current_photo_path);
+            }
+        }
+        $this->hotelRepository->update($input, $id);
+
+        // update user's email
+        $user['email'] = $request->email;
+        $this->userRepository->update($user, $hotel->user->id);
+
+        return redirect()->route('admin.hotel.list')->with(['update' => TRUE, 'flash_level' => 'success', 'flash_message' => 'Đã cập nhật thông tin !']);
     }
 }

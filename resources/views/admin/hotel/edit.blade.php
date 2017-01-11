@@ -24,8 +24,66 @@
 			</div>
 			<div class="portlet-body form">
 				<!-- BEGIN FORM-->
-				{!! Form::open(['route' => 'admin.hotel.add', 'class' => 'form-horizontal', 'id' => 'hotel_form', 'files' => TRUE]) !!}
+				{!! Form::open(['route' => ['admin.hotel.edit', $hotel->id], 'class' => 'form-horizontal', 'id' => 'hotel_form', 'files' => TRUE]) !!}
+					{!! Form::hidden('_method', 'PUT') !!}
 					<div class="form-body">
+						@if (isset($hotel->owner))
+						<h3 class="form-section">Thông tin chủ cơ sở kinh doanh</h3>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-5">Họ và tên:</label>
+									<div class="col-md-7">
+										<p class="form-control-static">{{ $hotel->owner->name }}</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-5">Số CMND:</label>
+									<div class="col-md-7">
+										<p class="form-control-static">{{ $hotel->owner->id_card }}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-5">Ngày tháng năm sinh:</label>
+									<div class="col-md-7">
+										<p class="form-control-static">{{ \Carbon\Carbon::parse($hotel->owner->birthday)->format('d/m/Y') }}</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-5">Số giấy chứng nhận đăng ký kinh doanh:</label>
+									<div class="col-md-7">
+										<p class="form-control-static">{{ $hotel->owner->business_cert }}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-5">Hộ khẩu thường trú:</label>
+									<div class="col-md-7">
+										<p class="form-control-static">{{ $hotel->owner->address }}</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-md-5">Số giấy an ninh trật tự:</label>
+									<div class="col-md-7">
+										<p class="form-control-static">{{ $hotel->owner->security }}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						@endif
 						<h3 class="form-section">Thông tin nhà nghỉ / khách sạn</h3>
 						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 							<label class="col-md-3 control-label">Tên nhà nghỉ / khách sạn <span class="required">*</span></label>
@@ -37,10 +95,10 @@
 									{!! Form::text('name', $hotel->name, ['class' => 'form-control input-circle-right', 'placeholder' => 'Nhà nghỉ Ánh Ngọc']) !!}
 								</div>
 								@if ($errors->has('name'))
-                                    <span class="help-block help-block-error">
-                                        {{ $errors->first('name') }}
-                                    </span>
-                                @endif
+									<span class="help-block help-block-error">
+										{{ $errors->first('name') }}
+									</span>
+								@endif
 							</div>
 						</div>
 						<div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
@@ -53,10 +111,10 @@
 									{!! Form::text('address', $hotel->address, ['class' => 'form-control input-circle-right', 'placeholder' => '123 Khu phố 1']) !!}
 								</div>
 								@if ($errors->has('address'))
-                                    <span class="help-block help-block-error">
-                                        {{ $errors->first('address') }}
-                                    </span>
-                                @endif
+									<span class="help-block help-block-error">
+										{{ $errors->first('address') }}
+									</span>
+								@endif
 							</div>
 						</div>
 						<div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
@@ -69,10 +127,10 @@
 									{!! Form::text('phone', $hotel->phone, ['class' => 'form-control input-circle-right', 'placeholder' => '0909123456']) !!}
 								</div>
 								@if ($errors->has('phone'))
-                                    <span class="help-block help-block-error">
-                                        {{ $errors->first('phone') }}
-                                    </span>
-                                @endif
+									<span class="help-block help-block-error">
+										{{ $errors->first('phone') }}
+									</span>
+								@endif
 							</div>
 						</div>
 						<div class="form-group{{ $errors->has('room') ? ' has-error' : '' }}">
@@ -85,10 +143,10 @@
 									{!! Form::text('room', $hotel->room, ['class' => 'form-control input-circle-right', 'placeholder' => '123']) !!}
 								</div>
 								@if ($errors->has('room'))
-                                    <span class="help-block help-block-error">
-                                        {{ $errors->first('room') }}
-                                    </span>
-                                @endif
+									<span class="help-block help-block-error">
+										{{ $errors->first('room') }}
+									</span>
+								@endif
 							</div>
 						</div>
 						<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -98,13 +156,13 @@
 									<span class="input-group-addon input-circle-left">
 									<i class="fa fa-envelope"></i>
 									</span>
-									{!! Form::text('email', isset($hotel->user) ? $hotel->user->name : '', ['class' => 'form-control input-circle-right', 'placeholder' => 'example@gmail.com']) !!}
+									{!! Form::text('email', isset($hotel->user) ? $hotel->user->email : '', ['class' => 'form-control input-circle-right', 'placeholder' => 'example@gmail.com']) !!}
 								</div>
 								@if ($errors->has('email'))
-                                    <span class="help-block help-block-error">
-                                        {{ $errors->first('email') }}
-                                    </span>
-                                @endif
+									<span class="help-block help-block-error">
+										{{ $errors->first('email') }}
+									</span>
+								@endif
 							</div>
 						</div>
 						<div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
@@ -121,10 +179,10 @@
 									</label>
 								</div>
 								@if ($errors->has('type'))
-                                    <span class="help-block help-block-error">
-                                        {{ $errors->first('type') }}
-                                    </span>
-                                @endif
+									<span class="help-block help-block-error">
+										{{ $errors->first('type') }}
+									</span>
+								@endif
 							</div>
 						</div>
 						<div class="form-group">

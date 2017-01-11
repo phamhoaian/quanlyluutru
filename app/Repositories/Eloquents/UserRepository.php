@@ -14,6 +14,6 @@ class UserRepository extends BaseRepository
 
 	public function getListUsers()
 	{
-		return $this->findByField('role_id', 1);
+		return $this->with('hotel')->where('role_id', '=', 1)->get();
 	}
 }

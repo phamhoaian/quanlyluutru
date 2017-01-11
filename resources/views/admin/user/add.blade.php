@@ -30,7 +30,7 @@
 						<div class="form-group{{ $errors->has('hotel') ? ' has-error' : '' }}">
 							<label class="col-md-3 control-label">Nhà nghỉ/khách sạn <span class="required">*</span></label>
 							<div class="col-md-4">
-								{!! Form::select('hotel', ['1' => 'Nhà nghỉ Ánh Ngọc', '2' => 'Khách sạn Anh Kiệt'], null, ['placeholder' => 'Vui lòng chọn', 'class' => 'select2me']) !!}
+								{!! Form::select('hotel', $list_hotel, null, ['placeholder' => 'Vui lòng chọn', 'class' => 'select2me']) !!}
 								@if ($errors->has('hotel'))
                                     <span class="help-block help-block-error">
                                         {{ $errors->first('hotel') }}

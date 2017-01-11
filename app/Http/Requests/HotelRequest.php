@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Hotel;
 
 class HotelRequest extends FormRequest
 {
@@ -23,14 +24,42 @@ class HotelRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name'      => 'required',
-            'address'   => 'required',
-            'email'     => 'required|email',
-            'phone'     => 'numeric',
-            'room'      => 'numeric',
-            'type'      => 'required'
-        ];
+        $hotel = Hotel::with('user')->where('id', '=', $this->id)->first();
+        
+        switch($this->method())
+        {
+            case 'GET':
+            case 'DELETE':
+            {
+                return [];
+            }
+            case 'POST':
+            {
+                return [
+                    'name'      => 'required',
+                    'address'   => 'required',
+                    'email'     => 'required|email|unique:users,email',
+                    'phone'     => 'numeric',
+                    'room'      => 'numeric',
+                    'type'      => 'required'
+                ];
+            }
+            case 'PUT':
+            case 'PATCH':
+            {
+                return [
+                    'name'      => 'required',
+                    'address'   => 'required',
+                    'email'     => 'required|email|unique:users,email,'.$hotel->user->id,
+                    'phone'     => 'numeric',
+                    'room'      => 'numeric',
+                    'type'      => 'required'
+                ];
+                
+            }
+            default:break;
+        }
+        
     }
 
     /**
@@ -45,6 +74,7 @@ class HotelRequest extends FormRequest
             'address.required'  => 'Địa chỉ không được bỏ trống',                   
             'email.required'    => 'Email không được bỏ trống',
             'email.email'       => 'Vui lòng nhập đúng địa chỉ email',
+            'email.unique'      => 'Email này đã được đăng ký',
             'phone.numeric'     => 'Vui lòng nhập số điện thoại chính xác',
             'room.numeric'      => 'Vui lòng nhập số lượng phòng chính xác',
             'type.required'     => 'Vui lòng chọn loại hình kinh doanh'
