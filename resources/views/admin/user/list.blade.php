@@ -71,7 +71,11 @@
 									<span></span>
 								</label>
 							</td>
-							<td>{{ $user->name }}</td>
+							<td>
+							@if (isset($user->hotel))
+								{{ $user->hotel->name }}
+							@endif
+							</td>
 							<td>
 								<a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
 							</td>

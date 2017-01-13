@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Eloquents\UserRepository;
+use App\Repositories\Eloquents\HotelRepository;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserChangePasswordRequest;
 use Auth;
@@ -15,9 +16,10 @@ class UserController extends Controller
 {
 	protected $userRepository;
 
-	public function __construct(UserRepository $userRepository)
+	public function __construct(UserRepository $userRepository, HotelRepository $hotelRepository)
 	{
 		$this->userRepository = $userRepository;
+        $this->hotelRepository = $hotelRepository;
 	}
 
     public function showListUsers()
@@ -28,7 +30,13 @@ class UserController extends Controller
 
     public function showUserFormAdd()
     {
-    	return view('admin.user.add');
+        $hotels = $this->hotelRepository->findByField('delete_flg', 0);
+        $list_hotel = array();
+        foreach ($hotels as $hotel) 
+        {
+            $list_hotel[$hotel->id] = $hotel->name;
+        }
+    	return view('admin.user.add', compact('list_hotel'));
     }
 
     public function userFormAdd(UserRequest $request)
@@ -45,8 +53,14 @@ class UserController extends Controller
 
     public function showUserFormEdit($id)
     {
+        $hotels = $this->hotelRepository->findByField('delete_flg', 0);
+        $list_hotel = array();
+        foreach ($hotels as $hotel) 
+        {
+            $list_hotel[$hotel->id] = $hotel->name;
+        }
         $user = $this->userRepository->find($id);
-        return view('admin.user.edit', compact('user'));
+        return view('admin.user.edit', compact('list_hotel', 'user'));
     }
 
     public function userFormEdit(UserRequest $request, $id)

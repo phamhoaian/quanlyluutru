@@ -127,9 +127,6 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function with($relations)
     {
-        if (is_string($relations)) {
-            $relations = func_get_arg();
-        }
         return $this->model->with($relations);
     }
 }
