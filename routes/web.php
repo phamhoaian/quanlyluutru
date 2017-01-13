@@ -41,6 +41,9 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::post('anh-dai-dien/{id}', ['as' => 'admin.user.uploadAvatar', 'uses' => 'Admin\UserController@uploadAvatar']);
 			Route::post('doi-mat-khau/{id}', ['as' => 'admin.user.changePassword', 'uses' => 'Admin\UserController@changePassword']);
 		});
+
+		Route::get('thong-bao', ['as' => 'admin.notice', 'uses' => 'Admin\NoticeController@showListNotice']);
+		Route::get('thong-bao/{id}', ['as' => 'admin.notice.link', 'uses' => 'Admin\NoticeController@renderNoticeLink']);
 	});
 });
 

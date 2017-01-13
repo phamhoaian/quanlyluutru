@@ -23,56 +23,45 @@
 				<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<i class="icon-bell"></i>
-						<span class="badge badge-default"> 7 </span>
+						<span class="badge badge-default">@if (isset($count_notices) && $count_notices) {{ $count_notices }} @endif</span>
 					</a>
+					@if (isset($notices) && $notices)
 					<ul class="dropdown-menu">
 						<li class="external">
 							<h3>
-								<span class="bold">12 thông báo mới</span>
+								<span class="bold">{{ $count_notices }} thông báo mới</span>
 							</h3>
-							<a href="{{ url('/quan-ly/thong-bao') }}">xem tất cả</a>
+							<a href="{{ route('admin.notice') }}">xem tất cả</a>
 						</li>
-						<li>
+						<li>						
 							<ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+								@foreach ($notices as $notice)
 								<li>
-									<a href="javascript:;">
-										<span class="time">just now</span>
+									<a href="{{ route('admin.notice.link', $notice->id) }}">
+										<span class="time">{{ \CarBon\CarBon::parse($notice->created_at)->diffForHumans() }}</span>
 										<span class="details">
-										<span class="label label-sm label-icon label-success">
-											<i class="fa fa-plus"></i>
-										</span> New user registered. </span>
+										@if ($notice->type == 2)
+											<span class="label label-sm label-icon label-warning">
+												<i class="fa fa-plus"></i>
+										@elseif ($notice->type == 3)
+											<span class="label label-sm label-icon label-info">
+												<i class="fa fa-bullhorn"></i>
+										@elseif ($notice->type == 4)
+											<span class="label label-sm label-icon label-danger">
+												<i class="fa fa-bolt"></i>
+										@else
+											<span class="label label-sm label-icon label-success">
+												<i class="fa fa-bell-o"></i>
+										@endif
+										</span>{{ substr($notice->message, 0, strpos($notice->message, ' ', 10)) }}</span>
 									</a>
 								</li>
-								<li>
-									<a href="javascript:;">
-										<span class="time">3 mins</span>
-										<span class="details">
-										<span class="label label-sm label-icon label-danger">
-											<i class="fa fa-bolt"></i>
-										</span> Server #12 overloaded. </span>
-									</a>
-								</li>
-								<li>
-									<a href="javascript:;">
-										<span class="time">10 mins</span>
-										<span class="details">
-										<span class="label label-sm label-icon label-warning">
-											<i class="fa fa-bell-o"></i>
-										</span> Server #2 not responding. </span>
-									</a>
-								</li>
-								<li>
-									<a href="javascript:;">
-										<span class="time">14 hrs</span>
-										<span class="details">
-										<span class="label label-sm label-icon label-info">
-											<i class="fa fa-bullhorn"></i>
-										</span> Application error. </span>
-									</a>
-								</li>
+								@endforeach
 							</ul>
+
 						</li>
 					</ul>
+					@endif
 				</li>
 				<!-- END NOTIFICATION DROPDOWN -->
 				<!-- BEGIN USER LOGIN DROPDOWN -->
