@@ -88,6 +88,7 @@
     <!-- BEGIN CORE PLUGINS -->
     <script src="{{ asset('public/assets/scripts/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('public/assets/plugins/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('public/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
     <!-- END CORE PLUGINS -->
     <!-- BEGIN THEME GLOBAL SCRIPTS -->
     <script src="{{ asset('public/assets/scripts/app.js') }}" type="text/javascript"></script>

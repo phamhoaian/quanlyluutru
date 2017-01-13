@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Notice;
+use Carbon\Carbon;
+use View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +16,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $notices = Notice::where('read_flg', 0)->take(5)->get();
+        $count_notices = Notice::where('read_flg', 0)->count();
+        View::share('notices', $notices);
+        View::share('count_notices', $count_notices);
+        Carbon::setLocale('vi');
     }
 
     /**
