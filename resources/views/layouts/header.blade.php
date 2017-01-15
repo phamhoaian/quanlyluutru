@@ -16,12 +16,12 @@
 				<!-- BEGIN USER LOGIN DROPDOWN -->
 				<li class="dropdown dropdown-user dropdown-dark">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-					@if (Auth::user()->photo)
-						<img src="{{ asset('public/uploads/user/'.Auth::user()->photo) }}" class="img-circle" alt=""> 
+					@if (Auth::user()->hotel->photo)
+						<img src="{{ asset('public/uploads/hotel/'.Auth::user()->hotel->photo) }}" class="img-circle" alt="" width="40"> 
 					@else
 						<img src="{{ asset('public/assets/img/no_image_profile.jpg') }}" class="img-circle" alt="">
 					@endif
-						<span class="username username-hide-mobile">{{ Auth::user()->name }}</span>
+						<span class="username username-hide-mobile">{{ Auth::user()->hotel->name }}</span>
 						<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
