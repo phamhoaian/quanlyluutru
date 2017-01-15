@@ -11,11 +11,12 @@
 |
 */
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('/', function () {
-	    return view('welcome');
-	});
 
-	Route::get('/home', 'HomeController@index');
+	Route::get('/', ['as' => 'pages.top', 'uses' => 'PagesController@index']);
+	Route::get('/khai-bao-luu-tru', ['as' => 'pages.staying', 'uses' => 'PagesController@showStayingForm']);
+	Route::post('/khai-bao-luu-tru', ['as' => 'pages.postStaying', 'uses' => 'PagesController@stayingForm']);
+	Route::get('/thong-tin', ['as' => 'pages.setting', 'uses' => 'PagesController@showSettingForm']);
+	Route::post('/thong-tin', ['as' => 'pages.postSetting', 'uses' => 'PagesController@settingForm']);
 
 	Route::group(['prefix' => 'quan-ly', 'middleware' => 'role'], function() {
 		Route::get('tong-quan', function() {

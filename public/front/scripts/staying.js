@@ -23,13 +23,15 @@ var Staying = function() {
 					required: true,
 					number: true
 				},
-				gender: {
+				address: {
+					required: true
+				},
+				sex: {
 					required: true,
 					number: true
 				},
 				room_number: {
 					required: true,
-					number: true
 				},
 				date_start: {
 					required: true
@@ -37,6 +39,12 @@ var Staying = function() {
 				date_end: {
 					required: true
 				},
+				check_in: {
+					required: true
+				},
+				check_out: {
+					required: true
+				}
 			},
 
 			messages: {
@@ -51,20 +59,28 @@ var Staying = function() {
 					required: 'Số CMND không được bỏ trống',
 					number: 'Chỉ cho phép nhập số'
 				},
-				gender: {
+				address: {
+					required: 'Hộ khẩu thường trú không được bỏ trống'
+				},
+				sex: {
 					required: 'Vui lòng chọn giới tính',
 					number: 'Chỉ cho phép nhập số'
 				},
 				room_number: {
 					required: 'Số phòng không được bỏ trống',
-					number: 'Chỉ cho phép nhập số'
 				},
 				date_start: {
-					required: 'Thời gian vào không được bỏ trống'
+					required: 'Ngày vào không được bỏ trống'
 				},
 				date_end: {
-					required: 'Thời gian ra không được bỏ trống'
+					required: 'Ngày ra không được bỏ trống'
 				},
+				check_in: {
+					required: 'Thời gian vào không được bỏ trống'
+				},
+				check_out: {
+					required: 'Thời gian ra không được bỏ trống'
+				}
 			},
 
 			errorPlacement: function (error, element) { // render error placement for each input type
@@ -106,19 +122,34 @@ var Staying = function() {
 	};
 
 	var handleTimePicker = function(){
-		$('.timepicker').timepicker({
-			autoclose: true,
-			minuteStep: 1,
-			showSeconds: false,
-			showMeridian: false
-		});
+		if (jQuery().timepicker) {
+			$('.timepicker').timepicker({
+				autoclose: true,
+				minuteStep: 5,
+				showSeconds: false,
+				showMeridian: false
+			});
+		}
 	};
+
+	var handleDatePicker = function () {
+
+        if (jQuery().datepicker) {
+            $('.date-picker').datepicker({
+                rtl: App.isRTL(),
+                orientation: "left",
+                autoclose: true,
+                language: 'vi'
+            });
+        }
+    }
 
 	return {
 		//main function to initiate the module
 		init: function() {
 
-			handleStaying();
+			handleStaying();			
+			handleDatePicker();
 			handleTimePicker();
 		}
 
