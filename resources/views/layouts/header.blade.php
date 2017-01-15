@@ -22,6 +22,7 @@
 						<img src="{{ asset('public/assets/img/no_image_profile.jpg') }}" class="img-circle" alt="">
 					@endif
 						<span class="username username-hide-mobile">{{ Auth::user()->name }}</span>
+						<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
 						<li>
