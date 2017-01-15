@@ -17,6 +17,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/khai-bao-luu-tru', ['as' => 'pages.postStaying', 'uses' => 'PagesController@stayingForm']);
 	Route::get('/thong-tin', ['as' => 'pages.setting', 'uses' => 'PagesController@showSettingForm']);
 	Route::post('/thong-tin', ['as' => 'pages.postSetting', 'uses' => 'PagesController@settingForm']);
+	Route::get('/thiet-lap', ['as' => 'pages.firstLogin', 'uses' => 'PagesController@showFirstLoginForm']);
+	Route::post('/thiet-lap', ['as' => 'pages.postFirstLogin', 'uses' => 'PagesController@firstLogin']);
 
 	Route::group(['prefix' => 'quan-ly', 'middleware' => 'role'], function() {
 		Route::get('tong-quan', function() {

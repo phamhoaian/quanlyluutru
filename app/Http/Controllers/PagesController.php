@@ -132,4 +132,11 @@ class PagesController extends Controller
 
         return redirect()->route('pages.setting')->with(['flash_level' => 'success', 'flash_message' => 'Đã cập nhật thông tin !']);
     }
+
+    public function showFirstLoginForm()
+    {
+    	$hotel = $this->hotelRepository->with('owner', 'user')->where('id', '=', Auth::user()->hotel_id)->first();
+
+    	return view('pages.firstLogin', compact('hotel'));
+    }
 }
