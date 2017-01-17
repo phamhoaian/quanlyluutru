@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'note', 'photo', 'role_id', 'hotel_id', 'active_flg', 'delete_flg'
+        'name', 'email', 'password', 'note', 'photo', 'role_id', 'hotel_id', 'active_flg', 'delete_flg', 'official_flg'
     ];
 
     /**
@@ -35,6 +35,11 @@ class User extends Authenticatable
     public function isMember()
     {
         return ($this->role_id == 1);
+    }
+
+    public function isOfficial()
+    {
+        return ($this->official_flg == 1);
     }
 
     public function hotel()

@@ -100,7 +100,7 @@ class PagesController extends Controller
         $input_hotel['name']      = $request->hotel_name;
         $input_hotel['address']   = $request->hotel_address;
         $input_hotel['phone']     = $request->hotel_phone;
-        $input_hotel['room']      = $request->hotel_room;
+        $input_hotel['room']      = (int) $request->hotel_room;
         $input_hotel['type']      = $request->hotel_type;
 
         $current_photo_path = 'public/uploads/hotel/'.$request->current_photo;
@@ -131,5 +131,69 @@ class PagesController extends Controller
         $this->ownerRepository->update($input_owner, $hotel->owner->id);
 
         return redirect()->route('pages.setting')->with(['flash_level' => 'success', 'flash_message' => 'Đã cập nhật thông tin !']);
+    }
+
+    public function showFirstLoginForm()
+    {
+        // redirect if the user is logged in
+        if (Auth::user()->isOfficial())
+        {
+            return redirect()->route('pages.top');
+        }
+
+    	$hotel = $this->hotelRepository->with('user')->where('id', '=', Auth::user()->hotel_id)->first();
+
+    	return view('pages.firstLogin', compact('hotel'));
+    }
+
+    public function firstLogin(SettingRequest $request)
+    {
+    	$hotel = $this->hotelRepository->with('user')->where('id', '=', Auth::user()->hotel_id)->first();
+
+    	// update hotel information
+        $input_hotel['name']      = $request->hotel_name;
+        $input_hotel['address']   = $request->hotel_address;
+        $input_hotel['phone']     = $request->hotel_phone;
+        $input_hotel['room']      = (int) $request->hotel_room;
+        $input_hotel['type']      = $request->hotel_type;
+
+        $current_photo_path = 'public/uploads/hotel/'.$request->current_photo;
+        if ($request->hasFile('hotel_photo'))
+        {
+            $file_name = time() . '.'. $request->file('hotel_photo')->getClientOriginalExtension();
+            $input_hotel['photo'] = $file_name;
+            $request->file('hotel_photo')->move('public/uploads/hotel', $file_name);
+            if (File::exists($current_photo_path))
+            {
+                File::delete($current_photo_path);
+            }
+        }
+        $this->hotelRepository->update($input_hotel, $hotel->id);
+
+        // update user's email
+        $input_user['email'] = $request->hotel_email;
+        $input_user['official_flg'] = 1;
+        $this->userRepository->update($input_user, $hotel->user->id);
+
+        // update owner information
+        $input_owner['name']			= $request->owner_name;
+        $input_owner['birthday']		= Carbon::parse($request->owner_birthday)->format('Y-m-d');
+        $input_owner['id_card']			= $request->owner_id_card;
+        $input_owner['address']			= $request->owner_address;
+        $input_owner['business_cert']	= $request->owner_business_cert;
+        $input_owner['security']		= $request->owner_security;
+
+        $owner = $this->ownerRepository->findByField('id_card', $request->owner_id_card)->first();
+
+        if ( ! $owner)
+        {
+        	$this->ownerRepository->create($input_owner);
+        }
+        else
+        {
+        	$this->ownerRepository->update($input_owner, $hotel->owner->id);
+        }
+
+        return redirect()->route('pages.top');
     }
 }

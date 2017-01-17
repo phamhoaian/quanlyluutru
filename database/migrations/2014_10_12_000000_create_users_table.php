@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->boolean('active_flg')->default('1');
             $table->boolean('delete_flg')->default('0');
+            $table->boolean('official_flg')->default('0');
             $table->string('photo', 50)->nullable();
             $table->dateTime('last_login')->nullable();
             $table->timestamps();
