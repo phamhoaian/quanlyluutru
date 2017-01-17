@@ -26,9 +26,12 @@ class LoginController extends Controller
 
     	if (Auth::attempt(['email' => $email, 'password' => $password])) // correct
     	{
+            Auth::user()->last_login = date('Y-m-d H:i:s');
+            Auth::user()->save();
+
             if (Auth::user()->isAdmin())
             {
-                return redirect('/quan-ly/tong-quan');
+                return redirect()->route('admin.top');
             }
             else
             {

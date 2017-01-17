@@ -12,18 +12,18 @@
 */
 Route::group(['middleware' => 'auth'], function () {
 
-	Route::get('/', ['as' => 'pages.top', 'uses' => 'PagesController@index']);
-	Route::get('/khai-bao-luu-tru', ['as' => 'pages.staying', 'uses' => 'PagesController@showStayingForm']);
-	Route::post('/khai-bao-luu-tru', ['as' => 'pages.postStaying', 'uses' => 'PagesController@stayingForm']);
-	Route::get('/thong-tin', ['as' => 'pages.setting', 'uses' => 'PagesController@showSettingForm']);
-	Route::post('/thong-tin', ['as' => 'pages.postSetting', 'uses' => 'PagesController@settingForm']);
+	Route::group(['middleware' => 'official'], function () {
+		Route::get('/', ['as' => 'pages.top', 'uses' => 'PagesController@index']);
+		Route::get('/khai-bao-luu-tru', ['as' => 'pages.staying', 'uses' => 'PagesController@showStayingForm']);
+		Route::post('/khai-bao-luu-tru', ['as' => 'pages.postStaying', 'uses' => 'PagesController@stayingForm']);
+		Route::get('/thong-tin', ['as' => 'pages.setting', 'uses' => 'PagesController@showSettingForm']);
+		Route::post('/thong-tin', ['as' => 'pages.postSetting', 'uses' => 'PagesController@settingForm']);
+	});
 	Route::get('/thiet-lap', ['as' => 'pages.firstLogin', 'uses' => 'PagesController@showFirstLoginForm']);
 	Route::post('/thiet-lap', ['as' => 'pages.postFirstLogin', 'uses' => 'PagesController@firstLogin']);
 
 	Route::group(['prefix' => 'quan-ly', 'middleware' => 'role'], function() {
-		Route::get('tong-quan', function() {
-		    //
-		});
+		Route::get('tong-quan', ['as' => 'admin.top', 'uses' => 'DashboardController@index']);
 
 		Route::group(['prefix' => 'nha-nghi-khach-san'], function() {
 			Route::get('danh-sach', ['as' => 'admin.hotel.list', 'uses' => 'Admin\HotelController@showListHotels']);

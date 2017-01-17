@@ -24,7 +24,7 @@
 				</div>
 			</div>
 			<div class="portlet-body form">
-				{!! Form::open(['route' => 'pages.firstLogin', 'class' => 'form-horizontal', 'id' => 'submit_form']) !!}
+				{!! Form::open(['route' => 'pages.firstLogin', 'class' => 'form-horizontal', 'id' => 'submit_form', 'files' => TRUE]) !!}
 					<div class="form-wizard">
 						<div class="form-body">
 							<ul class="nav nav-pills nav-justified steps">
@@ -152,11 +152,11 @@
 										<div class="col-md-6">
 											<div class="mt-radio-inline">
 												<label class="mt-radio">
-													<input type="radio" name="hotel_type" value="1" {{ $hotel->type == 1 ? 'checked' : '' }}> Nhà nghỉ
+													<input type="radio" name="hotel_type" value="1" data-title="Nhà nghỉ" {{ $hotel->type == 1 ? 'checked' : '' }}> Nhà nghỉ
 													<span></span>
 												</label>
 												<label class="mt-radio">
-													<input type="radio" name="hotel_type" value="2" {{ $hotel->type == 2 ? 'checked' : '' }}> Khách sạn
+													<input type="radio" name="hotel_type" value="2" data-title="Khách sạn" {{ $hotel->type == 2 ? 'checked' : '' }}> Khách sạn
 													<span></span>
 												</label>
 											</div>
@@ -244,7 +244,12 @@
 										<div class="col-md-5">
 											<div class="fileinput fileinput-new" data-provides="fileinput">
 												<div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-													<img src="{{ asset('public/assets/img/no-image.png') }}" alt="">
+													@if ($hotel->photo)
+														<img src="{{ asset('public/uploads/hotel/'.$hotel->photo) }}" alt=""> 
+													@else
+														<img src="{{ asset('public/assets/img/no-image.png') }}" alt="">
+													@endif
+														<input type="hidden" name="current_photo" value="{{ $hotel->photo }}">
 												</div>
 												<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> 
 												</div>
@@ -346,9 +351,9 @@
 									<a href="javascript:;" class="btn btn-outline green button-next"> Tiếp tục
 										<i class="fa fa-angle-right"></i>
 									</a>
-									<a href="javascript:;" class="btn green button-submit"> Hoàn thành
+									<button type="submit" class="btn green button-submit"> Hoàn thành
 										<i class="fa fa-check"></i>
-									</a>
+									</button>
 								</div>
 							</div>
 						</div>
