@@ -31,6 +31,11 @@ class PagesController extends Controller
 		$this->ownerRepository = $ownerRepository;
 	}
 
+    public function index()
+    {
+        return view('pages.top');
+    }
+
     public function showStayingForm()
     {
     	$list_year = array();
