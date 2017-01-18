@@ -41,3 +41,10 @@
 .page-wrapper .page-wrapper-middle {
 	background: #FFF;
 }
+.page-header .page-header-menu .hor-menu .navbar-nav>li.open>a, .page-header .page-header-menu .hor-menu .navbar-nav>li:hover>a, .page-header .page-header-menu .hor-menu .navbar-nav>li>a:active, .page-header .page-header-menu .hor-menu .navbar-nav>li>a:focus, .page-header .page-header-menu .hor-menu .navbar-nav>li>a:hover {
+	background: none !important;
+	color: #e0e0e0;
+}
+.page-header .page-header-top .top-menu .navbar-nav>li.dropdown-user>.dropdown-toggle>.username, .page-header .page-header-top .top-menu .navbar-nav>li.dropdown-user>.dropdown-toggle>i {
+	color: #444;
+}

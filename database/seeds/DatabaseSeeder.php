@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(OwnerSeeder::class);
         $this->call(HotelSeeder::class);
         $this->call(NoticeSeeder::class);
+        $this->call(CustomerSeeder::class);
+        $this->call(HotelCustomerSeeder::class);
         Model::reguard();        
     }
 }

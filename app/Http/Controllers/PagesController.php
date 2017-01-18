@@ -36,6 +36,12 @@ class PagesController extends Controller
         return view('pages.top');
     }
 
+    public function getVisitors()
+    {
+        $visitors = $this->hotelCustomRepository->findVisitorsByHotelId(Auth::user()->hotel_id);
+        return json_encode($visitors);
+    }
+
     public function showStayingForm()
     {
     	$list_year = array();
