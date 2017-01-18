@@ -42,4 +42,7 @@
 		<!-- END PORTLET-->
 	</div>
 </div>
+<script type="text/javascript">
+	var base_url = '{{ url('/') }}';
+</script>
 @endsection

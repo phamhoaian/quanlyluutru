@@ -78,30 +78,75 @@ var Dashboard = function() {
                 }
 	        };
 
+	        $('input[name="type"]').on('change', function(){
+	        	var type = $(this).val();
+	        	var token = $('meta[name="csrf-token"]').attr('content');
+
+	        	$.ajax({
+	        		url: base_url + '/thong-ke',
+	        		type: 'POST',
+	        		dataType: 'json',
+	        		headers: {'X-CSRF-Token': token},
+	        		data: {
+	        			'type': type,
+	        			'_token': token
+	        		},
+	        		beforeSend: function(xhr) {
+	        			$('#site_statistics_loading').show();
+	        		},
+	        		success: function(data) {
+	        			$('#site_statistics_loading').hide();
+		        		$('#site_statistics_content').show();
+
+		        		visitors = [];
+		        		$.each(data.visitors, function(){
+
+		        			switch(data.type) {
+	        					case 'week':
+	        						visitors.push(['Tuần ' + this.date, this.number]);
+	        						break;
+        						case 'month':
+        							var date = new Date(this.date);
+        							visitors.push(['Tháng ' + (date.getMonth() + 1) + '/' + date.getFullYear(), this.number]);
+        							break;
+    							default:
+    								var date = new Date(this.date);
+    								visitors.push([date.getDate() + '/' + (date.getMonth() + 1), this.number]);
+    							 	break;
+		        			}
+		        			
+		        		});		        			        		
+
+		        		var plot_statistics = $.plot($("#site_statistics"), [{
+		                    data: visitors,
+		                    lines: {
+		                        fill: 0.6,
+		                        lineWidth: 0
+		                    },
+		                    color: ['#f89f9f']
+		                }, {
+		                    data: visitors,
+		                    points: {
+		                        show: true,
+		                        fill: true,
+		                        radius: 5,
+		                        fillColor: "#f89f9f",
+		                        lineWidth: 3
+		                    },
+		                    color: '#fff',
+		                    shadowSize: 0
+		                }], options);
+	        		},
+	        		failed: function(data) {
+	        			$('#site_statistics_loading').hide();
+	        		}
+	        	});
+	        });
+
 	        if ($('#site_statistics').size() != 0) {
 
 	            $('#site_statistics_loading').hide();
-	            $('#site_statistics_content').show();
-
-	            var plot_statistics = $.plot($("#site_statistics"), [{
-	                    data: visitors,
-	                    lines: {
-	                        fill: 0.6,
-	                        lineWidth: 0
-	                    },
-	                    color: ['#f89f9f']
-	                }, {
-	                    data: visitors,
-	                    points: {
-	                        show: true,
-	                        fill: true,
-	                        radius: 5,
-	                        fillColor: "#f89f9f",
-	                        lineWidth: 3
-	                    },
-	                    color: '#fff',
-	                    shadowSize: 0
-	                }], options);
+	            $('#site_statistics_content').show();	            
 
 	            var previousPoint = null;
 	            $("#site_statistics").bind("plothover", function(event, pos, item) {
@@ -123,6 +168,9 @@ var Dashboard = function() {
 	                }
 	            });
 	        }
+
+	        // select first type as default
+	        $('input[name="type"]:first').click();
 	    },	
 
 	    init: function() {

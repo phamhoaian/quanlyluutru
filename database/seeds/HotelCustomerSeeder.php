@@ -13,7 +13,7 @@ class HotelCustomerSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        for ($i = 1; $i <= 50; $i++) { 
+        for ($i = 1; $i <= 100; $i++) { 
         	DB::table('hotel_customer_map')->insert(
         		[
         			'hotel_id' 		=> rand(1,20),
