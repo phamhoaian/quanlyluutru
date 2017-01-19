@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::group(['prefix' => 'quan-ly', 'middleware' => 'role'], function() {
 		Route::get('tong-quan', ['as' => 'admin.top', 'uses' => 'Admin\DashboardController@index']);
+		Route::post('thong-ke', ['as' => 'admin.statistics', 'uses' => 'Admin\DashboardController@getVisitors']);
 
 		Route::group(['prefix' => 'nha-nghi-khach-san'], function() {
 			Route::get('danh-sach', ['as' => 'admin.hotel.list', 'uses' => 'Admin\HotelController@showListHotels']);

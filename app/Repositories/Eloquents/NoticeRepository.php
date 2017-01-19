@@ -12,4 +12,10 @@ class NoticeRepository extends BaseRepository
 		return 'App\Notice';
 	}
 
+	public function getLatestNotice($limit)
+	{
+		return $this->model->orderBy('created_at', 'DESC')
+					->take($limit)
+					->get();
+	}
 }
