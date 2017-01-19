@@ -17,7 +17,7 @@
 @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<div class="portlet box green">
+		<div class="portlet box green-jungle">
 			<div class="portlet-title">
 				<div class="caption">
 					<i class="fa fa-building"></i>Khai báo khách lưu trú
@@ -199,7 +199,7 @@
 					<div class="form-actions">
 						<div class="row">
 							<div class="col-md-offset-3 col-md-9">
-								<button type="submit" class="btn btn-circle blue" data-loading-text="Đang xử lý...">Thêm mới</button>
+								<button type="submit" class="btn btn-circle blue" data-loading-text="Đang xử lý...">Đăng ký</button>
 								<button type="reset" class="btn btn-circle default">Hủy bỏ</button>
 							</div>
 						</div>

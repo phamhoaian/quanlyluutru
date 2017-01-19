@@ -48,7 +48,7 @@ class PagesController extends Controller
             }
             else
             {
-                return response()->json(array('error' => 'Not found'), 401);
+                return response()->json(array('error' => 'Not found'), 404);
             }
         }
         return FALSE;

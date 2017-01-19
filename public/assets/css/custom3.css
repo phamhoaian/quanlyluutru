@@ -48,3 +48,15 @@
 .page-header .page-header-top .top-menu .navbar-nav>li.dropdown-user>.dropdown-toggle>.username, .page-header .page-header-top .top-menu .navbar-nav>li.dropdown-user>.dropdown-toggle>i {
 	color: #444;
 }
+.page-header .page-header-top .page-logo .logo-default {
+	margin: 15px 0 0;
+}
+.page-header .page-header-top .page-logo {
+	width: auto;
+	height: auto;
+	margin-bottom: 5px;
+}
+.page-header .page-header-top .page-logo .sub-title {
+    text-transform: uppercase;
+    margin: 10px 0;
+}

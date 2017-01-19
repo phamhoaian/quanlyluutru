@@ -2,9 +2,10 @@
 	<div class="container">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
-			<a href="index.html">
-				<img src="{{ asset('public/assets/img/logo-default.jpg') }}" alt="logo" class="logo-default">
+			<a href="{{ url('/') }}">
+				<img src="{{ asset('public/assets/img/logo-default.png') }}" alt="logo" class="logo-default">
 			</a>
+			<p class="sub-title">Hệ thống khai báo lưu trú trực tuyến</p>
 		</div>
 		<!-- END LOGO -->
 		<!-- BEGIN RESPONSIVE MENU TOGGLER -->

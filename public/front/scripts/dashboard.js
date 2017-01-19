@@ -93,6 +93,7 @@ var Dashboard = function() {
 	        		},
 	        		beforeSend: function(xhr) {
 	        			$('#site_statistics_loading').show();
+	        			$('#site_statistics_content').hide();
 	        		},
 	        		success: function(data) {
 	        			$('#site_statistics_loading').hide();
@@ -101,16 +102,15 @@ var Dashboard = function() {
 		        		visitors = [];
 		        		$.each(data.visitors, function(){
 
+		        			var date = new Date(this.date);
 		        			switch(data.type) {
 	        					case 'week':
-	        						visitors.push(['Tuần ' + this.date, this.number]);
+	        						visitors.push(['TUẦN ' + this.week + '/' + date.getFullYear(), this.number]);
 	        						break;
-        						case 'month':
-        							var date = new Date(this.date);
-        							visitors.push(['Tháng ' + (date.getMonth() + 1) + '/' + date.getFullYear(), this.number]);
+        						case 'month':        							
+        							visitors.push(['THÁNG ' + this.month + '/' + date.getFullYear(), this.number]);
         							break;
     							default:
-    								var date = new Date(this.date);
     								visitors.push([date.getDate() + '/' + (date.getMonth() + 1), this.number]);
     							 	break;
 		        			}
