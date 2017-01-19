@@ -31,6 +31,29 @@ class PagesController extends Controller
 		$this->ownerRepository = $ownerRepository;
 	}
 
+    public function index()
+    {
+        return view('pages.top');
+    }
+
+    public function getVisitors(Request $request)
+    {
+        if($request->ajax())
+        {
+            $visitors = $this->hotelCustomRepository->findVisitorsByHotelId(Auth::user()->hotel_id, $request->type);
+
+            if ($visitors)
+            {
+                return response()->json(array('type' => $request->type, 'visitors' => $visitors), 200);
+            }
+            else
+            {
+                return response()->json(array('error' => 'Not found'), 404);
+            }
+        }
+        return FALSE;
+    }
+
     public function showStayingForm()
     {
     	$list_year = array();

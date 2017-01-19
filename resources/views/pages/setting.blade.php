@@ -7,13 +7,13 @@
 @section('js')
 <script src="{{ asset('public/assets/plugins/bootstrap-fileinput/bootstrap-fileinput.js') }}" type="text/javascript"></script>
 <script src="{{ asset('public/assets/plugins/jquery-validation/js/jquery.validate.min.js') }}" type="text/javascript"></script>
-{{-- <script src="{{ asset('public/front/scripts/setting.js') }}" type="text/javascript"></script> --}}
+<script src="{{ asset('public/front/scripts/setting.js') }}" type="text/javascript"></script>
 @endsection
 
 @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<div class="portlet box green">
+		<div class="portlet box green-jungle">
 			<div class="portlet-title">
 				<div class="caption">
 					<i class="fa fa-building"></i>Thiết lập thông tin

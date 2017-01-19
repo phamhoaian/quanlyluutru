@@ -18,7 +18,7 @@ class OwnerSeeder extends Seeder
         		[
         			'name' 			=> $faker->name,
         			'birthday'		=> $faker->date,
-        			'id_card' 		=> $faker->unique()->creditCardNumber,
+        			'id_card' 		=> $faker->unique()->biasedNumberBetween($min = 100000000000, $max = 300000000000),
         			'address' 		=> $faker->address,
         			'business_cert'	=> str_random(10),
         			'security' 		=> str_random(10)

@@ -115,6 +115,7 @@ var Setting = function() {
 			},
 
 			submitHandler: function(form) {
+				$('button[type="submit"]').attr('disabled', '');
 				form.submit(); // form validation success, call ajax form submit
 			}
 		});

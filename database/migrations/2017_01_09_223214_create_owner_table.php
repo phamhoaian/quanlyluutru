@@ -17,7 +17,7 @@ class CreateOwnerTable extends Migration
             $table->increments('id');
             $table->string('name', 100);
             $table->date('birthday');
-            $table->string('id_card', 20);
+            $table->integer('id_card', 12);
             $table->string('address');
             $table->string('business_cert', 50);
             $table->string('security', 50);

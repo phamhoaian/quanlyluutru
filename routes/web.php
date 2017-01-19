@@ -14,6 +14,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::group(['middleware' => 'official'], function () {
 		Route::get('/', ['as' => 'pages.top', 'uses' => 'PagesController@index']);
+		Route::post('/thong-ke', ['as' => 'pages.statistics', 'uses' => 'PagesController@getVisitors']);
 		Route::get('/khai-bao-luu-tru', ['as' => 'pages.staying', 'uses' => 'PagesController@showStayingForm']);
 		Route::post('/khai-bao-luu-tru', ['as' => 'pages.postStaying', 'uses' => 'PagesController@stayingForm']);
 		Route::get('/thong-tin', ['as' => 'pages.setting', 'uses' => 'PagesController@showSettingForm']);
