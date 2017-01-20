@@ -1,5 +1,7 @@
 @extends('admin.layouts.master')
 
+@section('page-title', 'Tổng quan')
+
 @section('css')
 <link rel="stylesheet" href="{{ asset('public/assets/plugins/morris/morris.css') }}">
 @endsection
@@ -45,9 +47,9 @@
             </div>
             <div class="details">
                 <div class="number">
-                    <span data-counter="counterup" data-value="549">549</span>
+                    <span data-counter="counterup" data-value="{{ $declared }}">{{ $declared }}</span>
                 </div>
-                <div class="desc"> New Orders </div>
+                <div class="desc">Nhà nghỉ/khách sạn đã khai báo hôm nay</div>
             </div>
         </a>
     </div>
@@ -57,9 +59,10 @@
                 <i class="fa fa-globe"></i>
             </div>
             <div class="details">
-                <div class="number"> +
-                    <span data-counter="counterup" data-value="89">89</span>% </div>
-                <div class="desc"> Brand Popularity </div>
+                <div class="number">
+                    <span data-counter="counterup" data-value="{{ $not_declare }}">{{ $not_declare }}</span>
+                </div>
+                <div class="desc">Nhà nghỉ/khách sạn chưa khai báo hôm nay</div>
             </div>
         </a>
     </div>

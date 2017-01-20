@@ -25,20 +25,21 @@ var Dashboard = function() {
 	        		success: function(data) {
 	        			$('#site_statistics_loading').hide();
 		        		$('#summary_analytics').show();
+		        		$('#summary_analytics').html('');
 
 		        		visitors = [];
-		        		$.each(data.men_visitors, function(){
+		        		$.each(data.visitors, function(){
 
-		        			var date = new Date(this.date);
+		        			var day = new Date(this.day);
 		        			switch(data.type) {
 	        					case 'week':
-	        						visitors.push(['TUẦN ' + this.week + '/' + date.getFullYear(), this.number]);
+	        						visitors.push({ y: 'TUẦN ' + this.week + '/' + day.getFullYear(), a: this.men, b: this.women});
 	        						break;
         						case 'month':        							
-        							visitors.push(['THÁNG ' + this.month + '/' + date.getFullYear(), this.number]);
+        							visitors.push({ y: 'THÁNG ' + this.month + '/' + day.getFullYear(), a: this.men, b: this.women});
         							break;
     							default:
-    								visitors.push([date.getDate() + '/' + (date.getMonth() + 1), this.number]);
+    								visitors.push({ y: day.getDate() + '/' + (day.getMonth() + 1), a: this.men, b: this.women});
     							 	break;
 		        			}
 		        			
@@ -46,15 +47,7 @@ var Dashboard = function() {
 
 		        		Morris.Bar({
 							element: 'summary_analytics',
-							data: [
-								{ y: '25/12', a: 100, b: 90 },
-								{ y: '26/12', a: 75,  b: 65 },
-								{ y: '27/12', a: 50,  b: 40 },
-								{ y: '28/12', a: 75,  b: 65 },
-								{ y: '29/12', a: 50,  b: 40 },
-								{ y: '30/12', a: 75,  b: 65 },
-								{ y: '31/12', a: 100, b: 90 }
-							],
+							data: visitors,
 							xkey: 'y',
 							ykeys: ['a', 'b'],
 							labels: ['Nam', 'Nữ'],
