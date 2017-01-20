@@ -11,7 +11,7 @@
 						<strong>0909 123 456</strong>
 					</div>
 					<div class="col-md-6 text-right">
-						<?= date('Y') ?> &copy; Công An Phường An Phú
+						<?= date('Y'); ?> &copy; Công An Phường An Phú
 					</div>
 				</div>
 			</div>

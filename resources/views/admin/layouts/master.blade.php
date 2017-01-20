@@ -30,6 +30,7 @@
     <link href="{{ asset('public/assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
     <link rel="shortcut icon" href="favicon.ico" /> 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <!-- END HEAD -->
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-content-white">
