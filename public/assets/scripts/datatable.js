@@ -45,22 +45,22 @@ var Datatable = function() {
                     "pageLength": 10, // default records per page
                     "language": { // language settings
                         // metronic spesific
-                        "metronicGroupActions": "_TOTAL_ records selected:  ",
-                        "metronicAjaxRequestGeneralError": "Could not complete request. Please check your internet connection",
+                        "metronicGroupActions": "_TOTAL_ kết quả được chọn:  ",
+                        "metronicAjaxRequestGeneralError": "Không thể hoàn thành yêu cầu. Vui lòng kiểm tra kết nối internet của bạn",
 
                         // data tables spesific
-                        "lengthMenu": "<span class='seperator'>|</span>View _MENU_ records",
-                        "info": "<span class='seperator'>|</span>Found total _TOTAL_ records",
-                        "infoEmpty": "No records found to show",
-                        "emptyTable": "No data available in table",
-                        "zeroRecords": "No matching records found",
+                        "lengthMenu": "<span class='seperator'>|</span>Hiển thị _MENU_ kết quả",
+                        "info": "<span class='seperator'>|</span>Tìm thấy tổng cộng _TOTAL_ kết quả",
+                        "infoEmpty": "Không tìm thấy kết quả nào để hiển thị",
+                        "emptyTable": "Không có dữ liệu trong bảng",
+                        "zeroRecords": "Không tìm thấy kết quả nào",
                         "paginate": {
-                            "previous": "Prev",
-                            "next": "Next",
-                            "last": "Last",
-                            "first": "First",
-                            "page": "Page",
-                            "pageOf": "of"
+                            "previous": "Trước",
+                            "next": "Sau",
+                            "last": "Cuối",
+                            "first": "Đầu",
+                            "page": "Trang",
+                            "pageOf": "của"
                         }
                     },
 

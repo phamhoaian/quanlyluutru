@@ -10,7 +10,7 @@ var Dashboard = function() {
 	        	var token = $('meta[name="csrf-token"]').attr('content');
 
 	        	$.ajax({
-	        		url: base_url + '/quan-ly/thong-ke',
+	        		url: base_url + '/quan-ly/tra-cuu',
 	        		type: 'POST',
 	        		dataType: 'json',
 	        		headers: {'X-CSRF-Token': token},

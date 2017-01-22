@@ -1,1 +1,4 @@
-/* here you can put your own css to customize and override the theme */
+.table-checkable tr>td:first-child, .table-checkable tr>th:first-child {
+	max-width: none;
+	padding: 10px 18px;
+}

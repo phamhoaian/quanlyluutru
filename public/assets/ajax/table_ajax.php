@@ -26,7 +26,6 @@
     $status = $status_list[rand(0, 2)];
     $id = ($i + 1);
     $records["data"][] = array(
-      '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline"><input name="id[]" type="checkbox" class="checkboxes" value="'.$id.'"/><span></span></label>',
       'Nhà nghỉ Ánh Ngọc',
       'Trần Văn A',
       rand(1950, 2010),
