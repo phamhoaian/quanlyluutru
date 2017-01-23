@@ -16,4 +16,9 @@ class Customer extends Model
     ];
 
     protected $table = 'customers';
+
+    public function hotels()
+    {
+    	return $this->belongsToMany('App\Hotel');
+    }
 }

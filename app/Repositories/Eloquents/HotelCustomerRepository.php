@@ -103,4 +103,14 @@ class HotelCustomerRepository extends BaseRepository
 						   ->get()
 						   ->toArray();
 	}
+
+	public function getAll($limit, $offset)
+	{
+		return $this->model->take($limit)->skip($offset)->get();
+	}
+
+	public function getCount()
+	{
+		return $this->model->count();
+	}
 }

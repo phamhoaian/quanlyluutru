@@ -11,6 +11,7 @@ var TableDatatablesAjax = function () {
     var handleDemo1 = function () {
 
         var grid = new Datatable();
+        var token = $('meta[name="csrf-token"]').attr('content');
 
         grid.init({
             src: $("#search"),
@@ -42,6 +43,9 @@ var TableDatatablesAjax = function () {
                 "pageLength": 10, // default record count per page
                 "ajax": {
                     "url": base_url + "/quan-ly/tim-kiem", // ajax source
+                    "data": {
+                        "_token": token
+                    }
                 },
                 "order": [
                     [1, "asc"]
