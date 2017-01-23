@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Eloquents\HotelCustomerRepository;
+use CarBon\Carbon;
 
 class StatisticsController extends Controller
 {
@@ -17,8 +18,6 @@ class StatisticsController extends Controller
 
     public function showSearchForm()
     {
-    	$hotelCustomerData = $this->hotelCustomerRepository->getAll(0, 10);
-		dd($hotelCustomerData);
     	return view('admin.statistics.search');
     }
 
@@ -36,20 +35,30 @@ class StatisticsController extends Controller
 		$end = $iDisplayStart + $iDisplayLength;
 		$end = $end > $iTotalRecords ? $iTotalRecords : $end;
 
-		$hotelCustomerData = $this->hotelCustomerRepository->getAll($iDisplayStart, $end);
-		dd($hotelCustomerData);
-		for($i = $iDisplayStart; $i < $end; $i++) {
-			$records["data"][] = array(
+		$hotelCustomerData = $this->hotelCustomerRepository->getAll($iDisplayLength, $iDisplayStart);
+		
+		if ( ! $hotelCustomerData)
+		{
+			return FALSE;
+		}
 
-			  'Nhà nghỉ Ánh Ngọc',
-			  'Trần Văn A',
-			  rand(1950, 2010),
-			  'Nam',
-			  '280909090',
-			  'Thuận An, Bình Dương',
-			  rand(101, 200),
-			  '12/12/2016 12:34',
-			  '12/12/2016 12:34',
+		foreach ($hotelCustomerData as $key => $row) {
+			if ($row->customer_sex == 1) {
+				$sex = '<span class="label label-sm label-info">Nam</span>';
+			} else {
+				$sex = '<span class="label label-sm label-danger">Nữ</span>';
+			}
+
+			$records["data"][] = array(
+			  $row->hotel_name,
+			  $row->customer_name,
+			  $row->customer_year_of_birth,
+			  $sex,
+			  $row->customer_id_card,
+			  $row->customer_address,
+			  $row->room_number,
+			  Carbon::parse($row->check_in)->format('d/m/Y H:i'),
+			  Carbon::parse($row->check_out)->format('d/m/Y H:i'),
 			);
 		}
 

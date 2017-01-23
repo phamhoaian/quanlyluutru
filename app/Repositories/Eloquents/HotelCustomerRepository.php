@@ -106,7 +106,23 @@ class HotelCustomerRepository extends BaseRepository
 
 	public function getAll($limit, $offset)
 	{
-		return $this->model->take($limit)->skip($offset)->get();
+		return $this->model->select('hotel_id', 
+								    DB::raw('hotels.name as hotel_name'), 
+								    'customer_id', 
+								    DB::raw('customers.name as customer_name'), 
+								    DB::raw('customers.year_of_birth as customer_year_of_birth'), 
+								    DB::raw('customers.sex as customer_sex'), 
+								    DB::raw('customers.id_card as customer_id_card'), 
+								    DB::raw('customers.address as customer_address'), 
+								    'room_number', 
+								    'check_in', 
+								    'check_out')
+						   ->leftJoin('hotels', 'hotel_customer_map.hotel_id', '=', 'hotels.id')
+						   ->leftJoin('customers', 'hotel_customer_map.customer_id', '=', 'customers.id')
+						   ->orderBy('check_in', 'DESC')
+						   ->take($limit)
+						   ->skip($offset)
+						   ->get();
 	}
 
 	public function getCount()

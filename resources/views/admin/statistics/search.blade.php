@@ -14,6 +14,7 @@
 <script src="{{ asset('public/assets/plugins/datatables/datatables.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('public/assets/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js') }}" type="text/javascript"></script>
 <script src="{{ asset('public/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('public/assets/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.vi.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('public/assets/scripts/datatable.js') }}" type="text/javascript"></script>
 <script src="{{ asset('public/assets/scripts/table-datatables-ajax.js') }}" type="text/javascript"></script>
 @endsection
