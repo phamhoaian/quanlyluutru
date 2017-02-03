@@ -104,9 +104,9 @@ class HotelCustomerRepository extends BaseRepository
 						   ->toArray();
 	}
 
-	public function getAll($limit, $offset)
+	public function findVisitorsByFilter($where = NULL, $orderBy = NULL, $limit, $offset)
 	{
-		return $this->model->select('hotel_id', 
+		$query = $this->model->select('hotel_id', 
 								    DB::raw('hotels.name as hotel_name'), 
 								    'customer_id', 
 								    DB::raw('customers.name as customer_name'), 
@@ -118,15 +118,34 @@ class HotelCustomerRepository extends BaseRepository
 								    'check_in', 
 								    'check_out')
 						   ->leftJoin('hotels', 'hotel_customer_map.hotel_id', '=', 'hotels.id')
-						   ->leftJoin('customers', 'hotel_customer_map.customer_id', '=', 'customers.id')
-						   ->orderBy('check_in', 'DESC')
-						   ->take($limit)
-						   ->skip($offset)
-						   ->get();
+						   ->leftJoin('customers', 'hotel_customer_map.customer_id', '=', 'customers.id');
+	    if ($where) 
+	    {
+	    	$query->where($where);
+	    }	
+
+	    if ($orderBy)
+	    {
+	    	$query->orderBy($orderBy[0], $orderBy[1]);
+	    }
+	    else
+	    {
+	    	$query->orderBy('check_in', 'DESC');
+	    }   	
+	   	
+		$query->take($limit)
+			  ->skip($offset);
+	   	return $query->get();
 	}
 
-	public function getCount()
+	public function getCountVisitorsByFilter($where = NULL)
 	{
-		return $this->model->count();
+		$query = $this->model->leftJoin('hotels', 'hotel_customer_map.hotel_id', '=', 'hotels.id')
+						   	 ->leftJoin('customers', 'hotel_customer_map.customer_id', '=', 'customers.id');
+	   	if ($where) 
+	    {
+	    	$query->where($where);
+	    }
+		return $query->count();
 	}
 }

@@ -2,6 +2,7 @@
 
 @section('breadcrumb', 'Tìm kiếm')
 @section('page-title', 'Tìm kiếm')
+@section('title', 'Danh sách khách lưu trú')
 
 @section('css')
 <link href="{{ asset('public/assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
@@ -28,17 +29,17 @@
 					<i class="icon-settings font-green"></i>
 					<span class="caption-subject bold uppercase font-green"> Danh sách khách lưu trú</span>
 				</div>
-				<div class="pull-right">
-					<button type="button" class="btn blue mt-ladda-btn ladda-button" data-style="expand-right">
+				<div id="datatable_ajax_tools" class="pull-right">
+					<a href="javascript:;" class="btn blue mt-ladda-btn ladda-button tool-action" data-style="expand-right" data-action="0">
 						<span class="ladda-label">
 							<i class="fa fa-print"></i> 
 							&nbsp;In</span>
-					</button>
-					<button type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+					</a>
+					<a href="javascript:;" class="btn btn-success mt-ladda-btn ladda-button tool-action" data-style="expand-right" data-action="1">
 						<span class="ladda-label">
 							<i class="fa fa-file-excel-o"></i> 
 							&nbsp;Xuất ra Excel</span>
-					</button>
+					</a>
 				</div>
 			</div>
 			<div class="portlet-body">
@@ -57,37 +58,37 @@
 						</tr>
 						<tr role="row" class="filter">
 							<td>
-								<input type="text" class="form-control form-filter input-sm" name="order_customer_name" placeholder="Tìm theo tên nhà nghỉ/khách sạn">
+								<input type="text" class="form-control form-filter input-sm" name="hotel_name" placeholder="Tìm theo tên nhà nghỉ/khách sạn">
 							</td>
 							<td>
-								<input type="text" class="form-control form-filter input-sm" name="order_customer_name" placeholder="Tìm theo tên khách">
+								<input type="text" class="form-control form-filter input-sm" name="customer_name" placeholder="Tìm theo tên khách">
 							</td>
 							<td></td>
 							<td>
-								<select name="order_status" class="form-control form-filter input-sm">
+								<select name="customer_genre" class="form-control form-filter input-sm">
                                     <option value="">Giới tính</option>
                                     <option value="1">Nam</option>
                                     <option value="2">Nữ</option>
                                 </select>
 							</td>
 							<td>
-								<input type="text" class="form-control form-filter input-sm" name="order_customer_name" placeholder="Số CMND">
+								<input type="text" class="form-control form-filter input-sm" name="customer_id_card" placeholder="Số CMND">
 							</td>
 							<td></td>
 							<td>
-								<input type="text" class="form-control form-filter input-sm" name="order_customer_name" placeholder="Phòng">
+								<input type="text" class="form-control form-filter input-sm" name="room_number" placeholder="Phòng">
 							</td>
 							<td>
-								<div class="input-group date date-picker margin-bottom-5" data-date-format="dd/mm/yyyy">
-                                    <input type="text" class="form-control form-filter input-sm" readonly name="order_date_from" placeholder="Từ">
+								<div id="date_from" class="input-group date date-picker margin-bottom-5" data-date-format="dd/mm/yyyy">
+                                    <input type="text" class="form-control form-filter input-sm" readonly name="date_from" placeholder="Từ">
                                     <span class="input-group-btn">
                                         <button class="btn btn-sm default" type="button">
                                             <i class="fa fa-calendar"></i>
                                         </button>
                                     </span>
                                 </div>
-                                <div class="input-group date date-picker" data-date-format="dd/mm/yyyy">
-                                    <input type="text" class="form-control form-filter input-sm" readonly name="order_date_to" placeholder="Đến">
+                                <div id="date_to" class="input-group date date-picker" data-date-format="dd/mm/yyyy">
+                                    <input type="text" class="form-control form-filter input-sm" readonly name="date_to" placeholder="Đến">
                                     <span class="input-group-btn">
                                         <button class="btn btn-sm default" type="button">
                                             <i class="fa fa-calendar"></i>
@@ -95,7 +96,16 @@
                                     </span>
                                 </div>
 							</td>
-							<td></td>
+							<td>
+								<div class="margin-bottom-5">
+                                    <button class="btn btn-sm green btn-outline filter-submit margin-bottom">
+                                        <i class="fa fa-search"></i> Tìm
+                                    </button>
+                                </div>
+                                <button class="btn btn-sm red btn-outline filter-cancel">
+                                    <i class="fa fa-times"></i> Reset
+                                </button>
+							</td>
 						</tr>
 					</thead>
 					<tbody>

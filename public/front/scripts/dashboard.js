@@ -100,42 +100,50 @@ var Dashboard = function() {
 		        		$('#site_statistics_content').show();
 
 		        		visitors = [];
-		        		$.each(data.visitors, function(){
 
-		        			var date = new Date(this.date);
-		        			switch(data.type) {
-	        					case 'week':
-	        						visitors.push(['TUẦN ' + this.week + '/' + date.getFullYear(), this.number]);
-	        						break;
-        						case 'month':        							
-        							visitors.push(['THÁNG ' + this.month + '/' + date.getFullYear(), this.number]);
-        							break;
-    							default:
-    								visitors.push([date.getDate() + '/' + (date.getMonth() + 1), this.number]);
-    							 	break;
-		        			}
+		        		if (data.visitors != '')
+		        		{
+		        			$.each(data.visitors, function(){
+
+			        			var date = new Date(this.date);
+			        			switch(data.type) {
+		        					case 'week':
+		        						visitors.push(['TUẦN ' + this.week + '/' + date.getFullYear(), this.number]);
+		        						break;
+	        						case 'month':        							
+	        							visitors.push(['THÁNG ' + this.month + '/' + date.getFullYear(), this.number]);
+	        							break;
+	    							default:
+	    								visitors.push([date.getDate() + '/' + (date.getMonth() + 1), this.number]);
+	    							 	break;
+			        			}
+			        			
+			        		});		        			        		
+
+			        		var plot_statistics = $.plot($("#site_statistics"), [{
+			                    data: visitors,
+			                    lines: {
+			                        fill: 0.6,
+			                        lineWidth: 0
+			                    },
+			                    color: ['#f89f9f']
+			                }, {
+			                    data: visitors,
+			                    points: {
+			                        show: true,
+			                        fill: true,
+			                        radius: 5,
+			                        fillColor: "#f89f9f",
+			                        lineWidth: 3
+			                    },
+			                    color: '#fff',
+			                    shadowSize: 0
+			                }], options);
+		        		}
+		        		else
+		        		{
 		        			
-		        		});		        			        		
-
-		        		var plot_statistics = $.plot($("#site_statistics"), [{
-		                    data: visitors,
-		                    lines: {
-		                        fill: 0.6,
-		                        lineWidth: 0
-		                    },
-		                    color: ['#f89f9f']
-		                }, {
-		                    data: visitors,
-		                    points: {
-		                        show: true,
-		                        fill: true,
-		                        radius: 5,
-		                        fillColor: "#f89f9f",
-		                        lineWidth: 3
-		                    },
-		                    color: '#fff',
-		                    shadowSize: 0
-		                }], options);
+		        		}
 	        		},
 	        		failed: function(data) {
 	        			$('#site_statistics_loading').hide();

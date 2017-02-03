@@ -28,33 +28,40 @@ var Dashboard = function() {
 		        		$('#summary_analytics').html('');
 
 		        		visitors = [];
-		        		$.each(data.visitors, function(){
+		        		if (data.visitors)
+		        		{
+		        			$.each(data.visitors, function(){
 
-		        			var day = new Date(this.day);
-		        			switch(data.type) {
-	        					case 'week':
-	        						visitors.push({ y: 'TUẦN ' + this.week + '/' + day.getFullYear(), a: this.men, b: this.women});
-	        						break;
-        						case 'month':        							
-        							visitors.push({ y: 'THÁNG ' + this.month + '/' + day.getFullYear(), a: this.men, b: this.women});
-        							break;
-    							default:
-    								visitors.push({ y: day.getDate() + '/' + (day.getMonth() + 1), a: this.men, b: this.women});
-    							 	break;
-		        			}
-		        			
-		        		});		        			        		
+			        			var day = new Date(this.day);
+			        			switch(data.type) {
+		        					case 'week':
+		        						visitors.push({ y: 'TUẦN ' + this.week + '/' + day.getFullYear(), a: this.men, b: this.women});
+		        						break;
+	        						case 'month':        							
+	        							visitors.push({ y: 'THÁNG ' + this.month + '/' + day.getFullYear(), a: this.men, b: this.women});
+	        							break;
+	    							default:
+	    								visitors.push({ y: day.getDate() + '/' + (day.getMonth() + 1), a: this.men, b: this.women});
+	    							 	break;
+			        			}
+			        			
+			        		});		        			        		
 
-		        		Morris.Bar({
-							element: 'summary_analytics',
-							data: visitors,
-							xkey: 'y',
-							ykeys: ['a', 'b'],
-							labels: ['Nam', 'Nữ'],
-							barColors: ['#0B62A4', '#D30000'],
-							hideHover: 'auto',
-							resize: true
-						});
+			        		Morris.Bar({
+								element: 'summary_analytics',
+								data: visitors,
+								xkey: 'y',
+								ykeys: ['a', 'b'],
+								labels: ['Nam', 'Nữ'],
+								barColors: ['#0B62A4', '#D30000'],
+								hideHover: 'auto',
+								resize: true
+							});
+		        		}
+		        		else
+		        		{
+		        			$('#summary_analytics').html('Không có dữ liệu');
+		        		}	
 	        		},
 	        		failed: function(data) {
 	        			$('#site_statistics_loading').hide();

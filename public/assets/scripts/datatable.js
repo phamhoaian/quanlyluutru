@@ -11,6 +11,7 @@ var Datatable = function() {
     var tableInitialized = false;
     var ajaxParams = {}; // set filter mode
     var the;
+    var token = $('meta[name="csrf-token"]').attr('content');
 
     var countSelectedRecords = function() {
         var selected = $('tbody > tr > td:nth-child(1) input[type="checkbox"]:checked', table).size();
@@ -49,9 +50,10 @@ var Datatable = function() {
                         "metronicAjaxRequestGeneralError": "Không thể hoàn thành yêu cầu. Vui lòng kiểm tra kết nối internet của bạn",
 
                         // data tables spesific
+                        "infoFiltered": "(lọc từ _MAX_ kết quả)",
                         "lengthMenu": "<span class='seperator'>|</span>Hiển thị _MENU_ kết quả",
-                        "info": "<span class='seperator'>|</span>Tìm thấy tổng cộng _TOTAL_ kết quả",
-                        "infoEmpty": "Không tìm thấy kết quả nào để hiển thị",
+                        "info": "<span class='seperator'>|</span>Tổng cộng _TOTAL_ kết quả",
+                        "infoEmpty": "<span class='seperator'>|</span>Không tìm thấy kết quả nào",
                         "emptyTable": "Không có dữ liệu trong bảng",
                         "zeroRecords": "Không tìm thấy kết quả nào",
                         "paginate": {
@@ -66,8 +68,8 @@ var Datatable = function() {
 
                     "orderCellsTop": true,
                     "columnDefs": [{ // define columns sorting options(by default all columns are sortable extept the first checkbox column)
-                        'orderable': false,
-                        'targets': [0]
+                        // 'orderable': false,
+                        // 'targets': [0]
                     }],
 
                     "pagingType": "bootstrap_extended", // pagination type(bootstrap, bootstrap_full_number or bootstrap_extended)
@@ -79,6 +81,9 @@ var Datatable = function() {
                         "url": "", // ajax URL
                         "type": "POST", // request type
                         "timeout": 20000,
+                        "headers": {
+                            'X-CSRF-TOKEN': token
+                        },
                         "data": function(data) { // add request parameters before submit
                             $.each(ajaxParams, function(key, value) {
                                 data[key] = value;

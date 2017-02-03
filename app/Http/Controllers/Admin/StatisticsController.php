@@ -23,6 +23,90 @@ class StatisticsController extends Controller
 
     public function search(Request $request)
     {
+    	$where = array();
+		if ($request->hotel_name != '') {
+			$where[] = ['hotels.name', 'like', '%'.$request->hotel_name.'%'];
+		}
+		if ($request->customer_name != '') {
+			$where[] = ['customers.name', 'like', '%'.$request->customer_name.'%'];
+		}
+		if ($request->customer_genre != '') {
+			$where[] = ['customers.sex', '=', intval($request->customer_genre)];
+		}
+		if ($request->customer_id_card != '') {
+			$where[] = ['customers.id_card', 'like', '%'.$request->customer_id_card.'%'];
+		}
+		if ($request->room_number != '') {
+			$where[] = ['room_number', '=', $request->room_number];
+		}
+		if ($request->date_from != '') {
+			$where[] = ['check_in', '>=', Carbon::parse(str_replace('/', '-', $request->date_from))->format('Y-m-d H:i:s')];
+		}
+		if ($request->date_to != '') {
+			$where[] = ['check_in', '<=', Carbon::parse(str_replace('/', '-', $request->date_to))->format('Y-m-d H:i:s')];
+		}
+
+    	$iTotalRecords = $this->hotelCustomerRepository->getCountVisitorsByFilter();
+    	$iFilteredRecords = $this->hotelCustomerRepository->getCountVisitorsByFilter($where);
+		$iDisplayLength = intval($request->length);
+		$iDisplayLength = $iDisplayLength < 0 ? $iTotalRecords : $iDisplayLength; 
+		$iDisplayStart = intval($request->start);
+		$sEcho = intval($request->draw);
+
+		$records = array();
+		$records["data"] = array(); 
+
+		$end = $iDisplayStart + $iDisplayLength;
+		$end = $end > $iTotalRecords ? $iTotalRecords : $end;
+
+		$orderBy = array();
+		if ($request->order[0]['column'] != '' && $request->order[0]['dir'] != '')
+		{
+			$orderBy[0] = $this->getColumnOrder($request->order[0]['column']);
+			$orderBy[1] = $request->order[0]['dir'];
+		}
+
+		$hotelCustomerData = $this->hotelCustomerRepository->findVisitorsByFilter($where, $orderBy, $iDisplayLength, $iDisplayStart);
+
+		if ( ! $hotelCustomerData)
+		{
+			return FALSE;
+		}
+
+		foreach ($hotelCustomerData as $key => $row) {
+			if ($row->customer_sex == 1) {
+				$sex = '<span class="label label-sm label-info">Nam</span>';
+			} else {
+				$sex = '<span class="label label-sm label-danger">Nữ</span>';
+			}
+
+			$records["data"][] = array(
+			  $row->hotel_name,
+			  $row->customer_name,
+			  $row->customer_year_of_birth,
+			  $sex,
+			  $row->customer_id_card,
+			  $row->customer_address,
+			  $row->room_number,
+			  Carbon::parse($row->check_in)->format('d/m/Y H:i'),
+			  Carbon::parse($row->check_out)->format('d/m/Y H:i'),
+			);
+		}
+
+		$records["draw"] = $sEcho;
+		$records["recordsTotal"] = $iTotalRecords;
+		$records["recordsFiltered"] = $iFilteredRecords;
+
+		echo json_encode($records);
+    }
+
+    public function showCountingForm()
+    {
+    	return view('admin.statistics.counting');
+    }
+
+    public function counting(Request $request)
+    {
     	$iTotalRecords = $this->hotelCustomerRepository->getCount();
 		$iDisplayLength = intval($request->length);
 		$iDisplayLength = $iDisplayLength < 0 ? $iTotalRecords : $iDisplayLength; 
@@ -51,20 +135,9 @@ class StatisticsController extends Controller
 
 			$records["data"][] = array(
 			  $row->hotel_name,
-			  $row->customer_name,
-			  $row->customer_year_of_birth,
-			  $sex,
-			  $row->customer_id_card,
-			  $row->customer_address,
-			  $row->room_number,
-			  Carbon::parse($row->check_in)->format('d/m/Y H:i'),
-			  Carbon::parse($row->check_out)->format('d/m/Y H:i'),
+			  rand(1,100),
+			  rand(1,100),
 			);
-		}
-
-		if (isset($_REQUEST["customActionType"]) && $_REQUEST["customActionType"] == "group_action") {
-		$records["customActionStatus"] = "OK"; // pass custom message(useful for getting status of group actions)
-		$records["customActionMessage"] = "Group action successfully has been completed. Well done!"; // pass custom message(useful for getting status of group actions)
 		}
 
 		$records["draw"] = $sEcho;
@@ -72,5 +145,16 @@ class StatisticsController extends Controller
 		$records["recordsFiltered"] = $iTotalRecords;
 
 		echo json_encode($records);
+    }
+
+    private function getColumnOrder($column)
+    {
+    	$data = array(
+    		0 => 'hotels.name',
+    		1 => 'customers.name',
+    		7 => 'check_in',
+    		8 => 'check_out'
+		);
+		return $data[$column];
     }
 }
