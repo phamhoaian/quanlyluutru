@@ -97,7 +97,7 @@ class DashboardController extends Controller
             }
             else
             {
-                return response()->json(array('error' => 'Not found'), 404);
+                return response()->json(array('error' => 'Not found'), 200);
             }
         }
         return FALSE;

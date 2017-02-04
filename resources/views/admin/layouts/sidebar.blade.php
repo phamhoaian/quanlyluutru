@@ -38,11 +38,26 @@
 					</li>
 				</ul>
 			</li>
-			<li class="nav-item {{ Request::segment('2') == 'tra-cuu' ? 'active' : false }}">
-				<a href="{{ url('/quan-ly/tra-cuu') }}" class="nav-link nav-toggle">
+			<li class="nav-item {{ (Route::currentRouteName() == 'admin.search.form' || Route::currentRouteName() == 'admin.counting.form') ? 'active' : false }}">
+				<a href="javascript:void()" class="nav-link nav-toggle">
 					<i class="icon-layers"></i>
 					<span class="title">Tra cứu thông tin</span>
+					<span class="arrow"></span>
 				</a>
+				<ul class="sub-menu">
+					<li class="nav-item {{ Route::currentRouteName() == 'admin.search.form' ? 'active' : false }}">
+						<a href="{{ route('admin.search.form') }}" class="nav-link ">
+							<i class="fa fa-search"></i>&nbsp;
+							<span class="title">Tìm kiếm</span>
+						</a>
+					</li>
+					<li class="nav-item {{ Route::currentRouteName() == 'admin.counting.form' ? 'active' : false }}">
+						<a href="{{ route('admin.counting.form') }}" class="nav-link ">
+							<i class="icon-bar-chart"></i>&nbsp;
+							<span class="title">Thống kê</span>
+						</a>
+					</li>
+				</ul>
 			</li>
 			<li class="nav-item {{ Request::segment('2') == 'tai-khoan' ? 'active' : false }}">
 				<a href="#" class="nav-link nav-toggle">

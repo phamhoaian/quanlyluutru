@@ -11,6 +11,7 @@ var Datatable = function() {
     var tableInitialized = false;
     var ajaxParams = {}; // set filter mode
     var the;
+    var token = $('meta[name="csrf-token"]').attr('content');
 
     var countSelectedRecords = function() {
         var selected = $('tbody > tr > td:nth-child(1) input[type="checkbox"]:checked', table).size();
@@ -41,33 +42,34 @@ var Datatable = function() {
                 resetGroupActionInputOnSuccess: true,
                 loadingMessage: 'Loading...',
                 dataTable: {
-                    "dom": "<'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'<'table-group-actions pull-right'>>r><'table-responsive't><'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'>>", // datatable layout
+                    "dom": "<'row'<'col-md-6 col-sm-12'pli><'col-md-6 col-sm-12'<'table-group-actions text-right'>>r><'table-responsive't><'row'<'col-md-6 col-sm-12'pli><'col-md-6 col-sm-12'>>", // datatable layout
                     "pageLength": 10, // default records per page
                     "language": { // language settings
                         // metronic spesific
-                        "metronicGroupActions": "_TOTAL_ records selected:  ",
-                        "metronicAjaxRequestGeneralError": "Could not complete request. Please check your internet connection",
+                        "metronicGroupActions": "_TOTAL_ kết quả được chọn:  ",
+                        "metronicAjaxRequestGeneralError": "Không thể hoàn thành yêu cầu. Vui lòng kiểm tra kết nối internet của bạn",
 
                         // data tables spesific
-                        "lengthMenu": "<span class='seperator'>|</span>View _MENU_ records",
-                        "info": "<span class='seperator'>|</span>Found total _TOTAL_ records",
-                        "infoEmpty": "No records found to show",
-                        "emptyTable": "No data available in table",
-                        "zeroRecords": "No matching records found",
+                        "infoFiltered": "(lọc từ _MAX_ kết quả)",
+                        "lengthMenu": "<span class='seperator'>|</span>Hiển thị _MENU_ kết quả",
+                        "info": "<span class='seperator'>|</span>Tổng cộng _TOTAL_ kết quả",
+                        "infoEmpty": "<span class='seperator'>|</span>Không tìm thấy kết quả nào",
+                        "emptyTable": "Không có dữ liệu trong bảng",
+                        "zeroRecords": "Không tìm thấy kết quả nào",
                         "paginate": {
-                            "previous": "Prev",
-                            "next": "Next",
-                            "last": "Last",
-                            "first": "First",
-                            "page": "Page",
-                            "pageOf": "of"
+                            "previous": "Trước",
+                            "next": "Sau",
+                            "last": "Cuối",
+                            "first": "Đầu",
+                            "page": "Trang",
+                            "pageOf": "của"
                         }
                     },
 
                     "orderCellsTop": true,
                     "columnDefs": [{ // define columns sorting options(by default all columns are sortable extept the first checkbox column)
-                        'orderable': false,
-                        'targets': [0]
+                        // 'orderable': false,
+                        // 'targets': [0]
                     }],
 
                     "pagingType": "bootstrap_extended", // pagination type(bootstrap, bootstrap_full_number or bootstrap_extended)
@@ -79,6 +81,9 @@ var Datatable = function() {
                         "url": "", // ajax URL
                         "type": "POST", // request type
                         "timeout": 20000,
+                        "headers": {
+                            'X-CSRF-TOKEN': token
+                        },
                         "data": function(data) { // add request parameters before submit
                             $.each(ajaxParams, function(key, value) {
                                 data[key] = value;
@@ -197,13 +202,13 @@ var Datatable = function() {
             });
 
             // handle filter submit button click
-            table.on('click', '.filter-submit', function(e) {
+            tableWrapper.on('click', '.filter-submit', function(e) {
                 e.preventDefault();
                 the.submitFilter();
             });
 
             // handle filter cancel button click
-            table.on('click', '.filter-cancel', function(e) {
+            tableWrapper.on('click', '.filter-cancel', function(e) {
                 e.preventDefault();
                 the.resetFilter();
             });
@@ -213,28 +218,28 @@ var Datatable = function() {
             the.setAjaxParam("action", tableOptions.filterApplyAction);
 
             // get all typeable inputs
-            $('textarea.form-filter, select.form-filter, input.form-filter:not([type="radio"],[type="checkbox"])', table).each(function() {
+            $('textarea.form-filter, select.form-filter, input.form-filter:not([type="radio"],[type="checkbox"])', tableWrapper).each(function() {
                 the.setAjaxParam($(this).attr("name"), $(this).val());
             });
 
             // get all checkboxes
-            $('input.form-filter[type="checkbox"]:checked', table).each(function() {
+            $('input.form-filter[type="checkbox"]:checked', tableWrapper).each(function() {
                 the.addAjaxParam($(this).attr("name"), $(this).val());
             });
 
             // get all radio buttons
-            $('input.form-filter[type="radio"]:checked', table).each(function() {
+            $('input.form-filter[type="radio"]:checked', tableWrapper).each(function() {
                 the.setAjaxParam($(this).attr("name"), $(this).val());
             });
-
+            
             dataTable.ajax.reload();
         },
 
         resetFilter: function() {
-            $('textarea.form-filter, select.form-filter, input.form-filter', table).each(function() {
+            $('textarea.form-filter, select.form-filter, input.form-filter', tableWrapper).each(function() {
                 $(this).val("");
             });
-            $('input.form-filter[type="checkbox"]', table).each(function() {
+            $('input.form-filter[type="checkbox"]', tableWrapper).each(function() {
                 $(this).attr("checked", false);
             });
             the.clearAjaxParams();

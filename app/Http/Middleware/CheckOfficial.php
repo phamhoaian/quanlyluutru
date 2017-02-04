@@ -16,6 +16,10 @@ class CheckOfficial
      */
     public function handle($request, Closure $next)
     {
+        if ( ! Auth::user()->isOwner())
+        {
+            return response()->view('errors.404', [], 404);
+        }
         if ( ! Auth::user()->isOfficial())
         {
             return redirect()->route('pages.firstLogin');

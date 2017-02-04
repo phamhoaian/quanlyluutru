@@ -25,7 +25,11 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::group(['prefix' => 'quan-ly', 'middleware' => 'role'], function() {
 		Route::get('tong-quan', ['as' => 'admin.top', 'uses' => 'Admin\DashboardController@index']);
-		Route::post('thong-ke', ['as' => 'admin.statistics', 'uses' => 'Admin\DashboardController@getVisitors']);
+		Route::post('tra-cuu', ['as' => 'admin.statistics', 'uses' => 'Admin\DashboardController@getVisitors']);
+		Route::get('tim-kiem', ['as' => 'admin.search.form', 'uses' => 'Admin\StatisticsController@showSearchForm']);
+		Route::post('tim-kiem', ['as' => 'admin.search.submit', 'uses' => 'Admin\StatisticsController@search']);
+		Route::get('thong-ke', ['as' => 'admin.counting.form', 'uses' => 'Admin\StatisticsController@showCountingForm']);
+		Route::post('thong-ke', ['as' => 'admin.counting.submit', 'uses' => 'Admin\StatisticsController@counting']);
 
 		Route::group(['prefix' => 'nha-nghi-khach-san'], function() {
 			Route::get('danh-sach', ['as' => 'admin.hotel.list', 'uses' => 'Admin\HotelController@showListHotels']);

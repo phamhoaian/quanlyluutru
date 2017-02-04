@@ -42,6 +42,11 @@ class User extends Authenticatable
         return ($this->official_flg == 1);
     }
 
+    public function isOwner()
+    {
+        return ($this->hotel_id != '');
+    }
+
     public function hotel()
     {
         return $this->belongsTo('App\Hotel');

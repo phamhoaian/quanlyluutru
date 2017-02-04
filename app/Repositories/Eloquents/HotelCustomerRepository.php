@@ -103,4 +103,113 @@ class HotelCustomerRepository extends BaseRepository
 						   ->get()
 						   ->toArray();
 	}
+
+	public function findVisitorsByFilter($where = NULL, $orderBy = NULL, $limit, $offset)
+	{
+		$query = $this->model->select('hotel_id', 
+								    DB::raw('hotels.name as hotel_name'), 
+								    'customer_id', 
+								    DB::raw('customers.name as customer_name'), 
+								    DB::raw('customers.year_of_birth as customer_year_of_birth'), 
+								    DB::raw('customers.sex as customer_sex'), 
+								    DB::raw('customers.id_card as customer_id_card'), 
+								    DB::raw('customers.address as customer_address'), 
+								    'room_number', 
+								    'check_in', 
+								    'check_out')
+						   ->leftJoin('hotels', 'hotel_customer_map.hotel_id', '=', 'hotels.id')
+						   ->leftJoin('customers', 'hotel_customer_map.customer_id', '=', 'customers.id');
+	    if ($where) 
+	    {
+	    	$query->where($where);
+	    }	
+
+	    if ($orderBy)
+	    {
+	    	$query->orderBy($orderBy[0], $orderBy[1]);
+	    }
+	    else
+	    {
+	    	$query->orderBy('check_in', 'DESC');
+	    }   	
+	   	
+		$query->take($limit)
+			  ->skip($offset);
+	   	return $query->get();
+	}
+
+	public function getNumberVisitorsByFilter($where = NULL)
+	{
+		$query = $this->model->leftJoin('hotels', 'hotel_customer_map.hotel_id', '=', 'hotels.id')
+						   	 ->leftJoin('customers', 'hotel_customer_map.customer_id', '=', 'customers.id');
+	   	if ($where) 
+	    {
+	    	$query->where($where);
+	    }
+		return $query->count();
+	}
+
+	public function findCountingByFilter($where = NULL, $orderBy = NULL, $limit, $offset)
+	{
+		$query = $this->model->select('hotel_id',
+							          DB::raw('hotels.name as hotel_name'),
+							          DB::raw('SUM(CASE WHEN sex = 1 THEN 1 ELSE 0 END) as men'),
+							          DB::raw('SUM(CASE WHEN sex = 2 THEN 1 ELSE 0 END) as women'))
+							 ->leftJoin('hotels', 'hotel_customer_map.hotel_id', '=', 'hotels.id')
+							 ->leftJoin('customers', 'hotel_customer_map.customer_id', '=', 'customers.id');
+
+	 	if ($where) 
+	    {
+	    	$query->where($where);
+	    }	
+
+	    $query->groupBy('hotel_id');
+
+	    if ($orderBy)
+	    {
+	    	$query->orderBy($orderBy[0], $orderBy[1]);
+	    }
+	    else
+	    {
+	    	$query->orderBy('hotels.name', 'ASC');
+	    }   	
+	   	
+		$query->take($limit)
+			  ->skip($offset);
+	   	return $query->get();
+	}
+
+	public function getNumberCountingByFilter($where = NULL)
+	{
+		$query = $this->model->select('hotel_id',
+							          DB::raw('hotels.name as hotel_name'),
+							          DB::raw('SUM(CASE WHEN sex = 1 THEN 1 ELSE 0 END) as men'),
+							          DB::raw('SUM(CASE WHEN sex = 2 THEN 1 ELSE 0 END) as women'))
+							 ->leftJoin('hotels', 'hotel_customer_map.hotel_id', '=', 'hotels.id')
+							 ->leftJoin('customers', 'hotel_customer_map.customer_id', '=', 'customers.id');
+
+	 	if ($where) 
+	    {
+	    	$query->where($where);
+	    }	
+
+	    $query->groupBy('hotel_id');
+
+	    return count($query->get());
+	}
+
+	public function findSummaryCoungting($where = NULL)
+	{
+		$query = $this->model->select(DB::raw('SUM(CASE WHEN sex = 1 THEN 1 ELSE 0 END) as men'),
+							          DB::raw('SUM(CASE WHEN sex = 2 THEN 1 ELSE 0 END) as women'))
+							 ->leftJoin('hotels', 'hotel_customer_map.hotel_id', '=', 'hotels.id')
+							 ->leftJoin('customers', 'hotel_customer_map.customer_id', '=', 'customers.id');
+
+	 	if ($where) 
+	    {
+	    	$query->where($where);
+	    }
+
+	    return $query->first();
+	}
 }
