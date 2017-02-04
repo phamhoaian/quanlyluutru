@@ -138,7 +138,7 @@ class HotelCustomerRepository extends BaseRepository
 	   	return $query->get();
 	}
 
-	public function getCountVisitorsByFilter($where = NULL)
+	public function getNumberVisitorsByFilter($where = NULL)
 	{
 		$query = $this->model->leftJoin('hotels', 'hotel_customer_map.hotel_id', '=', 'hotels.id')
 						   	 ->leftJoin('customers', 'hotel_customer_map.customer_id', '=', 'customers.id');
@@ -147,5 +147,69 @@ class HotelCustomerRepository extends BaseRepository
 	    	$query->where($where);
 	    }
 		return $query->count();
+	}
+
+	public function findCountingByFilter($where = NULL, $orderBy = NULL, $limit, $offset)
+	{
+		$query = $this->model->select('hotel_id',
+							          DB::raw('hotels.name as hotel_name'),
+							          DB::raw('SUM(CASE WHEN sex = 1 THEN 1 ELSE 0 END) as men'),
+							          DB::raw('SUM(CASE WHEN sex = 2 THEN 1 ELSE 0 END) as women'))
+							 ->leftJoin('hotels', 'hotel_customer_map.hotel_id', '=', 'hotels.id')
+							 ->leftJoin('customers', 'hotel_customer_map.customer_id', '=', 'customers.id');
+
+	 	if ($where) 
+	    {
+	    	$query->where($where);
+	    }	
+
+	    $query->groupBy('hotel_id');
+
+	    if ($orderBy)
+	    {
+	    	$query->orderBy($orderBy[0], $orderBy[1]);
+	    }
+	    else
+	    {
+	    	$query->orderBy('hotels.name', 'ASC');
+	    }   	
+	   	
+		$query->take($limit)
+			  ->skip($offset);
+	   	return $query->get();
+	}
+
+	public function getNumberCountingByFilter($where = NULL)
+	{
+		$query = $this->model->select('hotel_id',
+							          DB::raw('hotels.name as hotel_name'),
+							          DB::raw('SUM(CASE WHEN sex = 1 THEN 1 ELSE 0 END) as men'),
+							          DB::raw('SUM(CASE WHEN sex = 2 THEN 1 ELSE 0 END) as women'))
+							 ->leftJoin('hotels', 'hotel_customer_map.hotel_id', '=', 'hotels.id')
+							 ->leftJoin('customers', 'hotel_customer_map.customer_id', '=', 'customers.id');
+
+	 	if ($where) 
+	    {
+	    	$query->where($where);
+	    }	
+
+	    $query->groupBy('hotel_id');
+
+	    return count($query->get());
+	}
+
+	public function findSummaryCoungting($where = NULL)
+	{
+		$query = $this->model->select(DB::raw('SUM(CASE WHEN sex = 1 THEN 1 ELSE 0 END) as men'),
+							          DB::raw('SUM(CASE WHEN sex = 2 THEN 1 ELSE 0 END) as women'))
+							 ->leftJoin('hotels', 'hotel_customer_map.hotel_id', '=', 'hotels.id')
+							 ->leftJoin('customers', 'hotel_customer_map.customer_id', '=', 'customers.id');
+
+	 	if ($where) 
+	    {
+	    	$query->where($where);
+	    }
+
+	    return $query->first();
 	}
 }
