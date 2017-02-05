@@ -9,6 +9,7 @@ use App\Repositories\Eloquents\CustomerRepository;
 use App\Repositories\Eloquents\HotelCustomerRepository;
 use App\Repositories\Eloquents\UserRepository;
 use App\Repositories\Eloquents\OwnerRepository;
+use App\Repositories\Eloquents\NoticeRepository;
 use Auth;
 use Carbon\Carbon;
 use File;
@@ -20,15 +21,17 @@ class PagesController extends Controller
 	protected $customerRepository;
 	protected $hotelCustomRepository;
 	protected $userRepository;
-	protected $ownerRepository;
+    protected $ownerRepository;
+	protected $noticeRepository;
 
-	public function __construct(HotelRepository $hotelRepository, CustomerRepository $customerRepository, HotelCustomerRepository $hotelCustomRepository, UserRepository $userRepository, OwnerRepository $ownerRepository)
+	public function __construct(HotelRepository $hotelRepository, CustomerRepository $customerRepository, HotelCustomerRepository $hotelCustomRepository, UserRepository $userRepository, OwnerRepository $ownerRepository, NoticeRepository $noticeRepository)
 	{
 		$this->hotelRepository = $hotelRepository;
 		$this->customerRepository = $customerRepository;
 		$this->hotelCustomRepository = $hotelCustomRepository;
 		$this->userRepository = $userRepository;
 		$this->ownerRepository = $ownerRepository;
+        $this->noticeRepository = $noticeRepository;
 	}
 
     public function index()
@@ -81,6 +84,19 @@ class PagesController extends Controller
     	{
     		$customer = $this->customerRepository->create($input_customer);
     	}
+
+        $today_visitors = $this->hotelCustomRepository->findWhere(['hotel_id' => Auth::user()->hotel_id, 'DATE(check_in)' => Carbon::now()->format('Y-m-d')]);
+        if ($today_visitors->isEmpty())
+        {
+            // make notice
+            $hotel = $this->hotelRepository->find(Auth::user()->hotel_id);
+            $notice['message'] = $hotel->name . ' đã khai báo khách lưu trú.'; 
+            $notice['url'] = route('admin.search.form');
+            $notice['type'] = 3;
+            $notice['read_flg'] = 0;
+
+            $notice = $this->noticeRepository->create($notice);
+        }
 
     	// prepare data for hotel custom
     	$input_hotel_customer['hotel_id'] = Auth::user()->hotel_id;
@@ -153,6 +169,15 @@ class PagesController extends Controller
 
         $this->ownerRepository->update($input_owner, $hotel->owner->id);
 
+        // make notice
+        $hotel = $this->hotelRepository->find(Auth::user()->hotel_id);
+        $notice['message'] = $hotel->name . ' đã cập nhật thông tin.'; 
+        $notice['url'] = route('admin.hotel.edit', Auth::user()->hotel_id);
+        $notice['type'] = 4;
+        $notice['read_flg'] = 0;
+
+        $notice = $this->noticeRepository->create($notice);
+
         return redirect()->route('pages.setting')->with(['flash_level' => 'success', 'flash_message' => 'Đã cập nhật thông tin !']);
     }
 
@@ -216,6 +241,15 @@ class PagesController extends Controller
         {
         	$this->ownerRepository->update($input_owner, $hotel->owner->id);
         }
+
+        // make notice
+        $hotel = $this->hotelRepository->find(Auth::user()->hotel_id);
+        $notice['message'] = $hotel->name . ' đã thiết lập thông tin.'; 
+        $notice['url'] = route('admin.hotel.edit', Auth::user()->hotel_id);
+        $notice['type'] = 1;
+        $notice['read_flg'] = 0;
+
+        $notice = $this->noticeRepository->create($notice);
 
         return redirect()->route('pages.top');
     }

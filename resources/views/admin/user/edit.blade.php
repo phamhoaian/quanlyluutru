@@ -1,6 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('breadcrumb', 'Thông tin tài khoản')
+@section('title', 'Thông tin tài khoản')
 @section('page-title', 'Quản lý tài khoản')
 
 @section('css')

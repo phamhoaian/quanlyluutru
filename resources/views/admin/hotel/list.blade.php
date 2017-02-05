@@ -2,6 +2,7 @@
 
 @section('breadcrumb', 'Danh sách nhà nghỉ / khách sạn')
 @section('page-title', 'Quản lý nhà nghỉ / khách sạn')
+@section('title', 'Danh sách nhà nghỉ / khách sạn')
 
 @section('css')
 <link href="{{ asset('public/assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
@@ -46,39 +47,27 @@
 						</div>
 					</div>
 		            @endif
-					<table class="table table-striped table-bordered table-hover table-checkable order-column" id="list_hotels">
+					<table class="table table-striped table-bordered table-hover order-column" id="list_hotels">
 						<thead>
 							<tr>
-								<th>
-									<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-										<input type="checkbox" class="group-checkable" data-set="#list_hotels .checkboxes" />
-										<span></span>
-									</label>
-								</th>
 								<th> Tên nhà nghỉ / khách sạn </th>
 								<th> Tên chủ cơ sở </th>
 								<th> Loại hình kinh doanh </th>
 								<th> Địa chỉ </th>
-								<th class="text-center"> Hành động </th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 						@if ($hotels)
 							@foreach ($hotels as $hotel)
 							<tr class="odd gradeX">
-								<td>
-									<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-										<input type="checkbox" class="checkboxes" value="{{ $hotel->id }}" />
-										<span></span>
-									</label>
-								</td>
 								<td>{{ $hotel->name }}</td>
 								<td>
 								@if (isset($hotel->owner))
 									{{ $hotel->owner->name }}
 								@endif
 								</td>
-								<td>
+								<td class="text-center">
 								@if ($hotel->type == 1)
 									<span class="label label-sm label-info"> Nhà nghỉ </span>
 								@else
@@ -90,10 +79,6 @@
 									<a href="{{ route('admin.hotel.edit', $hotel->id) }}" class="btn btn-xs blue">
 										<i class="fa fa-edit"></i>
 										Xem thông tin
-									</a>
-									<a href="javascript:void(0)" class="btn btn-xs red">
-										<i class="fa fa-trash"></i>
-										Xóa
 									</a>
 								</td>
 							</tr>

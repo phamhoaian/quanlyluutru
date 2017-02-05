@@ -1,6 +1,7 @@
 @extends('admin.layouts.master')
 
-@section('breadcrumb', 'Thông báo')
+@section('breadcrumb', 'Danh sách thông báo')
+@section('title', 'Danh sách thông báo')
 @section('page-title', 'Thông báo')
 
 @section('content')

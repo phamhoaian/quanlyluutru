@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Eloquents\HotelRepository;
 use App\Repositories\Eloquents\OwnerRepository;
 use App\Repositories\Eloquents\UserRepository;
+use App\Repositories\Eloquents\NoticeRepository;
 use App\Http\Requests\HotelRequest;
 
 class HotelController extends Controller
@@ -14,12 +15,14 @@ class HotelController extends Controller
     protected $hotelRepository;
     protected $ownerRepository;
     protected $userRepository;
+    protected $noticeRepository;
 
-    public function __construct(HotelRepository $hotelRepository, OwnerRepository $ownerRepository, UserRepository $userRepository)
+    public function __construct(HotelRepository $hotelRepository, OwnerRepository $ownerRepository, UserRepository $userRepository, NoticeRepository $noticeRepository)
     {
     	$this->hotelRepository = $hotelRepository;
     	$this->ownerRepository = $ownerRepository;
     	$this->userRepository  = $userRepository;
+        $this->noticeRepository = $noticeRepository;
     }
 
     public function showListHotels()
@@ -59,7 +62,15 @@ class HotelController extends Controller
 		// make user automatically
 		$user = $this->userRepository->create($user);
 
-    	return redirect()->route('admin.hotel.list')->with(['flash_level' => 'success', 'flash_message' => 'Đã thêm nhà nghỉ/khách sạn mới !']);
+        // make notice
+        $notice['message'] = $request->name . ' đã được đăng ký.'; 
+        $notice['url'] = route('admin.hotel.edit', $hotel->id);
+        $notice['type'] = 2;
+        $notice['read_flg'] = 0;
+
+        $notice = $this->noticeRepository->create($notice);
+
+    	return redirect()->route('admin.hotel.list')->with(['flash_level' => 'success', 'flash_message' => $request->name . '  đã được đăng ký !']);
     }
 
     public function showHotelFormEdit($id)

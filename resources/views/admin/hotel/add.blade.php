@@ -1,7 +1,8 @@
 @extends('admin.layouts.master')
 
-@section('breadcrumb', 'Thêm nhà nghỉ / khách sạn mới')
+@section('breadcrumb', 'Thêm mới nhà nghỉ / khách sạn')
 @section('page-title', 'Quản lý nhà nghỉ / khách sạn')
+@section('title', 'Thêm mới nhà nghỉ / khách sạn')
 
 @section('css')
 <link href="{{ asset('public/assets/plugins/bootstrap-fileinput/bootstrap-fileinput.css') }}" rel="stylesheet" type="text/css" />
@@ -19,7 +20,7 @@
 		<div class="portlet box green">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="fa fa-building"></i>Thêm nhà nghỉ / khách sạn mới
+					<i class="fa fa-building"></i>Thêm mới nhà nghỉ / khách sạn
 				</div>
 			</div>
 			<div class="portlet-body form">

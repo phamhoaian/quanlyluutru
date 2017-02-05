@@ -29,3 +29,14 @@ input[name="customer_id_card"],
 input[name="room_number"] {
 	width: 140px;
 }
+.feeds li {
+	padding: 5px;
+}
+.feeds li .col1 {
+	width: auto;
+}
+.feeds li .col2 {
+    float: right;
+	width: auto; 
+	margin-left: 0; 
+}

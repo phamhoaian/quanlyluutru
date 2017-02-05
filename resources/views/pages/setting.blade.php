@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'Thiết lập thông tin | ')
+
 @section('css')
 <link href="{{ asset('public/assets/plugins/bootstrap-fileinput/bootstrap-fileinput.css') }}" rel="stylesheet" type="text/css" />
 @endsection
