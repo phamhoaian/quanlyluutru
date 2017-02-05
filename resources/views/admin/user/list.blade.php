@@ -2,6 +2,7 @@
 
 @section('breadcrumb', 'Danh sách tài khoản')
 @section('page-title', 'Quản lý tài khoản')
+@section('title', 'Danh sách tài khoản')
 
 @section('css')
 <link href="{{ asset('public/assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
@@ -48,29 +49,17 @@
 				<table class="table table-striped table-bordered table-hover table-checkable order-column" id="list_users">
 					<thead>
 						<tr>
-							<th>
-								<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-									<input type="checkbox" class="group-checkable" data-set="#list_users .checkboxes" />
-									<span></span>
-								</label>
-							</th>
 							<th> Nhà nghỉ / khách sạn </th>
 							<th> Email </th>
 							<th> Trạng thái </th>
 							<th> Đăng nhập lần cuối </th>
-							<th class="text-center"> Hành động </th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 					@if ($users)
 						@foreach ($users as $user)
 						<tr class="odd gradeX">
-							<td>
-								<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-									<input type="checkbox" class="checkboxes" value="{{ $user->id }}" />
-									<span></span>
-								</label>
-							</td>
 							<td>
 							@if (isset($user->hotel))
 								{{ $user->hotel->name }}
@@ -99,10 +88,6 @@
 								<a href="javascript:void(0);" class="btn btn-xs yellow">
 									<i class="fa fa-lock"></i>
 									Khóa
-								</a>
-								<a href="javascript:void(0)" class="btn btn-xs red">
-									<i class="fa fa-trash"></i>
-									Xóa
 								</a>
 							</td>
 						</tr>

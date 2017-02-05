@@ -3,7 +3,7 @@
 	<div class="page-header-inner ">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
-			<a href="index.html">
+			<a href="{{ route('admin.top') }}">
 				<img src="{{ asset('public/assets/img/logo-admin.png') }}" alt="logo" class="logo-default" /> 
 			</a>
 			<div class="menu-toggler sidebar-toggler">
@@ -53,7 +53,7 @@
 											<span class="label label-sm label-icon label-success">
 												<i class="fa fa-bell-o"></i>
 										@endif
-										</span>{{ substr($notice->message, 0, strpos($notice->message, ' ', 10)) }}</span>
+										</span>{{ $notice->message }}</span>
 									</a>
 								</li>
 								@endforeach

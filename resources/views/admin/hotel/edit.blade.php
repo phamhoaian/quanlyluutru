@@ -2,6 +2,7 @@
 
 @section('breadcrumb', 'Thông tin nhà nghỉ / khách sạn')
 @section('page-title', 'Quản lý nhà nghỉ / khách sạn')
+@section('title', 'Thông tin nhà nghỉ / khách sạn')
 
 @section('css')
 <link href="{{ asset('public/assets/plugins/bootstrap-fileinput/bootstrap-fileinput.css') }}" rel="stylesheet" type="text/css" />

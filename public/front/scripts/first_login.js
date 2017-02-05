@@ -4,6 +4,13 @@ var FirstLogin = function () {
 	return {
 		//main function to initiate the module
 		init: function () {
+			$('.date-picker').datepicker({
+				rtl: App.isRTL(),
+				orientation: "left",
+				autoclose: true,
+				language: "vi"
+			});
+
 			if (!jQuery().bootstrapWizard) {
 				return;
 			}

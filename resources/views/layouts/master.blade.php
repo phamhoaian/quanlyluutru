@@ -7,7 +7,7 @@
 	<!-- BEGIN HEAD -->
 	<head>
 		<meta charset="utf-8" />
-		<title>Hệ thống khai báo lưu trú trực tuyến</title>
+		<title>@yield('title')Hệ thống khai báo lưu trú trực tuyến</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta content="width=device-width, initial-scale=1" name="viewport" />
 		<meta content="Hệ thống khai báo lưu trú trực tuyến" name="description" />

@@ -142,7 +142,7 @@ var Dashboard = function() {
 		        		}
 		        		else
 		        		{
-		        			
+		        			$('#site_statistics_content').html('Không có dữ liệu');
 		        		}
 	        		},
 	        		failed: function(data) {

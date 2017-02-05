@@ -30,16 +30,16 @@ var TableDatatablesManaged = function () {
             "bStateSave": false, // save datatable state(pagination, sort, etc) in cookie.
 
             "lengthMenu": [
-                [5, 15, 20, -1],
-                [5, 15, 20, "Tất cả"] // change per page values here
+                [10, 20, 50, -1],
+                [10, 20, 50, "Tất cả"] // change per page values here
             ],
             // set the initial value
-            "pageLength": 5,            
+            "pageLength": 10,            
             "pagingType": "bootstrap_full_number",
             "columnDefs": [
                 {  // set default column settings
                     'orderable': false,
-                    'targets': [0]
+                    'targets': [4]
                 }, 
                 {
                     "searchable": false,
@@ -51,7 +51,7 @@ var TableDatatablesManaged = function () {
                 }
             ],
             "order": [
-                [1, "asc"]
+                [0, "asc"]
             ] // set first column as a default sort by asc
         });
 
@@ -105,16 +105,16 @@ var TableDatatablesManaged = function () {
             "bStateSave": false, // save datatable state(pagination, sort, etc) in cookie.
 
             "lengthMenu": [
-                [5, 15, 20, -1],
-                [5, 15, 20, "Tất cả"] // change per page values here
+                [10, 20, 50, -1],
+                [10, 20, 50, "Tất cả"] // change per page values here
             ],
             // set the initial value
-            "pageLength": 5,            
+            "pageLength": 10,            
             "pagingType": "bootstrap_full_number",
             "columnDefs": [
                 {  // set default column settings
                     'orderable': false,
-                    'targets': [0]
+                    'targets': [4]
                 }, 
                 {
                     "searchable": false,
@@ -126,7 +126,7 @@ var TableDatatablesManaged = function () {
                 }
             ],
             "order": [
-                [1, "asc"]
+                [0, "asc"]
             ] // set first column as a default sort by asc
         });
 

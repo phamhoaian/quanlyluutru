@@ -1,6 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('page-title', 'Tổng quan')
+@section('title', 'Hệ thống khai báo lưu trú trực tuyến')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('public/assets/plugins/morris/morris.css') }}">

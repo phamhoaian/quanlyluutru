@@ -1,7 +1,10 @@
 @extends('layouts.master')
 
+@section('title', 'Thiết lập thông tin | ')
+
 @section('css')
 <link href="{{ asset('public/assets/plugins/bootstrap-fileinput/bootstrap-fileinput.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('public/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('js')
@@ -9,6 +12,8 @@
 <script src="{{ asset('public/assets/plugins/jquery-validation/js/additional-methods.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('public/assets/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('public/assets/plugins/bootstrap-fileinput/bootstrap-fileinput.js') }}" type="text/javascript"></script>
+<script src="{{ asset('public/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('public/assets/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.vi.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('public/front/scripts/first_login.js') }}" type="text/javascript"></script>
 @endsection
 
@@ -173,7 +178,7 @@
 									<div class="form-group{{ $errors->has('owner_name') ? ' has-error' : '' }}">
 										<label class="col-md-4 control-label">Họ và tên <span class="required">*</span></label>
 										<div class="col-md-5">
-											{!! Form::text('owner_name', null, ['class' => 'form-control input-circle-right', 'placeholder' => 'Trần Văn A']) !!}
+											{!! Form::text('owner_name', null, ['class' => 'form-control input-circle', 'placeholder' => 'Trần Văn A']) !!}
 											@if ($errors->has('owner_name'))
 												<span class="help-block help-block-error">
 			                                        {{ $errors->first('owner_name') }}
@@ -184,7 +189,12 @@
 									<div class="form-group{{ $errors->has('owner_birthday') ? ' has-error' : '' }}">
 										<label class="col-md-4 control-label">Ngày tháng năm sinh <span class="required">*</span></label>
 										<div class="col-md-5">
-											{!! Form::text('owner_birthday', null, ['class' => 'form-control input-circle-right', 'placeholder' => '12/12/1980']) !!}
+											<div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+												{!! Form::text('owner_birthday', null, ['class' => 'form-control input-circle-left', 'placeholder' => '12/12/1980', 'readonly' => '']) !!}
+												<span class="input-group-addon input-circle-right">
+													<i class="fa fa-calendar"></i>
+												</span>
+											</div>
 											@if ($errors->has('owner_birthday'))
 												<span class="help-block help-block-error">
 			                                        {{ $errors->first('owner_birthday') }}
@@ -195,7 +205,7 @@
 									<div class="form-group{{ $errors->has('owner_id_card') ? ' has-error' : '' }}">
 										<label class="col-md-4 control-label">Số CMND <span class="required">*</span></label>
 										<div class="col-md-5">
-											{!! Form::text('owner_id_card', null, ['class' => 'form-control input-circle-right', 'placeholder' => '280984484']) !!}
+											{!! Form::text('owner_id_card', null, ['class' => 'form-control input-circle', 'placeholder' => '280984484']) !!}
 											@if ($errors->has('owner_id_card'))
 												<span class="help-block help-block-error">
 			                                        {{ $errors->first('owner_id_card') }}
@@ -206,7 +216,7 @@
 									<div class="form-group{{ $errors->has('owner_address') ? ' has-error' : '' }}">
 										<label class="col-md-4 control-label">Hộ khẩu thường trú <span class="required">*</span></label>
 										<div class="col-md-5">
-											{!! Form::text('owner_address', null, ['class' => 'form-control input-circle-right', 'placeholder' => '123 Khu phố 1']) !!}
+											{!! Form::text('owner_address', null, ['class' => 'form-control input-circle', 'placeholder' => '123 Khu phố 1']) !!}
 											@if ($errors->has('owner_address'))
 												<span class="help-block help-block-error">
 			                                        {{ $errors->first('owner_address') }}
@@ -217,7 +227,7 @@
 									<div class="form-group{{ $errors->has('owner_business_cert') ? ' has-error' : '' }}">
 										<label class="col-md-4 control-label">Số giấy chứng nhận đăng ký kinh doanh <span class="required">*</span></label>
 										<div class="col-md-5">
-											{!! Form::text('owner_business_cert', null, ['class' => 'form-control input-circle-right', 'placeholder' => 'KD0001']) !!}
+											{!! Form::text('owner_business_cert', null, ['class' => 'form-control input-circle', 'placeholder' => 'KD0001']) !!}
 											@if ($errors->has('owner_business_cert'))
 												<span class="help-block help-block-error">
 			                                        {{ $errors->first('owner_business_cert') }}
@@ -228,7 +238,7 @@
 									<div class="form-group{{ $errors->has('owner_security') ? ' has-error' : '' }}">
 										<label class="col-md-4 control-label">Số giấy an ninh trật tự <span class="required">*</span></label>
 										<div class="col-md-5">
-											{!! Form::text('owner_security', null, ['class' => 'form-control input-circle-right', 'placeholder' => 'TT0001']) !!}
+											{!! Form::text('owner_security', null, ['class' => 'form-control input-circle', 'placeholder' => 'TT0001']) !!}
 											@if ($errors->has('owner_security'))
 												<span class="help-block help-block-error">
 			                                        {{ $errors->first('owner_security') }}

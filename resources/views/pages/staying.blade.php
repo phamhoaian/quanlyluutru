@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title', 'Khai báo lưu trú | ')
+
 @section('css')
 <link href="{{ asset('public/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('public/assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}" rel="stylesheet" type="text/css" />

@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $notices = Notice::where('read_flg', 0)->take(5)->get();
+        $notices = Notice::where('read_flg', 0)->orderBy('created_at', 'DESC')->take(5)->get();
         $count_notices = Notice::where('read_flg', 0)->count();
         View::share('notices', $notices);
         View::share('count_notices', $count_notices);

@@ -19,7 +19,7 @@ class NoticeController extends Controller
 
     public function showListNotice()
     {
-    	$notice = $this->noticeRepository->paginate(15);
+    	$notice = $this->noticeRepository->getLatestNotice(15);
     	return view('admin.notice.list', compact('notice'));
     }
 
@@ -30,7 +30,7 @@ class NoticeController extends Controller
     	if ( ! $notice->read_flg)
     	{
     		$upd_data['read_flg'] = 1;
-            $notice = $this->noticeRepository->update($upd_data, $id);
+            $this->noticeRepository->update($upd_data, $id);
     	}
 
     	if ($notice->url)

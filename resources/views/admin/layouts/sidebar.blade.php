@@ -80,12 +80,12 @@
 					</li>
 				</ul>
 			</li>
-			<li class="nav-item {{ Request::segment('2') == 'thiet-lap' ? 'active' : false }}">
+			{{-- <li class="nav-item {{ Request::segment('2') == 'thiet-lap' ? 'active' : false }}">
 				<a href="{{ url('/quan-ly/thiet-lap') }}" class="nav-link nav-toggle">
 					<i class="icon-settings"></i>
 					<span class="title">Thiết lập</span>
 				</a>
-			</li>
+			</li> --}}
 		</ul>
 		<!-- END SIDEBAR MENU -->
 	</div>
