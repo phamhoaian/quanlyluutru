@@ -22,7 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('note')->nullable();
             $table->rememberToken();
-            $table->boolean('active_flg')->default('1');
+            $table->string('active_key')->nullable();
+            $table->boolean('active_flg')->default('0');
             $table->boolean('delete_flg')->default('0');
             $table->boolean('official_flg')->default('0');
             $table->string('photo', 50)->nullable();

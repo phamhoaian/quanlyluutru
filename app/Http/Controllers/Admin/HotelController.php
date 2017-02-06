@@ -9,6 +9,8 @@ use App\Repositories\Eloquents\OwnerRepository;
 use App\Repositories\Eloquents\UserRepository;
 use App\Repositories\Eloquents\NoticeRepository;
 use App\Http\Requests\HotelRequest;
+use Mail;
+use Illuminate\Support\Facades\Input;
 
 class HotelController extends Controller
 {
@@ -53,14 +55,24 @@ class HotelController extends Controller
 
     	$hotel = $this->hotelRepository->create($input);
 
+        $active_key = md5(rand().microtime());
+
     	// get hotel id
 		$user['hotel_id'] 	= $hotel->id;
 		$user['email']		= $request->email;
-		$tmp_password       = str_random(10);
+		$tmp_password       = str_random(6);
         $user['password']  	= bcrypt($tmp_password);
+        $user['active_key'] = $active_key;
+        $user['active_flg'] = 0;
 
 		// make user automatically
 		$user = $this->userRepository->create($user);
+
+        // send email activation
+        Mail::send('email.activation', ['email' => $request->email, 'password' => $tmp_password, 'active_key' => $active_key], function($message) {
+            $message->to(Input::get('email'))
+                ->subject('Kích hoạt tài khoản');
+        });
 
         // make notice
         $notice['message'] = $request->name . ' đã được đăng ký.'; 

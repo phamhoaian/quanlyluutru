@@ -12,7 +12,7 @@ class Owner extends Model
      * @var array
      */
     protected $fillable = [
-        'hotel_id', 'name', 'birthday', 'id_card', 'address', 'business_cert', 'security'
+        'id', 'hotel_id', 'name', 'birthday', 'id_card', 'address', 'business_cert', 'security'
     ];
 
     public function hotel()

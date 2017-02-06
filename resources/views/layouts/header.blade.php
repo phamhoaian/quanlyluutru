@@ -32,6 +32,11 @@
 							</a>
 						</li>
 						<li>
+							<a href="{{ route('pages.changePassword') }}">
+								<i class="fa fa-lock"></i> Đổi mật khẩu 
+							</a>
+						</li>
+						<li>
 							<a href="javascript:void(0)"
                                 onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();">
