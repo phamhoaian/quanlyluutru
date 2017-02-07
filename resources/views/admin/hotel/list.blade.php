@@ -22,7 +22,7 @@
 		<div class="col-md-6">
 			<div class="btn-group">
 			<a href="{{ route('admin.hotel.add') }}">
-				<button class="btn sbold green"> Thêm mới
+				<button class="btn sbold green-jungle"> Thêm mới
 					<i class="fa fa-plus"></i>
 				</button>
 			</a>

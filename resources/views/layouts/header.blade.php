@@ -5,7 +5,7 @@
 			<a href="{{ url('/') }}">
 				<img src="{{ asset('public/assets/img/logo-default.png') }}" alt="logo" class="logo-default">
 			</a>
-			<p class="sub-title">Hệ thống khai báo lưu trú trực tuyến</p>
+			<p class="sub-title">Công An Phường An Phú</p>
 		</div>
 		<!-- END LOGO -->
 		<!-- BEGIN RESPONSIVE MENU TOGGLER -->

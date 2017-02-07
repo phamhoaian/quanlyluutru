@@ -18,7 +18,7 @@
 @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<div class="portlet box green">
+		<div class="portlet box green-jungle">
 			<div class="portlet-title">
 				<div class="caption">
 					<i class="fa fa-gift"></i>Thêm tài khoản mới

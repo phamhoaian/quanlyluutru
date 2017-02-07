@@ -26,8 +26,8 @@
 		<div class="portlet light bordered">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="icon-settings font-green"></i>
-					<span class="caption-subject bold uppercase font-green"> Danh sách khách lưu trú</span>
+					<i class="icon-settings font-green-jungle"></i>
+					<span class="caption-subject bold uppercase font-green-jungle"> Danh sách khách lưu trú</span>
 				</div>
 				<div id="datatable_ajax_tools" class="pull-right margin-bottom-10">
 					<a href="javascript:;" class="btn blue mt-ladda-btn ladda-button tool-action" data-style="expand-right" data-action="0">
