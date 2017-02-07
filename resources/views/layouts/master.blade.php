@@ -28,7 +28,7 @@
 		<link href="{{ asset('public/assets/css/themes/default.min.css') }}" rel="stylesheet" type="text/css" id="style_color" />
 		<link href="{{ asset('public/assets/css/custom3.css') }}" rel="stylesheet" type="text/css" />
 		<!-- END THEME LAYOUT STYLES -->
-		<link rel="shortcut icon" href="favicon.ico" /> 
+		<link rel="shortcut icon" href="{{ asset('public/favicon.ico') }}" /> 
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 	</head>
 	<!-- END HEAD -->

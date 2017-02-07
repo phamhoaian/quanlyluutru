@@ -17,7 +17,7 @@
 @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<div class="portlet box green">
+		<div class="portlet box green-jungle">
 			<div class="portlet-title">
 				<div class="caption">
 					<i class="fa fa-building"></i>Thêm mới nhà nghỉ / khách sạn
