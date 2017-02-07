@@ -75,11 +75,70 @@ var User = function() {
 		});
 	}
 
+	var handleResetPassword = function() {
+
+		$('#reset_password').validate({
+			errorElement: 'span', //default input error message container
+			errorClass: 'help-block help-block-error', // default input error message class
+			focusInvalid: false, // do not focus the last invalid input
+			rules: {
+				email: {
+					required: true,
+					email: true
+				},
+			},
+
+			messages: {
+				email: {
+					required: 'Email không được bỏ trống',
+					email: 'Vui lòng nhập đúng email'
+				},
+			},
+
+			errorPlacement: function (error, element) { // render error placement for each input type
+				if (element.parent(".input-group").size() > 0) {
+                    error.insertAfter(element.parent(".input-group"));
+                } else {
+                    error.insertAfter(element); // for other inputs, just perform default behavior
+                }
+			},
+
+			highlight: function(element) { // hightlight error inputs
+				$(element)
+					.closest('.form-group').addClass('has-error'); // set error class to the control group
+			},
+
+			unhighlight: function (element) { // revert the change done by hightlight
+				$(element)
+					.closest('.form-group').removeClass('has-error'); // set error class to the control group
+			},
+
+			success: function(label) {
+				label.closest('.form-group').removeClass('has-error');
+				label.remove();
+			},
+
+			submitHandler: function(form) {
+				form.submit(); // form validation success, call ajax form submit
+			}
+		});
+
+		$('#reset_password input').keypress(function(e) {
+			if (e.which == 13) {
+				if ($('#reset_password').validate().form()) {
+					$('#reset_password').submit(); //form validation success, call ajax form submit
+				}
+				return false;
+			}
+		});
+	}
+
 	return {
 		//main function to initiate the module
 		init: function() {
 
 			handleChangePassword();
+			handleResetPassword();
 		}
 
 	};

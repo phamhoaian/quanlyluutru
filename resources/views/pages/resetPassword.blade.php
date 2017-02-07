@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="description" content="Hệ thống khai báo lưu trú trực tuyến">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Đăng nhập - Hệ thống khai báo lưu trú trực tuyến</title>
+        <title>Quên mật khẩu - Hệ thống khai báo lưu trú trực tuyến</title>
         <link href="http://fonts.googleapis.com/css?family=Roboto+Condensed:300&amp;subset=vietnamese,latin-ext" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="{{ asset('public/assets/plugins/bootstrap/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('public/assets/plugins/font-awesome/css/font-awesome.min.css') }}">
@@ -30,28 +30,27 @@
                     </div>
                 </div>
                 <div class="wrapper">
-                    <form class="login-form" action="{{ url('/dang-nhap') }}" method="POST">
+                    <form id="reset_password" class="login-form" action="{{ route('user.resetPassword') }}" method="POST">
                         {{ csrf_field() }}
-                        <div class="form-title">Đăng nhập</div>
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <input type="text" class="form-control" autocomplete="off" placeholder="Email" name="email" value="{{ old('email') }}">
+                        <div class="form-title">Quên mật khẩu</div>
+                        @if (Session::has('flash_message'))
+                        <div class="flash-message">
+                            <div class="alert alert-{!! Session::get('flash_level') !!} alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                                {!! Session::get('flash_message') !!}
+                            </div>
+                        </div>
+                        @endif
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">                            
+                            <input type="text" class="form-control" autocomplete="off" placeholder="Nhập email" name="email" value="{{ old('email') }}">
                             @if ($errors->has('email'))
                                 <span class="help-block help-block-error">
                                     {{ $errors->first('email') }}
                                 </span>
                             @endif
                         </div>
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <input type="password" class="form-control" autocomplete="off" placeholder="Mật khẩu" name="password">
-                            @if ($errors->has('password'))
-                                <span class="help-block help-block-error">
-                                    {{ $errors->first('password') }}
-                                </span>
-                            @endif
-                        </div>
                         <div class="form-actions">
-                            <button type="submit" class="btn">Đăng nhập</button>
-                            <a href="{{ route('user.resetPassword') }}">Quên mật khẩu?</a>
+                            <button type="submit" class="btn btn-block">Gửi</button>
                         </div>
                     </form>
                     <div class="clear"></div>
@@ -74,6 +73,6 @@
             </div>
         <script src="{{ asset('public/assets/scripts/jquery.min.js') }}"></script>
         <script src="{{ asset('public/assets/plugins/jquery-validation/js/jquery.validate.min.js') }}"></script>
-        <script src="{{ asset('public/assets/scripts/login.js') }}"></script>
+        <script src="{{ asset('public/front/scripts/user.js') }}"></script>
     </body>
 </html>

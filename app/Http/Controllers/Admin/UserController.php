@@ -127,4 +127,20 @@ class UserController extends Controller
             return redirect()->route('admin.user.edit', ['id' => $id, '#tab_1_3'])->with(['change_password' => TRUE, 'flash_level' => 'danger', 'flash_message' => 'Mật khẩu hiện tại không đúng !']);
         }
     }
+
+    public function suspendUser($id)
+    {
+        $user = $this->userRepository->find($id);
+
+        if ($user->active_flg)
+        {
+            $this->userRepository->update(['active_flg' => 0], $id);
+            return redirect()->route('admin.user.list')->with(['flash_level' => 'success', 'flash_message' => 'Đã khóa tài khoản !']);
+        }
+        else
+        {
+            $this->userRepository->update(['active_flg' => 1], $id);
+            return redirect()->route('admin.user.list')->with(['flash_level' => 'success', 'flash_message' => 'Đã kích hoạt tài khoản !']);
+        }
+    }
 }

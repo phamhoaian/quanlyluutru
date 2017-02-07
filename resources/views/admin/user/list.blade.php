@@ -80,15 +80,22 @@
 								{{ \Carbon\Carbon::parse($user->last_login)->format('H:i:s d/m/Y') }}
 							@endif
 							</td>
-							<td class="text-center">
+							<td>
 								<a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-xs blue">
 									<i class="fa fa-edit"></i>
 									Xem thông tin
 								</a>
-								<a href="javascript:void(0);" class="btn btn-xs yellow">
+								@if ($user->active_flg)
+								<a href="{{ route('admin.user.suspend', $user->id) }}" class="btn btn-xs yellow">
 									<i class="fa fa-lock"></i>
 									Khóa
 								</a>
+								@else
+								<a href="{{ route('admin.user.suspend', $user->id) }}" class="btn btn-xs green-steel">
+									<i class="fa fa-unlock-alt"></i>
+									Kích hoạt
+								</a>
+								@endif
 							</td>
 						</tr>
 						@endforeach

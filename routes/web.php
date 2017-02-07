@@ -61,4 +61,6 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/dang-nhap', ['as' => 'user.login', 'uses' => 'LoginController@showLoginForm']);
 Route::post('/dang-nhap', ['as' => 'user.login', 'uses' => 'LoginController@login']);
 Route::post('/dang-xuat', ['as' => 'user.logout', 'uses' => 'LoginController@logout']);
-Route::get('tai-khoan/kich-hoat/{active_key}', ['as' => 'user.activation', 'uses' => 'UserController@activationUser']);
+Route::get('/tai-khoan/kich-hoat/{active_key}', ['as' => 'user.activation', 'uses' => 'UserController@activationUser']);
+Route::get('/quen-mat-khau', ['as' => 'user.resetPassword', 'uses' => 'UserController@showResetPasswordForm']);
+Route::post('/quen-mat-khau', ['as' => 'user.postResetPassword', 'uses' => 'UserController@resetPassword']);

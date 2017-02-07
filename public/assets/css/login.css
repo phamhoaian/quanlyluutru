@@ -2,6 +2,12 @@ html, body {
 	height: 100%;
 	width: 100%;
 }
+a {
+	color: #edf4f8;
+}
+p {
+	color: #edf4f8;
+}
 .clear {
     padding: 0;
     margin: 0;
@@ -130,12 +136,16 @@ html, body {
     color: #d9ecf9;
 }
 .login-form .btn {
-	padding: 10px 25px;
+	padding: 10px 30px;
+	margin-right: 15px;
     color: #fff;
     background-color: #e7505a;
     border-color: #e7505a;
     text-transform: uppercase;
     border-radius: 0;
+}
+.login-form .form-actions {
+    padding-top: 10px;
 }
 .has-error .help-block {
     color: #a2121d;
