@@ -16,9 +16,19 @@ class CheckOfficial
      */
     public function handle($request, Closure $next)
     {
+        if ( ! Auth::user()->isActive())
+        {
+            Auth::logout();
+            return redirect()->route('user.login')
+                             ->withInput($request->only('email'))
+                             ->withErrors([
+                                'email' => 'Tài khoản này chưa kích hoạt !',
+                             ]);
+        }
         if ( ! Auth::user()->isOwner())
         {
-            return response()->view('errors.404', [], 404);
+            Auth::logout();
+            return redirect()->route('user.login');
         }
         if ( ! Auth::user()->isOfficial())
         {

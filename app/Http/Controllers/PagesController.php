@@ -198,7 +198,29 @@ class PagesController extends Controller
     {
     	$hotel = $this->hotelRepository->with('user')->where('id', '=', Auth::user()->hotel_id)->first();
 
+        // update owner information
+        $input_owner['name']            = $request->owner_name;
+        $input_owner['birthday']        = Carbon::parse($request->owner_birthday)->format('Y-m-d');
+        $input_owner['id_card']         = $request->owner_id_card;
+        $input_owner['address']         = $request->owner_address;
+        $input_owner['business_cert']   = $request->owner_business_cert;
+        $input_owner['security']        = $request->owner_security;
+
+        $owner = $this->ownerRepository->findByField('id_card', $request->owner_id_card)->first();
+
+        if ( ! $owner)
+        {
+            $owner = $this->ownerRepository->create($input_owner);
+            $owner_id = $owner->id;
+        }
+        else
+        {
+            $this->ownerRepository->update($input_owner, $owner->id);
+            $owner_id = $owner->id;
+        }
+
     	// update hotel information
+        $input_hotel['owner_id']  = $owner_id;
         $input_hotel['name']      = $request->hotel_name;
         $input_hotel['address']   = $request->hotel_address;
         $input_hotel['phone']     = $request->hotel_phone;
@@ -222,25 +244,6 @@ class PagesController extends Controller
         $input_user['email'] = $request->hotel_email;
         $input_user['official_flg'] = 1;
         $this->userRepository->update($input_user, $hotel->user->id);
-
-        // update owner information
-        $input_owner['name']			= $request->owner_name;
-        $input_owner['birthday']		= Carbon::parse($request->owner_birthday)->format('Y-m-d');
-        $input_owner['id_card']			= $request->owner_id_card;
-        $input_owner['address']			= $request->owner_address;
-        $input_owner['business_cert']	= $request->owner_business_cert;
-        $input_owner['security']		= $request->owner_security;
-
-        $owner = $this->ownerRepository->findByField('id_card', $request->owner_id_card)->first();
-
-        if ( ! $owner)
-        {
-        	$this->ownerRepository->create($input_owner);
-        }
-        else
-        {
-        	$this->ownerRepository->update($input_owner, $hotel->owner->id);
-        }
 
         // make notice
         $hotel = $this->hotelRepository->find(Auth::user()->hotel_id);

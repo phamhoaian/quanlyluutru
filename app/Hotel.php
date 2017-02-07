@@ -12,7 +12,7 @@ class Hotel extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'address', 'phone', 'room', 'type', 'photo', 'delete_flg'
+        'name', 'address', 'phone', 'room', 'type', 'photo', 'delete_flg', 'owner_id'
     ];
 
     public function user()

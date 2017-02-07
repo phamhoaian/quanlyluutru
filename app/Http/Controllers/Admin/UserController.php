@@ -11,6 +11,8 @@ use App\Http\Requests\UserChangePasswordRequest;
 use Auth;
 use Hash;
 use File;
+use Mail;
+use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
@@ -41,12 +43,21 @@ class UserController extends Controller
 
     public function userFormAdd(UserRequest $request)
     {
+        $active_key = md5(rand().microtime());
+
         $input['hotel_id']  = $request->hotel;
         $input['email']     = $request->email;
-        $tmp_password       = str_random(10);
+        $tmp_password       = str_random(6);
         $input['password']  = bcrypt($tmp_password);
+        $input['active_key'] = $active_key;
+        $input['active_flg'] = 0;
 
         $user = $this->userRepository->create($input);
+
+        Mail::send('email.activation', ['email' => $request->email, 'password' => $tmp_password, 'active_key' => $active_key], function($message) {
+            $message->to(Input::get('email'))
+                ->subject('Kích hoạt tài khoản');
+        });
 
         return redirect()->route('admin.user.list')->with(['flash_level' => 'success', 'flash_message' => 'Đã thêm tài khoản mới !']);
     }
@@ -114,6 +125,22 @@ class UserController extends Controller
         else
         {
             return redirect()->route('admin.user.edit', ['id' => $id, '#tab_1_3'])->with(['change_password' => TRUE, 'flash_level' => 'danger', 'flash_message' => 'Mật khẩu hiện tại không đúng !']);
+        }
+    }
+
+    public function suspendUser($id)
+    {
+        $user = $this->userRepository->find($id);
+
+        if ($user->active_flg)
+        {
+            $this->userRepository->update(['active_flg' => 0], $id);
+            return redirect()->route('admin.user.list')->with(['flash_level' => 'success', 'flash_message' => 'Đã khóa tài khoản !']);
+        }
+        else
+        {
+            $this->userRepository->update(['active_flg' => 1], $id);
+            return redirect()->route('admin.user.list')->with(['flash_level' => 'success', 'flash_message' => 'Đã kích hoạt tài khoản !']);
         }
     }
 }

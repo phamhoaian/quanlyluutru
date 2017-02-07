@@ -85,9 +85,6 @@
 									<a href="#tab_1_3" data-toggle="tab">Đổi mật khẩu</a>
 								</li>
 								@endif
-								<li>
-									<a href="#tab_1_4" data-toggle="tab">Reset mật khẩu</a>
-								</li>
 							</ul>
 						</div>
 						<div class="portlet-body">
@@ -231,15 +228,6 @@
 									{!! Form::close() !!}
 								</div>
 								<!-- END CHANGE PASSWORD TAB -->
-								<!-- RESET PASSWORD TAB -->
-								<div class="tab-pane" id="tab_1_4">
-									<button type="button" data-loading-text="Đang xử lý..." class="demo-loading-btn btn green"> Reset mật khẩu </button>
-									<div class="clearfix margin-top-10">
-										<span class="label label-danger">Ghi chú !</span>&nbsp;
-										<span>Một email bao gồm mật khẩu mới sẽ được gửi đến địa chỉ email đã đăng ký.</span>
-									</div>
-								</div>
-								<!-- END RESET PASSWORD TAB -->
 							</div>
 						</div>
 					</div>
