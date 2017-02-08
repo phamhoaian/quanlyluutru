@@ -13,15 +13,29 @@ class HotelSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        for ($i = 1; $i <= 20; $i++) { 
+        $hotel = array(
+            1 => 'Nhà nghỉ AAA',
+            2 => 'Nhà nghỉ BBB',
+            3 => 'Nhà nghỉ CCC',
+            4 => 'Nhà nghỉ DDD',
+            5 => 'Nhà nghỉ EEE',
+            6 => 'Khách sạn FFF',
+            7 => 'Khách sạn GGG',
+            8 => 'Khách sạn HHH',
+            9 => 'Khách sạn III',
+            10 => 'Khách sạn KKK',
+        );
+
+        for ($i = 1; $i <= 10; $i++) { 
         	DB::table('hotels')->insert(
         		[
         			'owner_id' 	=> rand(1,10),
-        			'name' 		=> $faker->name,
-        			'address' 	=> $faker->address,
-        			'phone'		=> $faker->tollFreePhoneNumber,
-        			'room' 		=> rand(10,100),
-        			'type' 		=> rand(1,2)
+        			'name' 		=> $hotel[$i],
+        			'address' 	=> '123 Khu phố XXX, phường An Phú',
+        			'phone'		=> '(0650) '.rand(100,999).'-'.rand(1000,9999),
+        			'room' 		=> rand(10,50),
+        			'type' 		=> rand(1,2),
+                    'created_at' => new DateTime()
     			]
     		);
         }

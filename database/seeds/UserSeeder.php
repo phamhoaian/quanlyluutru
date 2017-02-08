@@ -16,42 +16,36 @@ class UserSeeder extends Seeder
     	DB::table('users')->insert(
         	[
                 'role_id' => 2,
-        		'name' => 'Administrator',
-            	'email' => 'admin@gmail.com',
-            	'password' => bcrypt('anph@123'),
-            	'remember_token' => str_random(10),
-            	'active_flg'=> 1,
+        		'name' => 'Quản trị viên',
+            	'email' => 'admin@conganphuonganphu.com',
+            	'password' => bcrypt('anPH@123'),
+            	'active_flg' => 1,
+                'official_flg' => 1,
             	'last_login' => new DateTime(),
             	'created_at' => new DateTime(),
         	]
     	);
     	DB::table('users')->insert(
         	[
-        		'name' => 'User',
-            	'email' => 'user@gmail.com',
-            	'password' => bcrypt('anph@123'),
-            	'remember_token' => str_random(10),
-            	'active_flg'=> 1,
+        		'hotel_id' => '1',
+            	'email' => 'user@conganphuonganphu.com',
+            	'password' => bcrypt('anPH@123'),
+            	'active_flg' => 1,
+                'official_flg' => 1,
             	'last_login' => new DateTime(),
             	'created_at' => new DateTime(),
         	]
     	);
-
-        $active = array(0,1);
-
-        for($i = 1; $i <= 10;$i++)
-        {
-        	DB::table('users')->insert(
-	        	[
-                    'hotel_id' => rand(1,100),
-	        		'name' => $faker->name,
-	            	'email' => $faker->unique()->email,
-	            	'password' => bcrypt('anph@123'),
-	            	'remember_token' => str_random(10),
-	            	'active_flg'=> rand(0,1),
-	            	'created_at' => new DateTime(),
-	        	]
-        	);
-        }
+        DB::table('users')->insert(
+            [
+                'hotel_id' => '1',
+                'email' => 'block@conganphuonganphu.com',
+                'password' => bcrypt('anPH@123'),
+                'active_flg' => 0,
+                'official_flg' => 0,
+                'last_login' => new DateTime(),
+                'created_at' => new DateTime(),
+            ]
+        );
     }
 }

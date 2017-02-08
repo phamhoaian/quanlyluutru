@@ -37,7 +37,7 @@ class HotelCustomerRepository extends BaseRepository
 			default:
 				$visitors = $this->model->select(DB::raw('DATE(check_in) date'), DB::raw('COUNT(id) as number'))
 								->where('hotel_id', $hotel_id)
-								->where('check_in', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 10 DAY)'))
+								->where('check_in', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 7 DAY)'))
 								->groupBy(DB::raw('DATE(check_in)'))
 								->orderBy('date', 'ASC')
 								->take(10)
@@ -83,7 +83,7 @@ class HotelCustomerRepository extends BaseRepository
 				$visitors = $this->model->select(DB::raw('DATE(check_in) day'), DB::raw('COUNT(hotel_customer_map.id) as '.$sex))
 										->join('customers', 'hotel_customer_map.customer_id', '=', 'customers.id')	
 										->where('sex', $sex_id)
-										->where('check_in', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 10 DAY)'))
+										->where('check_in', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 7 DAY)'))
 										->groupBy(DB::raw('DATE(check_in)'))
 										->orderBy('day', 'ASC')
 										->take(10)
