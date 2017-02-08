@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="{{ asset('public/assets/plugins/bootstrap/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('public/assets/plugins/font-awesome/css/font-awesome.min.css') }}">
         <link rel="stylesheet" href="{{ asset('public/assets/css/login.css') }}">
+        <link rel="shortcut icon" href="{{ asset('public/favicon.ico') }}" /> 
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body>
         <div id="header">
