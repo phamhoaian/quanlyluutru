@@ -2,7 +2,8 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="description" content="Hệ thống khai báo lưu trú trực tuyến">
+        <meta name="description" content="Hệ thống khai báo lưu trú trực tuyến, công an phường An Phú" />
+        <meta name="keywords" content="cong an phuong an phu, khai bao luu tru truc tuyen" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Quên mật khẩu - Hệ thống khai báo lưu trú trực tuyến</title>
         <link href="http://fonts.googleapis.com/css?family=Roboto+Condensed:300&amp;subset=vietnamese,latin-ext" rel="stylesheet" type="text/css">
