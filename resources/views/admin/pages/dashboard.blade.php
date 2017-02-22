@@ -15,34 +15,8 @@
 
 @section('content')
 <div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
-            <div class="visual">
-                <i class="icon-home"></i>
-            </div>
-            <div class="details">
-                <div class="number">
-                    <span data-counter="counterup" data-value="{{ $motel_count }}">{{ $motel_count }}</span>
-                </div>
-                <div class="desc">Nhà nghỉ</div>
-            </div>
-        </a>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <a class="dashboard-stat dashboard-stat-v2 red" href="#">
-            <div class="visual">
-                <i class="fa fa-building"></i>
-            </div>
-            <div class="details">
-                <div class="number">
-                    <span data-counter="counterup" data-value="{{ $hotel_count }}">{{ $hotel_count }}</span>
-                </div>
-                <div class="desc">Khách sạn</div>
-            </div>
-        </a>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <a class="dashboard-stat dashboard-stat-v2 green" href="#">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 green" href="{{ route('admin.counting.form', ['date' => \CarBon\CarBon::now()]) }}">
             <div class="visual">
                 <i class="fa fa-shopping-cart"></i>
             </div>
@@ -54,8 +28,8 @@
             </div>
         </a>
     </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <a class="dashboard-stat dashboard-stat-v2 purple" href="#">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 purple" href="{{ route('admin.counting.form') }}">
             <div class="visual">
                 <i class="fa fa-globe"></i>
             </div>

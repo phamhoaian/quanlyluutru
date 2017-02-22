@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Eloquents\HotelCustomerRepository;
 use CarBon\Carbon;
+use Illuminate\Support\Facades\Input;
 
 class StatisticsController extends Controller
 {
@@ -103,11 +104,16 @@ class StatisticsController extends Controller
 
     public function showCountingForm()
     {
-    	return view('admin.statistics.counting');
+    	$date = Input::get('ngay', FALSE);
+    	$date = Carbon::parse(str_replace('/', '-', $date))->format('d/m/Y');
+    	$date = $date . ' - ' . $date;
+
+    	return view('admin.statistics.counting', compact('date'));
     }
 
     public function counting(Request $request)
     {
+    	dd($request->all());
     	$where = array();
     	if ($request->hotel_name != '') {
 			$where[] = ['hotels.name', 'like', '%'.$request->hotel_name.'%'];
