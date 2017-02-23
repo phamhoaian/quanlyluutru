@@ -12,7 +12,7 @@ class Customer extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'year_of_birth', 'address', 'id_card', 'sex'
+        'name', 'year_of_birth', 'address', 'id_card', 'sex', 'nationality', 'passport', 'passport_info', 'date_entry', 'port_entry', 'purpose_entry', 'permitted_start', 'permitted_end', 'foreign_flg'
     ];
 
     protected $table = 'customers';

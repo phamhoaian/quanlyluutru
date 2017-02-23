@@ -74,11 +74,37 @@ class PagesController extends Controller
     	// prepare data for customer
     	$input_customer['name'] = $request->name;
     	$input_customer['year_of_birth'] = $request->year_of_birth;
-    	$input_customer['id_card'] = $request->id_card;
-    	$input_customer['address'] = $request->address;
-    	$input_customer['sex'] = $request->sex;
+        $input_customer['sex'] = $request->sex;
+    	$input_customer['foreign_flg'] = $request->foreign_flg;
+        if ($request->foreign_flg)
+        {
+            $input_customer['nationality'] = $request->nationality;
+            $input_customer['passport'] = $request->passport;
+            $input_customer['passport_info'] = $request->passport_info;
+            $input_customer['date_entry'] = Carbon::parse($request->date_entry)->format('Y-m-d H:i:s');
+            $input_customer['port_entry'] = $request->port_entry;
+            $input_customer['purpose_entry'] = $request->purpose_entry;
+            $input_customer['permitted_start'] = Carbon::parse($request->permitted_start)->format('Y-m-d H:i:s');
+            $input_customer['permitted_end'] = Carbon::parse($request->permitted_end)->format('Y-m-d H:i:s');
 
-    	$customer = $this->customerRepository->findByField('id_card', $request->id_card)->first();
+            if ($input_customer['permitted_start'] > $input_customer['permitted_end'])
+            {
+                return redirect()->back()
+                    ->withInput($request->only('permitted_start'))
+                    ->withErrors([
+                        'permitted_start' => 'Vui lòng nhập đúng thời gian tạm trú !',
+                    ]);
+            }
+
+            $customer = $this->customerRepository->findByField('passport', $request->passport)->first();
+        }
+        else
+        {
+            $input_customer['id_card'] = $request->id_card;
+            $input_customer['address'] = $request->address;
+
+            $customer = $this->customerRepository->findByField('id_card', $request->id_card)->first();
+        }
 
     	if ( ! $customer) // case of the customer not exist
     	{

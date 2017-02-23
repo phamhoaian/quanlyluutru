@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class StayingRequest extends FormRequest
 {
@@ -23,11 +24,9 @@ class StayingRequest extends FormRequest
 	 */
 	public function rules()
 	{
-		return [
+		$rules = [
 			'name'          => 'required',
 			'year_of_birth' => 'required|integer',
-			'id_card'       => 'required|numeric',
-			'address'       => 'required',
 			'sex'           => 'required|integer',
 			'room_number'   => 'required',
 			'date_start'    => 'required',
@@ -35,6 +34,24 @@ class StayingRequest extends FormRequest
 			'check_in'      => 'required',
 			'check_out'     => 'required'
 		];
+		if ( ! Request::input('foreign_flg'))
+		{
+			$rules['id_card'] = 'required|numeric';
+			$rules['address'] = 'required';
+		}
+		else
+		{
+			$rules['nationality'] 		= 'required';
+			$rules['passport'] 			= 'required';
+			$rules['passport_info'] 	= 'required';
+			$rules['date_entry'] 		= 'required';
+			$rules['port_entry'] 		= 'required';
+			$rules['purpose_entry'] 	= 'required';
+			$rules['permitted_start']	= 'required';
+			$rules['permitted_end'] 	= 'required';
+		}
+
+		return $rules;
 	}
 
 	/**
@@ -58,6 +75,14 @@ class StayingRequest extends FormRequest
 			'date_end.required'			=> 'Ngày ra không được bỏ trống',
 			'check_in.required'			=> 'Thời gian vào không được bỏ trống',
 			'check_out.required'		=> 'Thời gian ra không được bỏ trống',
+			'nationality.required'		=> 'Quốc tịch không được bỏ trống',
+			'passport.required'			=> 'Số hộ chiếu không được bỏ trống',
+			'passport_info.required'	=> 'Thông tin hộ chiếu không được bỏ trống',
+			'date_entry.required'		=> 'Ngày nhập cảnh không được bỏ trống',
+			'port_entry.required'		=> 'Cửa khẩu nhập cảnh  không được bỏ trống',
+			'purpose_entry.required'	=> 'Mục đích nhập cảnh không được bỏ trống',
+			'permitted_start.required'	=> 'Ngày bắt đầu không được bỏ trống',
+			'permitted_end.required'	=> 'Ngày kết thúc không được bỏ trống',
 		];
 	}
 }
