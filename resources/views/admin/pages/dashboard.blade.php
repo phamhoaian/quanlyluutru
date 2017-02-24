@@ -16,7 +16,7 @@
 @section('content')
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <a class="dashboard-stat dashboard-stat-v2 green" href="{{ route('admin.counting.form', ['date' => \CarBon\CarBon::now()]) }}">
+        <a class="dashboard-stat dashboard-stat-v2 green" href="{{ route('admin.staying.isStayed') }}">
             <div class="visual">
                 <i class="fa fa-shopping-cart"></i>
             </div>
@@ -29,7 +29,7 @@
         </a>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <a class="dashboard-stat dashboard-stat-v2 purple" href="{{ route('admin.counting.form') }}">
+        <a class="dashboard-stat dashboard-stat-v2 purple" href="{{ route('admin.staying.notStay') }}">
             <div class="visual">
                 <i class="fa fa-globe"></i>
             </div>

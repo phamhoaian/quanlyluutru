@@ -97,8 +97,10 @@ class HotelCustomerRepository extends BaseRepository
 
 	public function getHotelHaveDeclared()
 	{
-		return $this->model->select('hotel_id')
-						   ->where(DB::raw('DATE(created_at)'), '=', DB::raw('CURDATE()'))
+		return $this->model->select('hotel_id', DB::raw('owners.name as owner_name'), DB::raw('hotels.name as hotel_name'), 'hotels.address', 'hotels.type')
+						   ->leftJoin('hotels', 'hotel_customer_map.hotel_id', '=', 'hotels.id')
+						   ->leftJoin('owners', 'hotels.owner_id', '=', 'owners.id')
+						   ->where(DB::raw('DATE(hotel_customer_map.check_in)'), '=', DB::raw('CURDATE()'))
 						   ->groupBy('hotel_id')
 						   ->get()
 						   ->toArray();

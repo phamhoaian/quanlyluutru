@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Eloquents\HotelCustomerRepository;
+use App\Repositories\Eloquents\HotelRepository;
 use CarBon\Carbon;
 use Illuminate\Support\Facades\Input;
 use DB;
@@ -12,10 +13,12 @@ use DB;
 class StatisticsController extends Controller
 {
 	protected $hotelCustomerRepository;
+	protected $hotelRepository;
 
-    public function __construct(HotelCustomerRepository $hotelCustomerRepository)
+    public function __construct(HotelCustomerRepository $hotelCustomerRepository, HotelRepository $hotelRepository)
     {
     	$this->hotelCustomerRepository = $hotelCustomerRepository;
+    	$this->hotelRepository = $hotelRepository;
     }
 
     public function showSearchForm()
@@ -201,6 +204,20 @@ class StatisticsController extends Controller
     {
     	$staying = $this->hotelCustomerRepository->find($id);
     	return view('admin.statistics.staying', compact('staying'));
+    }
+
+    public function showListHotelsHaveDeclared()
+    {
+    	$hotels = $this->hotelCustomerRepository->getHotelHaveDeclared();
+    	$staying_title = 'Danh sách nhà nghỉ/khách sạn đã khai báo hôm nay';
+    	return view('admin.pages.declared', compact('hotels', 'staying_title'));
+    }
+
+    public function showListHotelsNotDeclare()
+    {
+    	$hotels = $this->hotelRepository->getHotelNotDeclare();
+    	$staying_title = 'Danh sách nhà nghỉ/khách sạn chưa khai báo hôm nay';
+    	return view('admin.pages.declared', compact('hotels', 'staying_title'));
     }
 
     private function getColumnOrder($column)
