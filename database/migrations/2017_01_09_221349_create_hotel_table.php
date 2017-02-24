@@ -24,6 +24,7 @@ class CreateHotelTable extends Migration
             $table->string('photo', 50)->nullable();
             $table->boolean('delete_flg')->default('0');
             $table->timestamps();
+            $table->index('owner_id');
         });
     }
 

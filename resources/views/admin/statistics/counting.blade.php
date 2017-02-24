@@ -45,9 +45,10 @@
 			<div class="portlet-body">
 				<div class="table-container">
 					<div class="table-actions-wrapper">
+						<input type="hidden" name="date" value="{{ $date }}">
 						<input type="text" class="form-control form-filter input-sm inline-block margin-right-10 margin-bottom-10" name="hotel_name" placeholder="Tìm theo tên nhà nghỉ/ks">
                         <div class="input-group inline-block margin-right-10 margin-bottom-10" id="date_range">
-                            <input type="text" class="form-control form-filter input-sm inline-block" readonly name="date_range" placeholder="Tìm theo ngày" style="width: 166px">
+                            <input type="text" class="form-control form-filter input-sm inline-block" readonly name="date_range" placeholder="Tìm theo ngày" style="width: 166px" value="{{ $date }}">
                             <span class="input-group-btn inline-block" style="width: auto">
                                 <button class="btn btn-sm default date-range-toggle" type="button">
                                     <i class="fa fa-calendar"></i>

@@ -7,6 +7,67 @@ var Staying = function() {
 
 	var handleStaying = function() {
 
+		var domestic_rules = {
+			id_card: {
+				required: true,
+				number: true
+			},
+			address: {
+				required: true
+			}
+		};
+
+		var foreign_rules = {
+			nationality: {
+				required: true
+			},
+			passport: {
+				required: true
+			},
+			passport_info: {
+				required: true
+			},
+			date_entry: {
+				required: true
+			},
+			port_entry: {
+				required: true
+			},
+			purpose_entry: {
+				required: true
+			},
+			permitted_start: {
+				required: true
+			},
+			permitted_end: {
+				required: true
+			}
+		};
+
+		if ($('#domestic').is(':checked'))
+		{
+			registerDomestic();
+		}
+		if ($('#foreign').is(':checked'))
+		{
+			registerForeign();
+		}
+
+		$('input:radio[name="foreign_flg"]').change(function(){
+			if ($(this).is(':checked') && $(this).val() == 0) 
+			{
+	            registerDomestic();
+	            removeRules(foreign_rules);
+				addRules(domestic_rules);
+	        }
+	        else
+	        {
+	        	registerForeign();
+	        	removeRules(domestic_rules);
+				addRules(foreign_rules);
+	        }
+		});
+
 		$('#staying_form').validate({
 			errorElement: 'span', //default input error message container
 			errorClass: 'help-block help-block-error', // default input error message class
@@ -19,11 +80,7 @@ var Staying = function() {
 					required: true,
 					number: true
 				},
-				id_card: {
-					required: true,
-					number: true
-				},
-				address: {
+				foreign_flg: {
 					required: true
 				},
 				sex: {
@@ -54,6 +111,33 @@ var Staying = function() {
 				year_of_birth: {
 					required: 'Vui lòng chọn năm sinh',
 					number: 'Chỉ cho phép nhập số'
+				},
+				foreign_flg: {
+					required: 'Vui lòng chọn loại khách'
+				},
+				nationality: {
+					required: 'Quốc tịch không được bỏ trống'
+				},
+				passport: {
+					required: 'Số hộ chiếu không được bỏ trống'
+				},
+				passport_info: {
+					required: 'Thông tin hộ chiếu không được bỏ trống'
+				},
+				date_entry: {
+					required: 'Ngày nhập cảnh không được bỏ trống'
+				},
+				port_entry: {
+					required: 'Cửa khẩu nhập cảnh không được bỏ trống'
+				},
+				purpose_entry: {
+					required: 'Mục đích nhập cảnh không được bỏ trống'
+				},
+				permitted_start: {
+					required: 'Ngày bắt đầu không được bỏ trống'
+				},
+				permitted_end: {
+					required: 'Ngày kết thúc không được bỏ trống'
 				},
 				id_card: {
 					required: 'Số CMND không được bỏ trống',
@@ -111,6 +195,7 @@ var Staying = function() {
 				form.submit(); // form validation success, call ajax form submit
 			}
 		});
+		addRules(domestic_rules);
 
 		$('#staying_form input').keypress(function(e) {
 			if (e.which == 13) {
@@ -143,6 +228,32 @@ var Staying = function() {
                 language: 'vi'
             });
         }
+    }
+
+    var registerDomestic = function() {
+    	$('.foreign_form').addClass('hidden');
+		$('.domestic_form').removeClass('hidden');
+		$('.foreign_form').removeClass('has-error');
+		$('.foreign_form').find('.help-block-error').remove();
+    }
+
+   	var registerForeign = function() {
+   		$('.foreign_form').removeClass('hidden');
+		$('.domestic_form').addClass('hidden');
+		$('.domestic_form').removeClass('has-error');
+		$('.domestic_form').find('.help-block-error').remove();
+   	}
+
+    var addRules = function(rules) {
+    	for (var item in rules){
+	       $('input[name="' + item + '"]').rules('add', rules[item]);  
+	    }
+    }
+
+    var removeRules = function(rules) {
+    	for (var item in rules){
+	       $('input[name="' + item + '"]').rules('remove');
+	    }
     }
 
 	return {

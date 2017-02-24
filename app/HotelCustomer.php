@@ -16,4 +16,14 @@ class HotelCustomer extends Model
     ];
 
     protected $table = 'hotel_customer_map';
+
+    public function hotel()
+    {
+    	return $this->belongsTo('App\Hotel');
+    }
+
+    public function customer()
+    {
+    	return $this->belongsTo('App\Customer');
+    }
 }

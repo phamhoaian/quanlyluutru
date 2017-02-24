@@ -29,6 +29,8 @@ class CreateUsersTable extends Migration
             $table->string('photo', 50)->nullable();
             $table->dateTime('last_login')->nullable();
             $table->timestamps();
+            $table->index('role_id');
+            $table->index('hotel_id');
         });
     }
 

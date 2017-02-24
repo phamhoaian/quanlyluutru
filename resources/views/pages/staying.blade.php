@@ -66,7 +66,180 @@
                                 @endif
 							</div>
 						</div>
-						<div class="form-group{{ $errors->has('id_card') ? ' has-error' : '' }}">
+						<div class="form-group{{ $errors->has('sex') ? ' has-error' : '' }}">
+							<label class="col-md-3 control-label">
+								Giới tính
+								<span class="required" aria-required="true">*</span>
+							</label>
+							<div class="col-md-4">
+								<div class="mt-radio-inline">
+									<label class="mt-radio">
+										{!! Form::radio('sex', 1, true) !!}
+										Nam
+										<span></span>
+									</label>
+									<label class="mt-radio">
+										{!! Form::radio('sex', 2) !!}
+										Nữ
+										<span></span>
+									</label>
+								</div>
+								@if ($errors->has('sex'))
+                                    <span class="help-block help-block-error">
+                                        {{ $errors->first('sex') }}
+                                    </span>
+                                @endif
+							</div>
+						</div>
+						<div class="form-group{{ $errors->has('foreign_flg') ? ' has-error' : '' }}">
+							<label class="col-md-3 control-label">
+								Loại khách
+								<span class="required" aria-required="true">*</span>
+							</label>
+							<div class="col-md-4">
+								<div class="mt-radio-inline">
+									<label class="mt-radio">
+										{!! Form::radio('foreign_flg', 0, true, ['id' => 'domestic']) !!}
+										Khách trong nước
+										<span></span>
+									</label>
+									<label class="mt-radio">
+										{!! Form::radio('foreign_flg', 1, null, ['id' => 'foreign']) !!}Khách nước ngoài
+										<span></span>
+									</label>
+								</div>
+								@if ($errors->has('foreign_flg'))
+                                    <span class="help-block help-block-error">
+                                        {{ $errors->first('foreign_flg') }}
+                                    </span>
+                                @endif
+							</div>
+						</div>
+						<div class="form-group foreign_form hidden{{ $errors->has('nationality') ? ' has-error' : '' }}">
+							<label class="col-md-3 control-label">
+								Quốc tịch
+								<span class="required" aria-required="true">*</span>
+							</label>
+							<div class="col-md-4">
+								{!! Form::text('nationality', null, ['class' => 'form-control input-circle']) !!}
+								@if ($errors->has('nationality'))
+                                    <span class="help-block help-block-error">
+                                        {{ $errors->first('nationality') }}
+                                    </span>
+                                @endif
+							</div>
+						</div>
+						<div class="form-group foreign_form hidden{{ $errors->has('passport') ? ' has-error' : '' }}">
+							<label class="col-md-3 control-label">
+								Số hộ chiếu
+								<span class="required" aria-required="true">*</span>
+							</label>
+							<div class="col-md-4">
+								{!! Form::text('passport', null, ['class' => 'form-control input-circle']) !!}
+								@if ($errors->has('passport'))
+                                    <span class="help-block help-block-error">
+                                        {{ $errors->first('passport') }}
+                                    </span>
+                                @endif
+							</div>
+						</div>
+						<div class="form-group foreign_form hidden{{ $errors->has('passport_info') ? ' has-error' : '' }}">
+							<label class="col-md-3 control-label">
+								Loại, thời hạn, số, ngày cấp, cơ quan cấp thị thực
+								<span class="required" aria-required="true">*</span>
+							</label>
+							<div class="col-md-4">
+								{!! Form::text('passport_info', null, ['class' => 'form-control input-circle']) !!}
+								@if ($errors->has('passport_info'))
+                                    <span class="help-block help-block-error">
+                                        {{ $errors->first('passport_info') }}
+                                    </span>
+                                @endif
+							</div>
+						</div>
+						<div class="form-group foreign_form hidden{{ $errors->has('date_entry') ? ' has-error' : '' }}">
+							<label class="col-md-3 control-label">
+								Ngày nhập cảnh
+								<span class="required" aria-required="true">*</span>
+							</label>
+							<div class="col-md-2">
+								<div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+									{!! Form::text('date_entry', null, ['class' => 'form-control input-circle-left', 'readonly' => '']) !!}
+									<span class="input-group-addon input-circle-right">
+										<span class="glyphicon glyphicon-calendar">
+										</span>
+									</span>
+								</div>
+								@if ($errors->has('date_entry'))
+                                    <span class="help-block help-block-error">
+                                        {{ $errors->first('date_entry') }}
+                                    </span>
+                                @endif
+							</div>
+						</div>
+						<div class="form-group foreign_form hidden{{ $errors->has('port_entry') ? ' has-error' : '' }}">
+							<label class="col-md-3 control-label">
+								Cửa khẩu nhập cảnh
+								<span class="required" aria-required="true">*</span>
+							</label>
+							<div class="col-md-4">
+								{!! Form::text('port_entry', null, ['class' => 'form-control input-circle']) !!}
+								@if ($errors->has('port_entry'))
+                                    <span class="help-block help-block-error">
+                                        {{ $errors->first('port_entry') }}
+                                    </span>
+                                @endif
+							</div>
+						</div>
+						<div class="form-group foreign_form hidden{{ $errors->has('purpose_entry') ? ' has-error' : '' }}">
+							<label class="col-md-3 control-label">
+								Mục đích nhập cảnh
+								<span class="required" aria-required="true">*</span>
+							</label>
+							<div class="col-md-4">
+								{!! Form::text('purpose_entry', null, ['class' => 'form-control input-circle']) !!}
+								@if ($errors->has('purpose_entry'))
+                                    <span class="help-block help-block-error">
+                                        {{ $errors->first('purpose_entry') }}
+                                    </span>
+                                @endif
+							</div>
+						</div>
+						<div class="form-group foreign_form hidden{{ $errors->has('permitted') ? ' has-error' : '' }}">
+							<label class="col-md-3 control-label">
+								Tạm trú (từ ngày đến ngày)
+								<span class="required" aria-required="true">*</span>
+							</label>
+							<div class="col-md-2">
+								<div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+									{!! Form::text('permitted_start', null, ['class' => 'form-control input-circle-left', 'readonly' => '']) !!}
+									<span class="input-group-addon input-circle-right">
+										<span class="glyphicon glyphicon-calendar">
+										</span>
+									</span>
+								</div>
+								@if ($errors->has('permitted_start'))
+                                    <span class="help-block help-block-error">
+                                        {{ $errors->first('permitted_start') }}
+                                    </span>
+                                @endif
+							</div>
+							<div class="col-md-2">
+								<div class="input-group date date-picker" data-date-format="dd-mm-yyyy">
+									{!! Form::text('permitted_end', null, ['class' => 'form-control input-circle-left', 'readonly' => '']) !!}
+									<span class="input-group-addon input-circle-right">
+										<span class="glyphicon glyphicon-calendar">
+										</span>
+									</span>
+								</div>
+								@if ($errors->has('permitted_end'))
+                                    <span class="help-block help-block-error">
+                                        {{ $errors->first('permitted_end') }}
+                                    </span>
+                                @endif
+							</div>
+						</div>
+						<div class="form-group domestic_form{{ $errors->has('id_card') ? ' has-error' : '' }}">
 							<label class="col-md-3 control-label">
 								Số CMND
 								<span class="required" aria-required="true">*</span>
@@ -80,7 +253,7 @@
                                 @endif
 							</div>
 						</div>
-						<div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+						<div class="form-group domestic_form{{ $errors->has('address') ? ' has-error' : '' }}">
 							<label class="col-md-3 control-label">
 								Hộ khẩu thường trú
 								<span class="required" aria-required="true">*</span>
@@ -90,20 +263,6 @@
 								@if ($errors->has('address'))
                                     <span class="help-block help-block-error">
                                         {{ $errors->first('address') }}
-                                    </span>
-                                @endif
-							</div>
-						</div>
-						<div class="form-group{{ $errors->has('sex') ? ' has-error' : '' }}">
-							<label class="col-md-3 control-label">
-								Giới tính
-								<span class="required" aria-required="true">*</span>
-							</label>
-							<div class="col-md-4">
-								{!! Form::select('sex', [1 => 'Nam', 2 => 'Nữ'], 1, ['class' => 'form-control input-circle']) !!}
-								@if ($errors->has('sex'))
-                                    <span class="help-block help-block-error">
-                                        {{ $errors->first('sex') }}
                                     </span>
                                 @endif
 							</div>

@@ -22,6 +22,7 @@ class CreateOwnerTable extends Migration
             $table->string('business_cert', 50);
             $table->string('security', 50);
             $table->timestamps();
+            $table->primary('id');
         });
     }
 

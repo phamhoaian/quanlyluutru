@@ -25,7 +25,9 @@ input[name="customer_name"] {
 input[name="date_range"] {
 	width: 166px;
 }
-input[name="customer_id_card"],
+input[name="customer_id_card"] {
+	width: 180px;
+}
 input[name="room_number"] {
 	width: 140px;
 }

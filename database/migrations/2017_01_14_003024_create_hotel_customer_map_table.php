@@ -21,6 +21,9 @@ class CreateHotelCustomerMapTable extends Migration
             $table->dateTime('check_in');
             $table->dateTime('check_out')->nullable();
             $table->timestamps();
+            $table->primary('id');
+            $table->index('hotel_id');
+            $table->index('customer_id');
         });
     }
 
