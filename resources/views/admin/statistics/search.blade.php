@@ -51,11 +51,11 @@
 								<th> Họ và tên </th>
 								<th> Năm sinh </th>
 								<th> Nam/nữ </th>
-								<th> Số CMND </th>
-								<th> Hộ khẩu thường trú </th>
+								<th> Số CMND/hộ chiếu </th>
 								<th> Phòng số </th>
 								<th> Thời gian vào </th>
 								<th> Thời gian ra </th>
+								<th></th>
 							</tr>
 							<tr role="row" class="filter">
 								<td>
@@ -73,9 +73,8 @@
 	                                </select>
 								</td>
 								<td>
-									<input type="text" class="form-control form-filter input-sm" name="customer_id_card" placeholder="Tìm theo số CMND">
+									<input type="text" class="form-control form-filter input-sm" name="customer_id_card" placeholder="Tìm theo số CMND/hộ chiếu">
 								</td>
-								<td></td>
 								<td>
 									<input type="text" class="form-control form-filter input-sm" name="room_number" placeholder="Tìm theo số phòng">
 								</td>
@@ -89,6 +88,7 @@
 	                                    </span>
 	                                </div>
 								</td>
+								<td></td>
 								<td>
 									<div class="margin-bottom-5">
 	                                    <button class="btn btn-sm green btn-outline filter-submit margin-bottom">

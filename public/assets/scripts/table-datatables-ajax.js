@@ -74,11 +74,11 @@ var TableDatatablesAjax = function () {
                     "url": base_url + "/quan-ly/tim-kiem", // ajax source
                 },
                 "order": [
-                    [7, "desc"]
+                    [6, "desc"]
                 ],
                 "columnDefs": [{ // define columns sorting options(by default all columns are sortable extept the first checkbox column)
                     'orderable': false,
-                    'targets': [2,3,4,5,6]
+                    'targets': [2,3,4,5,8]
                 }],
 
                 buttons: [

@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('tim-kiem', ['as' => 'admin.search.submit', 'uses' => 'Admin\StatisticsController@search']);
 		Route::get('thong-ke', ['as' => 'admin.counting.form', 'uses' => 'Admin\StatisticsController@showCountingForm']);
 		Route::post('thong-ke', ['as' => 'admin.counting.submit', 'uses' => 'Admin\StatisticsController@counting']);
+		Route::get('thong-tin-luu-tru/{id}', ['as' => 'admin.staying.info', 'uses' => 'Admin\StatisticsController@showStayingInfo']);
 
 		Route::group(['prefix' => 'nha-nghi-khach-san'], function() {
 			Route::get('danh-sach', ['as' => 'admin.hotel.list', 'uses' => 'Admin\HotelController@showListHotels']);

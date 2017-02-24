@@ -29,4 +29,9 @@ class Hotel extends Model
     {
         return $this->belongsToMany('App\Customer');
     }
+
+    public function hotel_customer()
+    {
+        return $this->hasOne('App\HotelCustomer');
+    }
 }

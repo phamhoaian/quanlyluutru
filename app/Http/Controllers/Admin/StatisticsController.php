@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Eloquents\HotelCustomerRepository;
 use CarBon\Carbon;
 use Illuminate\Support\Facades\Input;
+use DB;
 
 class StatisticsController extends Controller
 {
@@ -35,7 +36,7 @@ class StatisticsController extends Controller
 			$where[] = ['customers.sex', '=', intval($request->customer_genre)];
 		}
 		if ($request->customer_id_card != '') {
-			$where[] = ['customers.id_card', 'like', '%'.$request->customer_id_card.'%'];
+			$where[] = [DB::raw('customers.id_card like "%'.$request->customer_id_card.'%" or customers.passport like "%'.$request->customer_id_card.'%"'), '!=', ''];
 		}
 		if ($request->room_number != '') {
 			$where[] = ['room_number', '=', $request->room_number];
@@ -82,17 +83,25 @@ class StatisticsController extends Controller
 				$sex = '<span class="label label-sm label-danger">Nữ</span>';
 			}
 
+			if ( ! $row->customer_foreign_flg) {
+				$customer_id = $row->customer_id_card;
+			} else {
+				$customer_id = $row->customer_passport;
+			}
+
 			$records["data"][] = array(
 			  $row->hotel_name,
 			  $row->customer_name,
 			  $row->customer_year_of_birth,
 			  $sex,
-			  $row->customer_id_card,
-			  $row->customer_address,
+			  $customer_id,
 			  $row->room_number,
 			  Carbon::parse($row->check_in)->format('d/m/Y H:i'),
 			  Carbon::parse($row->check_out)->format('d/m/Y H:i'),
+			  '<a href="'.route('admin.staying.info', $row->id).'" class="btn btn-xs blue"><i class="fa fa-edit"></i>Xem</a>'
 			);
+
+			
 		}
 
 		$records["draw"] = $sEcho;
@@ -113,7 +122,6 @@ class StatisticsController extends Controller
 
     public function counting(Request $request)
     {
-    	dd($request->all());
     	$where = array();
     	if ($request->hotel_name != '') {
 			$where[] = ['hotels.name', 'like', '%'.$request->hotel_name.'%'];
@@ -189,13 +197,19 @@ class StatisticsController extends Controller
 		echo json_encode($records);
     }
 
+    public function showStayingInfo($id)
+    {
+    	$staying = $this->hotelCustomerRepository->find($id);
+    	return view('admin.statistics.staying', compact('staying'));
+    }
+
     private function getColumnOrder($column)
     {
     	$data = array(
     		0 => 'hotels.name',
     		1 => 'customers.name',
-    		7 => 'check_in',
-    		8 => 'check_out'
+    		6 => 'check_in',
+    		7 => 'check_out'
 		);
 		return $data[$column];
     }
