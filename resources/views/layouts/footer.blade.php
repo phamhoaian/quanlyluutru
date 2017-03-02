@@ -8,7 +8,7 @@
 					<div class="col-md-6">
 						<i class="fa fa-phone"></i>&nbsp;
 						<span>Liên hệ hỗ trợ:&nbsp;</span>
-						<strong>0909 123 456</strong>
+						<strong>06503 711 113</strong>
 					</div>
 					<div class="col-md-6 text-right">
 						<?= date('Y'); ?> &copy; Công An Phường An Phú

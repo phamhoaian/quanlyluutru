@@ -66,7 +66,7 @@
                     <h3 class="support-phone">
                         <i class="fa fa-phone"></i>&nbsp;
                         <span>Liên hệ hỗ trợ:&nbsp;</span>
-                        <strong>0909 123 456</strong>
+                        <strong>06503 711 113</strong>
                     </h3>
                 </div>
                 <div class="right">
