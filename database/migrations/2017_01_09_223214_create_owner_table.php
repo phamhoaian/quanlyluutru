@@ -17,12 +17,11 @@ class CreateOwnerTable extends Migration
             $table->increments('id');
             $table->string('name', 100);
             $table->date('birthday');
-            $table->integer('id_card', 12);
+            $table->integer('id_card');
             $table->string('address');
             $table->string('business_cert', 50);
             $table->string('security', 50);
             $table->timestamps();
-            $table->primary('id');
         });
     }
 
